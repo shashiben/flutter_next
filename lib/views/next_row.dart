@@ -65,12 +65,7 @@ class NextRow extends StatelessWidget {
             double offsetWidth = availableWidth * (currentSegmentValue / 12);
             wrapChildrens.add(SizedBox(
               width: offsetWidth,
-              child: Container(
-                  color: Colors.orange,
-                  height: 150,
-                  child: Center(
-                    child: Text("$offsetWidth"),
-                  )),
+              child: const SizedBox(),
             ));
           }
           Map<String, int> prefixMap =
@@ -79,12 +74,7 @@ class NextRow extends StatelessWidget {
           double childWidth = availableWidth * (currentSegmentValue / 12);
           wrapChildrens.add(SizedBox(
             // child: subChild.child,
-            child: Container(
-                color: Colors.orange,
-                height: 150,
-                child: Center(
-                  child: Text("$childWidth"),
-                )),
+            child: subChild.child,
             width: childWidth,
           ));
         }

@@ -1,5 +1,3 @@
-import 'package:flutter_next/widgets/next_grid_item.dart';
-
 import '../flutter_next.dart';
 
 class NextGrid extends StatefulWidget {
