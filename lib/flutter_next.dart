@@ -30,6 +30,7 @@ export 'views/next_alerts.dart';
 export 'views/next_accordion.dart';
 export 'views/next_button.dart';
 export 'views/next_grid_view.dart';
+export 'views/next_container.dart';
 /*
   Export Widgets
 */
