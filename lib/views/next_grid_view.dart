@@ -1,8 +1,8 @@
 import 'package:flutter_next/flutter_next.dart';
 
-class NextGridView extends StatefulWidget {
+class NextGridView extends StatelessWidget {
   final String sizes;
-  final List<Widget> childrens;
+  final List<NextGridItem> childrens;
   final double horizontalSpacing, verticalSpacing;
   const NextGridView(
       {Key? key,
@@ -13,28 +13,18 @@ class NextGridView extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<NextGridView> createState() => _NextGridViewState();
-}
-
-class _NextGridViewState extends State<NextGridView> {
-  Map<String, int> sizeMap = {};
-  List<List<Widget>> childrens = [];
-  String type = "";
-  void arrangeChildrens() {
-    childrens = List.generate(12, (index) => []);
-    sizeMap = BootstrapUtils.getAllColValues(widget.sizes);
+  Widget build(BuildContext context) {
+    String type = "";
+    Map<String, int> sizeMap = {};
+    List<List<Widget>> resultChildrens = [];
+    resultChildrens = List.generate(12, (index) => []);
+    sizeMap = BootstrapUtils.getAllColValues(sizes);
     type = BootstrapUtils.getPrefixByWidth(context.width);
     int sizeIndex = 0;
-    for (Widget child in widget.childrens) {
-      childrens[sizeIndex].add(child);
+    for (Widget child in childrens) {
+      resultChildrens[sizeIndex].add(child);
       sizeIndex = (sizeIndex + 1) % (12 ~/ (sizeMap[type]!));
     }
-    setState(() {});
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    arrangeChildrens();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: _buildHorizontalChildrens(List.generate(
@@ -43,7 +33,7 @@ class _NextGridViewState extends State<NextGridView> {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: _buildVerticalChildrens(childrens[index]),
+                children: _buildVerticalChildrens(resultChildrens[index]),
               )))),
     );
   }
@@ -54,7 +44,7 @@ class _NextGridViewState extends State<NextGridView> {
       result.add(element);
       if (childrens.last != element) {
         result.add(SizedBox(
-          height: widget.verticalSpacing,
+          height: verticalSpacing,
         ));
       }
     }
@@ -67,7 +57,7 @@ class _NextGridViewState extends State<NextGridView> {
       result.add(element);
       if (childrens.last != element) {
         result.add(SizedBox(
-          width: widget.verticalSpacing,
+          width: verticalSpacing,
         ));
       }
     }
