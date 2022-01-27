@@ -8,7 +8,7 @@ const Duration _kExpand = Duration(milliseconds: 200);
 /// This widget is typically used with [ListView] to create an
 /// "expand / collapse" list entry. When used with scrolling widgets like
 /// [ListView], a unique [PageStorageKey] must be specified to enable the
-/// [Accordion] to save and restore its expanded state when it is scrolled
+/// [NextAccordion] to save and restore its expanded state when it is scrolled
 /// in and out of view.
 ///
 /// This class overrides the [ListTileThemeData.iconColor] and [ListTileThemeData.textColor]
@@ -18,10 +18,10 @@ const Duration _kExpand = Duration(milliseconds: 200);
 ///
 /// The expansion arrow icon is shown on the right by default in left-to-right languages
 /// (i.e. the trailing edge). This can be changed using [controlAffinity]. This maps
-/// to the [leading] and [trailing] properties of [Accordion].
+/// to the [leading] and [trailing] properties of [NextAccordion].
 
-class Accordion extends StatefulWidget {
-  const Accordion({
+class NextAccordion extends StatefulWidget {
+  const NextAccordion({
     Key? key,
     this.leading,
     required this.title,
@@ -186,10 +186,10 @@ class Accordion extends StatefulWidget {
   final ListTileControlAffinity? controlAffinity;
 
   @override
-  State<Accordion> createState() => _AccordionState();
+  State<NextAccordion> createState() => _NextAccordionState();
 }
 
-class _AccordionState extends State<Accordion>
+class _NextAccordionState extends State<NextAccordion>
     with SingleTickerProviderStateMixin {
   static final Animatable<double> _easeOutTween =
       CurveTween(curve: Curves.easeOut);
