@@ -1,10 +1,10 @@
-import '../flutter_next.dart';
+import 'package:flutter_next/flutter_next.dart';
 
-class NextGrid extends StatefulWidget {
+class NextGridView extends StatefulWidget {
   final String sizes;
-  final List<NextGridItem> childrens;
+  final List<Widget> childrens;
   final double horizontalSpacing, verticalSpacing;
-  const NextGrid(
+  const NextGridView(
       {Key? key,
       required this.sizes,
       required this.childrens,
@@ -13,19 +13,19 @@ class NextGrid extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<NextGrid> createState() => _NextGridState();
+  State<NextGridView> createState() => _NextGridViewState();
 }
 
-class _NextGridState extends State<NextGrid> {
+class _NextGridViewState extends State<NextGridView> {
   Map<String, int> sizeMap = {};
-  List<List<NextGridItem>> childrens = [];
+  List<List<Widget>> childrens = [];
   String type = "";
   void arrangeChildrens() {
     childrens = List.generate(12, (index) => []);
+    sizeMap = BootstrapUtils.getAllColValues(widget.sizes);
     type = BootstrapUtils.getPrefixByWidth(context.width);
     int sizeIndex = 0;
-    for (NextGridItem child in widget.childrens) {
-      sizeMap = BootstrapUtils.getAllColValues(child.sizes ?? widget.sizes);
+    for (Widget child in widget.childrens) {
       childrens[sizeIndex].add(child);
       sizeIndex = (sizeIndex + 1) % (12 ~/ (sizeMap[type]!));
     }
@@ -48,7 +48,7 @@ class _NextGridState extends State<NextGrid> {
     );
   }
 
-  List<Widget> _buildVerticalChildrens(List<NextGridItem> childrens) {
+  List<Widget> _buildVerticalChildrens(List<Widget> childrens) {
     List<Widget> result = [];
     for (Widget element in childrens) {
       result.add(element);

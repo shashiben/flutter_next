@@ -27,6 +27,9 @@ export 'views/next_col.dart';
 export 'views/next_row.dart';
 export 'views/next_loading_helper.dart';
 export 'views/next_alerts.dart';
+export 'views/next_accordion.dart';
+export 'views/next_button.dart';
+export 'views/next_grid_view.dart';
 /*
   Export Widgets
 */

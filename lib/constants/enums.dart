@@ -9,3 +9,4 @@ enum NextVariant {
   light,
   dark
 }
+enum NextButtonVariant { filled, outlined }
