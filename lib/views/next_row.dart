@@ -9,7 +9,7 @@ class NextRow extends StatelessWidget {
   final EdgeInsets padding;
   const NextRow({
     Key? key,
-    this.padding=const EdgeInsets.all(0),
+    this.padding = const EdgeInsets.all(0),
     this.verticalDirection = VerticalDirection.down,
     this.verticalAlignment = WrapAlignment.start,
     required this.children,
@@ -21,7 +21,7 @@ class NextRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:padding,
+      padding: padding,
       child: LayoutBuilder(builder: (context, constraints) {
         double maxWidth = constraints.maxWidth;
         List<Widget> wrapChildrens = [];
@@ -55,8 +55,9 @@ class NextRow extends StatelessWidget {
             String currentPrefix = BootstrapUtils.getPrefixByWidth(maxWidth);
             if (!subChild.invisibleFor.contains(currentPrefix)) {
               double offsetSize = subChild.getOffsetWidth(context);
-              double spaceToRemove =
-                  child.length > 1 ? ((child.length - 1) * horizontalSpacing) : 0;
+              double spaceToRemove = child.length > 1
+                  ? ((child.length - 1) * horizontalSpacing)
+                  : 0;
               for (NextCol offsetChecking in child) {
                 double offsetSize = offsetChecking.getOffsetWidth(context);
                 if (offsetSize > 0) {
@@ -69,7 +70,8 @@ class NextRow extends StatelessWidget {
                 Map<String, int> prefixMap =
                     BootstrapUtils.getAllOffsetsValue(subChild.offset);
                 int currentSegmentValue = prefixMap[currentPrefix] ?? 0;
-                double offsetWidth = availableWidth * (currentSegmentValue / 12);
+                double offsetWidth =
+                    availableWidth * (currentSegmentValue / 12);
                 wrapChildrens.add(SizedBox(
                   width: offsetWidth,
                   child: const SizedBox(),

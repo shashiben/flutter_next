@@ -18,7 +18,7 @@ class NextLoadingHelper extends StatelessWidget {
     return Stack(
       children: [
         Positioned.fill(
-            child: IgnorePointer(ignoring: ignoreWhileLoading , child: child)),
+            child: IgnorePointer(ignoring: ignoreWhileLoading, child: child)),
         AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
             child: isLoading
@@ -37,7 +37,6 @@ class NextLoadingHelper extends StatelessWidget {
                               contentPadding:
                                   const EdgeInsets.symmetric(vertical: 15),
                               content: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
                                 children: const [

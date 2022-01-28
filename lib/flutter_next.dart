@@ -37,3 +37,15 @@ export 'views/next_container.dart';
 export 'widgets/next_grid_item.dart';
 export 'widgets/hover_widget.dart';
 export 'widgets/next_bread_cumb_item.dart ';
+/*
+  Export Animations
+*/
+export 'animations/wrappers/double_animation_wrapper.dart';
+export 'animations/wrappers/single_animation_wrapper.dart';
+
+export 'animations/next_bounce_animation.dart';
+export 'animations/next_fade_in_animation.dart';
+export 'animations/next_fade_out_animation.dart';
+export 'animations/next_flip_animation.dart';
+export 'animations/next_slide_animation.dart';
+export 'animations/next_zoom_animation.dart';

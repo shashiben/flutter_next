@@ -32,7 +32,6 @@ class NextGridView extends StatelessWidget {
           (index) => Expanded(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: _buildVerticalChildrens(resultChildrens[index]),
               )))),
     );
