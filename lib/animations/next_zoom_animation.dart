@@ -8,6 +8,10 @@ class NextZoomAnimation extends StatelessWidget {
   final bool startAnimation;
   final double initialPosition;
   final NextZoomVariant variant;
+  final bool loop;
+  final double viewPort;
+  final Key? visibilityKey;
+
   const NextZoomAnimation(
       {Key? key,
       required this.child,
@@ -15,13 +19,18 @@ class NextZoomAnimation extends StatelessWidget {
       this.delay = Duration.zero,
       this.variant = NextZoomVariant.zoomIn,
       this.controller,
+      this.loop = false,
+      this.viewPort = 0.75,
       this.startAnimation = true,
-      this.initialPosition = 1})
+      this.initialPosition = 1,
+      this.visibilityKey})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DoubleAnimationWrapper(
+        loop: loop,
+        viewPort: viewPort,
         controller: controller,
         duration: duration,
         firstAnimation: (controller) => getTween().animate(

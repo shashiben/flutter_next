@@ -8,6 +8,10 @@ class NextSlideAnimation extends StatelessWidget {
   final bool startAnimation;
   final double initialPosition;
   final NextSlideVariant variant;
+  final bool loop;
+  final double viewPort;
+  final Key? visibilityKey;
+
   const NextSlideAnimation(
       {Key? key,
       required this.child,
@@ -15,13 +19,18 @@ class NextSlideAnimation extends StatelessWidget {
       this.delay = Duration.zero,
       this.variant = NextSlideVariant.slideInLeft,
       this.controller,
+      this.loop = false,
+      this.viewPort = 0.75,
       this.startAnimation = true,
-      this.initialPosition = 100})
+      this.initialPosition = 100,
+      this.visibilityKey})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SingleAnimationWrapper(
+        loop: loop,
+        viewPort: viewPort,
         duration: duration,
         startAnimation: startAnimation,
         delay: delay,

@@ -8,21 +8,30 @@ class NextFadeInAnimation extends StatelessWidget {
   final bool startAnimation;
   final double initialPosition;
   final NextFadeInVariant? variant;
+  final bool loop;
+  final double viewPort;
+  final Key? visibilityKey;
+
   const NextFadeInAnimation(
       {Key? key,
       required this.child,
       this.duration = const Duration(milliseconds: 750),
       this.delay = Duration.zero,
+      this.loop = false,
+      this.viewPort = 0.75,
       this.variant,
       this.controller,
       this.startAnimation = true,
-      this.initialPosition = 100})
+      this.initialPosition = 100,
+      this.visibilityKey})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return variant == null
         ? SingleAnimationWrapper(
+            loop: loop,
+            viewPort: viewPort,
             child: (controller, value) => AnimatedOpacity(
                   opacity: value as double,
                   duration: duration,
@@ -31,6 +40,8 @@ class NextFadeInAnimation extends StatelessWidget {
             animation: (controller) =>
                 CurvedAnimation(curve: Curves.easeOut, parent: controller))
         : DoubleAnimationWrapper(
+            loop: loop,
+            viewPort: viewPort,
             controller: controller,
             duration: duration,
             firstAnimation: (controller) => getTween().animate(

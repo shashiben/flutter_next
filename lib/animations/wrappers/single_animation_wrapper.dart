@@ -1,3 +1,5 @@
+import 'package:visibility_detector/visibility_detector.dart';
+
 import '../../flutter_next.dart';
 
 class SingleAnimationWrapper<T> extends StatefulWidget {
@@ -6,6 +8,8 @@ class SingleAnimationWrapper<T> extends StatefulWidget {
   final Duration delay;
   final AnimationController? controller;
   final bool startAnimation;
+  final bool loop;
+  final double viewPort;
   final Animation<T> Function(AnimationController) animation;
 
   const SingleAnimationWrapper(
@@ -15,7 +19,9 @@ class SingleAnimationWrapper<T> extends StatefulWidget {
       this.delay = const Duration(),
       this.controller,
       required this.animation,
-      this.startAnimation = true})
+      this.startAnimation = true,
+      this.loop = false,
+      this.viewPort = 0.75})
       : super(key: key);
 
   @override
@@ -26,6 +32,7 @@ class _SingleAnimationWrapperState<T> extends State<SingleAnimationWrapper<T>>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<T> animation;
+  bool isAnimated = false;
 
   @override
   void dispose() {
@@ -39,26 +46,36 @@ class _SingleAnimationWrapperState<T> extends State<SingleAnimationWrapper<T>>
     controller = widget.controller ??
         AnimationController(duration: widget.duration, vsync: this);
     animation = widget.animation(controller);
-
-    if (widget.startAnimation) {
-      Future.delayed(widget.delay, () {
-        if (mounted) {
-          controller.forward();
-        }
-      });
-    }
   }
+
+  final key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    if (widget.startAnimation && widget.delay.inMilliseconds == 0) {
-      controller.forward();
-    }
-
-    return AnimatedBuilder(
-        animation: animation,
-        builder: (BuildContext context, Widget? child) {
-          return widget.child(controller, animation.value);
-        });
+    return VisibilityDetector(
+      key: key,
+      onVisibilityChanged: (info) {
+        if (info.visibleFraction > widget.viewPort) {
+          if (!isAnimated || widget.loop) {
+            if (mounted && widget.startAnimation) {
+              Future.delayed(widget.duration).then((value) {
+                if (mounted) {
+                  controller.forward().then((value) {
+                    if (!isAnimated) {
+                      setState(() => isAnimated = true);
+                    }
+                  });
+                }
+              });
+            }
+          }
+        }
+      },
+      child: AnimatedBuilder(
+          animation: animation,
+          builder: (BuildContext context, Widget? child) {
+            return widget.child(controller, animation.value);
+          }),
+    );
   }
 }

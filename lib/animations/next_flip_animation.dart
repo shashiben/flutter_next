@@ -7,19 +7,28 @@ class NextFlipAnimation extends StatelessWidget {
   final AnimationController? controller;
   final bool startAnimation;
   final NextFlipVariant variant;
+  final bool loop;
+  final double viewPort;
+  final Key? visibilityKey;
+
   const NextFlipAnimation(
       {Key? key,
       required this.child,
       this.duration = const Duration(milliseconds: 750),
       this.delay = Duration.zero,
       this.controller,
+      this.loop = false,
+      this.viewPort = 0.75,
       this.startAnimation = true,
-      this.variant = NextFlipVariant.flipX})
+      this.variant = NextFlipVariant.flipX,
+      this.visibilityKey})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DoubleAnimationWrapper(
+      loop: loop,
+      viewPort: viewPort,
       duration: duration,
       startAnimation: startAnimation,
       delay: delay,

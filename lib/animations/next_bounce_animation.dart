@@ -8,20 +8,28 @@ class NextBounceAnimation extends StatelessWidget {
   final bool startAnimation;
   final double initialPosition;
   final NextBounceVariant variant;
+  final bool loop;
+  final double viewPort;
+  final Key? visibilityKey;
   const NextBounceAnimation(
       {Key? key,
+      this.loop = false,
+      this.viewPort = 0.75,
       required this.child,
       this.duration = const Duration(milliseconds: 750),
       this.delay = Duration.zero,
       this.variant = NextBounceVariant.bounceInLeft,
       this.controller,
       this.startAnimation = true,
-      this.initialPosition = 100})
+      this.initialPosition = 100,
+      this.visibilityKey})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DoubleAnimationWrapper(
+        loop: loop,
+        viewPort: viewPort,
         controller: controller,
         duration: duration,
         firstAnimation: (controller) => getTween().animate(

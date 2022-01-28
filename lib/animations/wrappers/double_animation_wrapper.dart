@@ -1,3 +1,5 @@
+import 'package:visibility_detector/visibility_detector.dart';
+
 import '../../flutter_next.dart';
 
 class DoubleAnimationWrapper<T> extends StatefulWidget {
@@ -9,6 +11,8 @@ class DoubleAnimationWrapper<T> extends StatefulWidget {
       secondAnimation;
   final Widget Function(AnimationController controller, T first, T second)
       child;
+  final bool loop;
+  final double viewPort;
   const DoubleAnimationWrapper(
       {Key? key,
       required this.duration,
@@ -17,6 +21,8 @@ class DoubleAnimationWrapper<T> extends StatefulWidget {
       this.controller,
       required this.firstAnimation,
       required this.secondAnimation,
+      this.loop = false,
+      this.viewPort = 0.75,
       required this.child})
       : super(key: key);
 
@@ -51,13 +57,36 @@ class _DoubleAnimationWrapperState<T> extends State<DoubleAnimationWrapper<T>>
     }
   }
 
+  bool isAnimated = false;
+  final key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return widget.child(
-              controller, firstAnimation.value, secondAnimation.value);
-        });
+    return VisibilityDetector(
+      key: key,
+      onVisibilityChanged: (info) {
+        if (info.visibleFraction > widget.viewPort) {
+          if (!isAnimated || widget.loop) {
+            if (mounted && widget.startAnimation) {
+              Future.delayed(widget.duration).then((value) {
+                if (mounted) {
+                  controller.forward().then((value) {
+                    if (!isAnimated) {
+                      setState(() => isAnimated = true);
+                    }
+                  });
+                }
+              });
+            }
+          }
+        }
+      },
+      child: AnimatedBuilder(
+          animation: controller,
+          builder: (BuildContext context, Widget? child) {
+            return widget.child(
+                controller, firstAnimation.value, secondAnimation.value);
+          }),
+    );
   }
 }

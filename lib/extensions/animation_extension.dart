@@ -7,11 +7,15 @@ extension AnimationExtension on Widget {
       AnimationController? controller,
       bool startAnimation = true,
       double initialPosition = 100,
+      bool loop = false,
+      double viewPort = 0.75,
       NextBounceVariant variant = NextBounceVariant.bounceInLeft}) {
     return NextBounceAnimation(
       child: this,
       duration: duration,
       delay: delay,
+      loop: loop,
+      viewPort: viewPort,
       controller: controller,
       initialPosition: initialPosition,
       startAnimation: startAnimation,
@@ -24,6 +28,8 @@ extension AnimationExtension on Widget {
       Duration delay = Duration.zero,
       AnimationController? controller,
       bool startAnimation = true,
+      bool loop = false,
+      double viewPort = 0.75,
       double initialPosition = 100,
       NextFadeInVariant variant = NextFadeInVariant.fadeInLeft}) {
     return NextFadeInAnimation(
@@ -31,6 +37,8 @@ extension AnimationExtension on Widget {
       duration: duration,
       delay: delay,
       controller: controller,
+      loop: loop,
+      viewPort: viewPort,
       initialPosition: initialPosition,
       startAnimation: startAnimation,
       variant: variant,
@@ -43,12 +51,16 @@ extension AnimationExtension on Widget {
       AnimationController? controller,
       bool startAnimation = true,
       double initialPosition = 100,
+      bool loop = false,
+      double viewPort = 0.75,
       NextFadeOutVariant variant = NextFadeOutVariant.fadeOutLeft}) {
     return NextFadeOutAnimation(
       child: this,
       duration: duration,
       delay: delay,
       controller: controller,
+      loop: loop,
+      viewPort: viewPort,
       initialPosition: initialPosition,
       startAnimation: startAnimation,
       variant: variant,
@@ -60,12 +72,16 @@ extension AnimationExtension on Widget {
       Duration delay = Duration.zero,
       AnimationController? controller,
       bool startAnimation = true,
+      bool loop = false,
+      double viewPort = 0.75,
       double initialPosition = 100,
       NextZoomVariant variant = NextZoomVariant.zoomIn}) {
     return NextZoomAnimation(
       child: this,
       duration: duration,
       delay: delay,
+      loop: loop,
+      viewPort: viewPort,
       controller: controller,
       initialPosition: initialPosition,
       startAnimation: startAnimation,
@@ -77,6 +93,8 @@ extension AnimationExtension on Widget {
       {Duration duration = const Duration(milliseconds: 700),
       Duration delay = Duration.zero,
       AnimationController? controller,
+      bool loop = false,
+      double viewPort = 0.75,
       bool startAnimation = true,
       double initialPosition = 100,
       NextSlideVariant variant = NextSlideVariant.slideInLeft}) {
@@ -87,6 +105,8 @@ extension AnimationExtension on Widget {
       controller: controller,
       initialPosition: initialPosition,
       startAnimation: startAnimation,
+      loop: loop,
+      viewPort: viewPort,
       variant: variant,
     );
   }
@@ -96,6 +116,8 @@ extension AnimationExtension on Widget {
       Duration delay = Duration.zero,
       AnimationController? controller,
       bool startAnimation = true,
+      bool loop = false,
+      double viewPort = 0.75,
       NextFlipVariant variant = NextFlipVariant.flipX}) {
     return NextFlipAnimation(
       child: this,
@@ -104,6 +126,8 @@ extension AnimationExtension on Widget {
       controller: controller,
       startAnimation: startAnimation,
       variant: variant,
+      loop: loop,
+      viewPort: viewPort,
     );
   }
 }
