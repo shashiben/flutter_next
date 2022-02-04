@@ -36,7 +36,7 @@ export 'views/next_container.dart';
 */
 export 'widgets/next_grid_item.dart';
 export 'widgets/hover_widget.dart';
-export 'widgets/next_bread_cumb_item.dart ';
+export 'widgets/next_bread_cumb_item.dart';
 /*
   Export Animations
 */
