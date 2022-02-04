@@ -1,7 +1,8 @@
-## 0.0.3+1
+## 0.0.4
 
 - Fixed animation speed
 - Updated documentation
+
 ## 0.0.3
 
 - Added Visibilty Detector to run according to view port availability
