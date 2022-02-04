@@ -1,8 +1,19 @@
 import 'package:flutter_next/flutter_next.dart';
 
 class NextGridView extends StatelessWidget {
+  ///
+  /// Give bootstrap grid sizes
+  ///
   final String sizes;
+
+  ///
+  /// List of [NextGridItem] widgets
+  ///
   final List<NextGridItem> childrens;
+
+  ///
+  /// Give Horizontal and vertical spacing
+  ///
   final double horizontalSpacing, verticalSpacing;
   const NextGridView(
       {Key? key,
@@ -18,8 +29,8 @@ class NextGridView extends StatelessWidget {
     Map<String, int> sizeMap = {};
     List<List<Widget>> resultChildrens = [];
     resultChildrens = List.generate(12, (index) => []);
-    sizeMap = BootstrapUtils.getAllColValues(sizes);
-    type = BootstrapUtils.getPrefixByWidth(context.width);
+    sizeMap = NextUtils.getAllColValues(sizes);
+    type = NextUtils.getPrefixByWidth(context.width);
     int sizeIndex = 0;
     for (Widget child in childrens) {
       resultChildrens[sizeIndex].add(child);

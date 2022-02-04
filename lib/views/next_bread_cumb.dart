@@ -1,12 +1,23 @@
 import '../flutter_next.dart';
 
 class NextBreadCumb extends StatelessWidget {
+  ///
+  /// Childrens
+  ///
   final List<NextBreadCumbItem> childrens;
 
+  /// Separator between items
   final Widget seperator;
 
+  /// Space between items, default value is 8.0
   final double spacing;
+
+  ///
+  /// By adding limitTo param you can limit no of items displaying
+  ///
   final int? limitTo;
+
+  /// Widget to display as a placeholder for which items are limmited
   final Widget limitIndicator;
 
   const NextBreadCumb({

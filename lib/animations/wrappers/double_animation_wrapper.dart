@@ -22,7 +22,7 @@ class DoubleAnimationWrapper<T> extends StatefulWidget {
       required this.firstAnimation,
       required this.secondAnimation,
       this.loop = false,
-      this.viewPort = 0.75,
+      this.viewPort = 0.1,
       required this.child})
       : super(key: key);
 
@@ -48,13 +48,6 @@ class _DoubleAnimationWrapperState<T> extends State<DoubleAnimationWrapper<T>>
         AnimationController(duration: widget.duration, vsync: this);
     firstAnimation = widget.firstAnimation(controller);
     secondAnimation = widget.secondAnimation(controller);
-    if (widget.startAnimation) {
-      Future.delayed(widget.delay, () {
-        if (mounted) {
-          controller.forward();
-        }
-      });
-    }
   }
 
   bool isAnimated = false;

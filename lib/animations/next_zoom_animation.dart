@@ -1,26 +1,65 @@
 import '../flutter_next.dart';
 
 class NextZoomAnimation extends StatelessWidget {
+  ///
+  /// Child widget
+  ///
   final Widget child;
+
+  ///
+  /// Duration of animation
+  ///
   final Duration duration;
+
+  ///
+  /// Start animation after an delay
+  ///
   final Duration delay;
+
+  ///
+  /// Add an controller to control animation
+  ///
   final AnimationController? controller;
+
+  ///
+  /// if value is true, animation will be started immediately
+  ///
   final bool startAnimation;
-  final double initialPosition;
-  final NextZoomVariant variant;
+
+  ///
+  /// Provide variant type
+  ///
+  final NextZoomVariant? variant;
+
+  ///
+  /// Should animation need to loop continuously
+  ///
   final bool loop;
+
+  ///
+  /// At which viewport the animation should start
+  ///
   final double viewPort;
+
+  ///
+  /// Custom key for visibility widget
+  ///
   final Key? visibilityKey;
+
+  ///
+  /// Initial position from where it needs to begin
+  ///
+  final double initialPosition;
 
   const NextZoomAnimation(
       {Key? key,
       required this.child,
-      this.duration = const Duration(milliseconds: 750),
+      this.duration = const Duration(milliseconds: 350),
       this.delay = Duration.zero,
       this.variant = NextZoomVariant.zoomIn,
       this.controller,
       this.loop = false,
-      this.viewPort = 0.75,
+      this.viewPort = 0.1,
       this.startAnimation = true,
       this.initialPosition = 1,
       this.visibilityKey})

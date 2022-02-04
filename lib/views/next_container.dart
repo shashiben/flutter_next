@@ -58,7 +58,7 @@ class NextContainer extends StatelessWidget {
       decoration: decoration,
       width: fluid
           ? context.width
-          : BootstrapUtils.getMaxWidthForNonFluid(context.width),
+          : NextUtils.getMaxWidthForNonFluid(context.width),
       alignment: alignment,
       child: SingleChildScrollView(
         primary: false,

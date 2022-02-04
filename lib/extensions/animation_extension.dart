@@ -2,13 +2,13 @@ import '../flutter_next.dart';
 
 extension AnimationExtension on Widget {
   Widget bounce(
-      {Duration duration = const Duration(milliseconds: 700),
+      {Duration duration = const Duration(milliseconds: 350),
       Duration delay = Duration.zero,
       AnimationController? controller,
       bool startAnimation = true,
       double initialPosition = 100,
       bool loop = false,
-      double viewPort = 0.75,
+      double viewPort = 0.1,
       NextBounceVariant variant = NextBounceVariant.bounceInLeft}) {
     return NextBounceAnimation(
       child: this,
@@ -24,12 +24,12 @@ extension AnimationExtension on Widget {
   }
 
   Widget fadeIn(
-      {Duration duration = const Duration(milliseconds: 700),
+      {Duration duration = const Duration(milliseconds: 350),
       Duration delay = Duration.zero,
       AnimationController? controller,
       bool startAnimation = true,
       bool loop = false,
-      double viewPort = 0.75,
+      double viewPort = 0.1,
       double initialPosition = 100,
       NextFadeInVariant variant = NextFadeInVariant.fadeInLeft}) {
     return NextFadeInAnimation(
@@ -46,13 +46,13 @@ extension AnimationExtension on Widget {
   }
 
   Widget fadeOut(
-      {Duration duration = const Duration(milliseconds: 700),
+      {Duration duration = const Duration(milliseconds: 350),
       Duration delay = Duration.zero,
       AnimationController? controller,
       bool startAnimation = true,
       double initialPosition = 100,
       bool loop = false,
-      double viewPort = 0.75,
+      double viewPort = 0.1,
       NextFadeOutVariant variant = NextFadeOutVariant.fadeOutLeft}) {
     return NextFadeOutAnimation(
       child: this,
@@ -68,13 +68,13 @@ extension AnimationExtension on Widget {
   }
 
   Widget zoom(
-      {Duration duration = const Duration(milliseconds: 700),
+      {Duration duration = const Duration(milliseconds: 350),
       Duration delay = Duration.zero,
       AnimationController? controller,
       bool startAnimation = true,
       bool loop = false,
-      double viewPort = 0.75,
-      double initialPosition = 100,
+      double viewPort = 0.1,
+      double initialPosition = 1,
       NextZoomVariant variant = NextZoomVariant.zoomIn}) {
     return NextZoomAnimation(
       child: this,
@@ -90,11 +90,11 @@ extension AnimationExtension on Widget {
   }
 
   Widget slide(
-      {Duration duration = const Duration(milliseconds: 700),
+      {Duration duration = const Duration(milliseconds: 350),
       Duration delay = Duration.zero,
       AnimationController? controller,
       bool loop = false,
-      double viewPort = 0.75,
+      double viewPort = 0.1,
       bool startAnimation = true,
       double initialPosition = 100,
       NextSlideVariant variant = NextSlideVariant.slideInLeft}) {
@@ -112,12 +112,12 @@ extension AnimationExtension on Widget {
   }
 
   Widget flip(
-      {Duration duration = const Duration(milliseconds: 700),
+      {Duration duration = const Duration(milliseconds: 350),
       Duration delay = Duration.zero,
       AnimationController? controller,
       bool startAnimation = true,
       bool loop = false,
-      double viewPort = 0.75,
+      double viewPort = 0.1,
       NextFlipVariant variant = NextFlipVariant.flipX}) {
     return NextFlipAnimation(
       child: this,

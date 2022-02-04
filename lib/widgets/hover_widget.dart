@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:universal_io/io.dart' as io;
 
 class HoverWidget extends StatefulWidget {
+  ///
+  /// [Duration] for returning back to original state
+  ///
   final Duration hoverDuration;
+
+  ///
+  /// Builder for showing how the widget should be in hover or unhovered state
+  ///
   final Widget Function(BuildContext context, bool isHovered) builder;
   const HoverWidget(
       {Key? key,

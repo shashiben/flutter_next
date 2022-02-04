@@ -1,15 +1,38 @@
 import '../flutter_next.dart';
 
 class NextButton extends StatelessWidget {
+  ///isHovered represents whether widget is hovered or not
   final Widget Function(bool isHovered) child;
+
+  ///Padding for the button
   final EdgeInsets? padding;
+
+  ///Margin around the button
   final EdgeInsets? margin;
+
+  ///On Tap of button what should happen
   final void Function()? onPressed;
+
+  /// Color of button if null takes primary Color
   final Color? color;
+
+  /// Outline Color is the border color
   final Color? outlineColor;
 
+  ///
+  /// Variant of button whether it should be outlined or filled
+  ///
   final NextButtonVariant variant;
+
+  ///
+  /// Represents the radius of button
+  ///
   final BorderRadiusGeometry? borderRadius;
+
+  ///
+  /// [Hover Duration] - Animation to reverse from hover to normal state
+  /// [Animation Duration] - Duration of animation
+  ///
   final Duration? animationDuration, hoverDuration;
   const NextButton(
       {Key? key,

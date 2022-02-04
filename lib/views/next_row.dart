@@ -1,11 +1,72 @@
+import 'package:nil/nil.dart';
+
 import '../flutter_next.dart';
 
 class NextRow extends StatelessWidget {
+  ///
+  /// List of [NextCol] childrens
+  ///
   final List<NextCol> children;
+
+  ///
+  /// Spacing between childrens default value is 20.0
+  ///
   final double verticalSpacing, horizontalSpacing;
+
+  /// How the children within a run should be placed in the main axis.
+  ///
+  /// For example, if [alignment] is [WrapAlignment.center], the children in
+  /// each run are grouped together in the center of their run in the main axis.
+  ///
+  /// Defaults to [WrapAlignment.start].
+  ///
+  /// See also:
+  ///
+  ///  * [verticalAlignment], which controls how the runs are placed relative to each
+  ///    other in the cross axis.
   final WrapAlignment horizontalAlignment;
+
+  /// How the runs themselves should be placed in the cross axis.
+  ///
+  /// For example, if [runAlignment] is [WrapAlignment.center], the runs are
+  /// grouped together in the center of the overall [Wrap] in the cross axis.
+  ///
+  /// Defaults to [WrapAlignment.start].
+  ///
+  /// See also:
+  ///
+  ///  * [horizontalAlignment], which controls how the children within each run are placed
+  ///    relative to each other in the main axis.
+
   final WrapAlignment verticalAlignment;
+
+  /// Determines the order to lay children out vertically and how to interpret
+  /// `start` and `end` in the vertical direction.
+  ///
+  /// If the [direction] is [Axis.vertical], this controls which order children
+  /// are painted in (down or up), the meaning of the [alignment] property's
+  /// [WrapAlignment.start] and [WrapAlignment.end] values.
+  ///
+  /// If the [direction] is [Axis.vertical], and either the [alignment]
+  /// is either [WrapAlignment.start] or [WrapAlignment.end], or there's
+  /// more than one child, then the [verticalDirection] must not be null.
+  ///
+  /// If the [direction] is [Axis.horizontal], this controls the order in which
+  /// runs are positioned, the meaning of the [runAlignment] property's
+  /// [WrapAlignment.start] and [WrapAlignment.end] values, as well as the
+  /// [crossAxisAlignment] property's [WrapCrossAlignment.start] and
+  /// [WrapCrossAlignment.end] values.
+  ///
+  /// If the [direction] is [Axis.horizontal], and either the
+  /// [runAlignment] is either [WrapAlignment.start] or [WrapAlignment.end], the
+  /// [crossAxisAlignment] is either [WrapCrossAlignment.start] or
+  /// [WrapCrossAlignment.end], or there's more than one child, then the
+  /// [verticalDirection] must not be null.
   final VerticalDirection verticalDirection;
+
+  ///
+  /// Padding to the widget
+  ///
   final EdgeInsets padding;
   const NextRow({
     Key? key,
@@ -30,9 +91,8 @@ class NextRow extends StatelessWidget {
         int accumulatedWidth = 0;
         for (int i = 0; i < children.length; i++) {
           final NextCol col = children.elementAt(i);
-          Map<String, int> allColValues =
-              BootstrapUtils.getAllColValues(col.sizes);
-          String currentPrefix = BootstrapUtils.getPrefixByWidth(maxWidth);
+          Map<String, int> allColValues = NextUtils.getAllColValues(col.sizes);
+          String currentPrefix = NextUtils.getPrefixByWidth(maxWidth);
 
           final int colWidth = allColValues[currentPrefix] ?? 12;
           if (accumulatedWidth + colWidth > 12) {
@@ -52,7 +112,7 @@ class NextRow extends StatelessWidget {
         }
         for (List<NextCol> child in horizontalChildrens) {
           for (NextCol subChild in child) {
-            String currentPrefix = BootstrapUtils.getPrefixByWidth(maxWidth);
+            String currentPrefix = NextUtils.getPrefixByWidth(maxWidth);
             if (!subChild.invisibleFor.contains(currentPrefix)) {
               double offsetSize = subChild.getOffsetWidth(context);
               double spaceToRemove = child.length > 1
@@ -68,21 +128,23 @@ class NextRow extends StatelessWidget {
               double availableWidth = maxWidth - spaceToRemove;
               if (offsetSize > 0) {
                 Map<String, int> prefixMap =
-                    BootstrapUtils.getAllOffsetsValue(subChild.offset);
+                    NextUtils.getAllOffsetsValue(subChild.offset);
                 int currentSegmentValue = prefixMap[currentPrefix] ?? 0;
                 double offsetWidth =
                     availableWidth * (currentSegmentValue / 12);
                 wrapChildrens.add(SizedBox(
                   width: offsetWidth,
-                  child: const SizedBox(),
+                  child: const Nil(),
                 ));
               }
               Map<String, int> prefixMap =
-                  BootstrapUtils.getAllColValues(subChild.sizes);
+                  NextUtils.getAllColValues(subChild.sizes);
               int currentSegmentValue = prefixMap[currentPrefix] ?? 0;
               double childWidth = availableWidth * (currentSegmentValue / 12);
-              wrapChildrens.add(SizedBox(
-                // child: subChild.child,
+              wrapChildrens.add(Container(
+                padding: subChild.padding,
+                margin: subChild.margin,
+                decoration: subChild.decoration,
                 child: subChild.child,
                 width: childWidth,
               ));

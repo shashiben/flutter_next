@@ -1,6 +1,6 @@
 import '../flutter_next.dart';
 
-class BootstrapUtils {
+class NextUtils {
   ///
   /// Returns what is the current prefix based on width
   ///

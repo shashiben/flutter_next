@@ -21,7 +21,7 @@ class SingleAnimationWrapper<T> extends StatefulWidget {
       required this.animation,
       this.startAnimation = true,
       this.loop = false,
-      this.viewPort = 0.75})
+      this.viewPort = 0.1})
       : super(key: key);
 
   @override

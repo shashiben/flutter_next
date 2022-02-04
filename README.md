@@ -1,6 +1,6 @@
 # Flutter Next
 
-An advanced flutter package to build responsive application accross all packages with ease and has an handful of different types of extension.
+An advanced flutter package to build responsive application accross all platform with ease and has an handful of different types of extension.
 
 ## Features
 
@@ -29,3 +29,16 @@ Now access all mediaquery and theme data easily
 ```dart
 const width = context.width;
 ```
+
+And for animation
+
+```dart
+widget(
+    ...
+    ...
+).zoom/fade/flip()
+```
+
+## Demo
+
+- [One Page]("https://one-page-with-flutter.netlify.app/")
