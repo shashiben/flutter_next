@@ -1,4 +1,4 @@
-enum GridPrefixes { xl, lg, md, sm, xs }
+enum GridPrefixes { xxl, xl, lg, md, sm, xs }
 enum NextVariant {
   primary,
   secondary,
