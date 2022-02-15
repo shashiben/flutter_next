@@ -1,5 +1,4 @@
 import 'package:visibility_detector/visibility_detector.dart';
-
 import '../../flutter_next.dart';
 
 class SingleAnimationWrapper<T> extends StatefulWidget {

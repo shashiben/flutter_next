@@ -1,4 +1,4 @@
-import 'package:flutter_next/flutter_next.dart';
+import '../../flutter_next.dart';
 
 class NextGridView extends StatelessWidget {
   ///

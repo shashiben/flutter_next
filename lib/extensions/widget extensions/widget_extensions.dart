@@ -1,11 +1,22 @@
-import 'package:flutter/material.dart';
+import '../../flutter_next.dart';
 
 extension WidgetExtensions on Widget {
-  Widget container(EdgeInsets? padding,
-          {EdgeInsets? margin,
+  Widget container(
+          {Key? key,
+          AlignmentGeometry? alignment,
+          EdgeInsetsGeometry? padding,
+          Color? color,
+          Decoration? decoration,
+          Decoration? foregroundDecoration,
+          double? width,
+          double? height,
+          BoxConstraints? constraints,
+          EdgeInsetsGeometry? margin,
+          Matrix4? transform,
+          AlignmentGeometry? transformAlignment,
+          Clip clipBehavior = Clip.none,
           bool shouldAnimate = false,
-          Duration animationDuration = const Duration(milliseconds: 300),
-          Curve? animationCurve}) =>
+          Duration animationDuration = const Duration(milliseconds: 450)}) =>
       shouldAnimate
           ? AnimatedContainer(
               duration: animationDuration,

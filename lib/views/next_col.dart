@@ -1,4 +1,4 @@
-import '../flutter_next.dart';
+import '../../flutter_next.dart';
 
 class NextCol extends StatelessWidget {
   final String sizes;

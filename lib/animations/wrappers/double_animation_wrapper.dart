@@ -1,6 +1,5 @@
-import 'package:visibility_detector/visibility_detector.dart';
-
 import '../../flutter_next.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class DoubleAnimationWrapper<T> extends StatefulWidget {
   final Duration duration;

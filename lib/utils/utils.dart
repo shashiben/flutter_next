@@ -1,4 +1,4 @@
-import '../flutter_next.dart';
+import '../../flutter_next.dart';
 
 class NextUtils {
   ///
@@ -43,7 +43,9 @@ class NextUtils {
   /// Returns Current GridPrefix
   ///
   static GridPrefixes getPrefixEnumByWidth(double width) {
-    if (width >= 1200) {
+    if (width >= 1400) {
+      return GridPrefixes.xxl;
+    } else if (width >= 1200) {
       return GridPrefixes.xl;
     } else if (width >= 992) {
       return GridPrefixes.lg;
@@ -60,7 +62,9 @@ class NextUtils {
   /// Returns the width for non-fluid containers based on a given width
   ///
   static double getMaxWidthForNonFluid(double width) {
-    if (width >= 1200) {
+    if (width >= 1400) {
+      return 1320;
+    } else if (width >= 1200) {
       return 1140;
     } else if (width >= 992) {
       return 960;

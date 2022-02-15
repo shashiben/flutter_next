@@ -1,6 +1,6 @@
 import 'package:nil/nil.dart';
 
-import '../flutter_next.dart';
+import '../../flutter_next.dart';
 
 class NextRow extends StatelessWidget {
   ///

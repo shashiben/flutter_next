@@ -1,8 +1,17 @@
-import '../flutter_next.dart';
+import '../../flutter_next.dart';
 
 class NextButton extends StatelessWidget {
-  ///isHovered represents whether widget is hovered or not
-  final Widget Function(bool isHovered) child;
+  /// Title of the button or else you can customise using itemBuilder
+  final String title;
+
+  /// Text style for the title
+  final TextStyle? style;
+
+  /// Leading Widget
+  final Widget? leading;
+
+  /// Trailing Widget
+  final Widget? trailing;
 
   ///Padding for the button
   final EdgeInsets? padding;
@@ -27,56 +36,82 @@ class NextButton extends StatelessWidget {
   ///
   /// Represents the radius of button
   ///
-  final BorderRadiusGeometry? borderRadius;
+  final BorderRadiusGeometry borderRadius;
+
+  ///
+  /// Customise your button
+  ///
+  final Widget Function(BuildContext context, bool isHovered)? itemBuilder;
 
   ///
   /// [Hover Duration] - Animation to reverse from hover to normal state
   /// [Animation Duration] - Duration of animation
   ///
   final Duration? animationDuration, hoverDuration;
+
+  ///If [enabled]->false then onPressed wont work
+  final bool enabled;
   const NextButton(
       {Key? key,
-      required this.child,
+      this.leading,
+      this.itemBuilder,
+      this.enabled = true,
+      this.trailing,
+      required this.title,
+      this.style,
       this.onPressed,
       this.color,
       this.outlineColor,
-      this.padding,
-      this.margin,
+      this.padding = const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+      this.margin = const EdgeInsets.all(4),
       this.variant = NextButtonVariant.filled,
-      this.borderRadius,
+      this.borderRadius = const BorderRadius.all(Radius.circular(6)),
       this.animationDuration,
       this.hoverDuration})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-        onTap: onPressed,
-        child: HoverWidget(
-            hoverDuration: hoverDuration ?? const Duration(milliseconds: 800),
-            builder: (BuildContext context, bool isHovered) => variant ==
-                    NextButtonVariant.filled
-                ? Container(
-                    margin: margin,
-                    padding: padding,
-                    decoration: BoxDecoration(
-                        color: color ?? context.primaryColor,
-                        borderRadius: borderRadius ?? BorderRadius.circular(5)),
-                    child: child(isHovered),
-                  )
-                : AnimatedContainer(
-                    duration:
-                        animationDuration ?? const Duration(milliseconds: 300),
-                    margin: margin,
-                    padding: padding,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: color ?? context.primaryColor, width: 1.5),
-                        color: isHovered
-                            ? (color ?? context.primaryColor)
-                            : outlineColor,
-                        borderRadius: borderRadius ?? BorderRadius.circular(5)),
-                    child: child(isHovered),
-                  )));
+    return Container(
+      margin: margin,
+      child: HoverWidget(
+          hoverDuration: hoverDuration ?? const Duration(milliseconds: 800),
+          builder: (context, isHovered) {
+            if (variant == NextButtonVariant.filled) {
+              return MaterialButton(
+                  shape: RoundedRectangleBorder(borderRadius: borderRadius),
+                  color: color ?? context.primaryColor,
+                  onPressed: onPressed,
+                  child: Text(
+                    title,
+                    style: style,
+                  ));
+            } else if (variant == NextButtonVariant.outlined) {
+              return NextColorTweenWidget(
+                  beginColor: context.themeData.backgroundColor,
+                  endColor: color ?? context.primaryColor,
+                  child: (controller, value) {
+                    if (isHovered) {
+                      controller.forward();
+                    } else {
+                      controller.reverse();
+                    }
+                    return MaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: borderRadius,
+                            side: BorderSide(
+                                color: color ?? context.primaryColor)),
+                        color: value,
+                        onPressed: onPressed,
+                        child: Text(
+                          title,
+                          style: style,
+                        ));
+                  });
+            } else {
+              return const BackButton();
+            }
+          }),
+    );
   }
 }

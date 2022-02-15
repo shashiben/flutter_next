@@ -1,3 +1,7 @@
+## 0.0.5
+
+- Fixed Import error
+
 ## 0.0.4
 
 - Fixed animation speed

@@ -1,4 +1,4 @@
-import '../flutter_next.dart';
+import '../../flutter_next.dart';
 
 extension AnimationExtension on Widget {
   Widget bounce(

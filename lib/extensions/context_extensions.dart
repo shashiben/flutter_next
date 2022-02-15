@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../flutter_next.dart';
 import 'package:universal_io/io.dart' as io;
 
 extension ContextExtension on BuildContext {
@@ -14,6 +14,7 @@ extension ContextExtension on BuildContext {
   ThemeData get themeData => Theme.of(this);
   TextTheme get textTheme => themeData.textTheme;
   ButtonThemeData get buttonTheme => themeData.buttonTheme;
+  SnackBarThemeData get snackBarTheme => themeData.snackBarTheme;
 
   EdgeInsets get mediaQueryPadding => MediaQuery.of(this).padding;
   EdgeInsets get mediaQueryViewPadding => MediaQuery.of(this).viewPadding;
@@ -31,7 +32,8 @@ extension ContextExtension on BuildContext {
   bool get isPortrait => orientation == Orientation.portrait;
   bool get isMobile =>
       (io.Platform.isAndroid || io.Platform.isIOS || size.width < 600);
-  bool get isXl => size.width >= 1200;
+  bool get isXXL => size.width >= 1400;
+  bool get isXl => size.width >= 1200 && size.width < 1400;
   bool get isLg => size.width >= 992 && size.width < 1200;
   bool get isMd => size.width >= 768 && size.width < 992;
   bool get isSm => size.width >= 576 && size.width < 768;

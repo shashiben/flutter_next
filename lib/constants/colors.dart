@@ -1,4 +1,4 @@
-import '../flutter_next.dart';
+import 'package:flutter/cupertino.dart';
 
 mixin NextColorVariants {
   static Color primary = const Color(0xFF007BFF);

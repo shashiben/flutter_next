@@ -1,6 +1,6 @@
 import 'package:nil/nil.dart';
 
-import '../flutter_next.dart';
+import '../../flutter_next.dart';
 import 'dart:ui' as ui;
 
 class NextAlert extends Text {
