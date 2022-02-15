@@ -14,10 +14,10 @@ class NextButton extends StatelessWidget {
   final Widget? trailing;
 
   ///Padding for the button
-  final EdgeInsets? padding;
+  final EdgeInsets padding;
 
   ///Margin around the button
-  final EdgeInsets? margin;
+  final EdgeInsets margin;
 
   ///On Tap of button what should happen
   final void Function()? onPressed;
@@ -103,7 +103,7 @@ class NextButton extends StatelessWidget {
             } else {
               if (variant == NextButtonVariant.filled) {
                 return MaterialButton(
-                    padding: padding,
+                    padding: EdgeInsets.zero,
                     elevation: elevation ?? 0.0,
                     hoverElevation: hoverElevation ?? 0.0,
                     focusElevation: focusElevation,
@@ -112,9 +112,12 @@ class NextButton extends StatelessWidget {
                     shape: RoundedRectangleBorder(borderRadius: borderRadius),
                     color: color ?? context.primaryColor,
                     onPressed: onPressed,
-                    child: Text(
-                      title,
-                      style: style,
+                    child: Padding(
+                      padding: padding,
+                      child: Text(
+                        title,
+                        style: style,
+                      ),
                     ));
               } else if (variant == NextButtonVariant.outlined) {
                 return NextColorTweenWidget(
@@ -127,7 +130,7 @@ class NextButton extends StatelessWidget {
                         controller.reverse();
                       }
                       return MaterialButton(
-                          padding: padding,
+                          padding: EdgeInsets.zero,
                           elevation: elevation ?? 0.0,
                           hoverElevation: hoverElevation ?? 0.0,
                           focusElevation: focusElevation,
@@ -140,17 +143,21 @@ class NextButton extends StatelessWidget {
                                   color: outlineColor ?? context.primaryColor)),
                           color: value,
                           onPressed: onPressed,
-                          child: Text(
-                            title,
-                            style: (style ??
-                                    context.themeData.textTheme.button ??
-                                    const TextStyle(
-                                        fontWeight: FontWeight.w600))
-                                .copyWith(
-                                    color: isHovered
-                                        ? color ??
-                                            context.themeData.backgroundColor
-                                        : outlineColor ?? context.primaryColor),
+                          child: Padding(
+                            padding: padding,
+                            child: Text(
+                              title,
+                              style: (style ??
+                                      context.themeData.textTheme.button ??
+                                      const TextStyle(
+                                          fontWeight: FontWeight.w600))
+                                  .copyWith(
+                                      color: isHovered
+                                          ? color ??
+                                              context.themeData.backgroundColor
+                                          : outlineColor ??
+                                              context.primaryColor),
+                            ),
                           ));
                     });
               } else {
