@@ -51,13 +51,19 @@ class NextButton extends StatelessWidget {
 
   ///If [enabled]->false then onPressed wont work
   final bool enabled;
+
+  final double? elevation;
+  final double? focusElevation;
+  final double? hoverElevation;
+  final double? highlightElevation;
+  final double? disabledElevation;
   const NextButton(
       {Key? key,
       this.leading,
       this.itemBuilder,
       this.enabled = true,
       this.trailing,
-      required this.title,
+      this.title = "",
       this.style,
       this.onPressed,
       this.color,
@@ -67,7 +73,12 @@ class NextButton extends StatelessWidget {
       this.variant = NextButtonVariant.filled,
       this.borderRadius = const BorderRadius.all(Radius.circular(6)),
       this.animationDuration,
-      this.hoverDuration})
+      this.hoverDuration,
+      this.elevation,
+      this.focusElevation,
+      this.hoverElevation,
+      this.highlightElevation,
+      this.disabledElevation})
       : super(key: key);
 
   @override
@@ -77,39 +88,74 @@ class NextButton extends StatelessWidget {
       child: HoverWidget(
           hoverDuration: hoverDuration ?? const Duration(milliseconds: 800),
           builder: (context, isHovered) {
-            if (variant == NextButtonVariant.filled) {
+            if (itemBuilder != null) {
               return MaterialButton(
+                  padding: padding,
+                  elevation: elevation ?? 0.0,
+                  hoverElevation: hoverElevation ?? 0.0,
+                  focusElevation: focusElevation,
+                  disabledElevation: disabledElevation,
+                  highlightElevation: highlightElevation,
                   shape: RoundedRectangleBorder(borderRadius: borderRadius),
                   color: color ?? context.primaryColor,
                   onPressed: onPressed,
-                  child: Text(
-                    title,
-                    style: style,
-                  ));
-            } else if (variant == NextButtonVariant.outlined) {
-              return NextColorTweenWidget(
-                  beginColor: context.themeData.backgroundColor,
-                  endColor: color ?? context.primaryColor,
-                  child: (controller, value) {
-                    if (isHovered) {
-                      controller.forward();
-                    } else {
-                      controller.reverse();
-                    }
-                    return MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: borderRadius,
-                            side: BorderSide(
-                                color: color ?? context.primaryColor)),
-                        color: value,
-                        onPressed: onPressed,
-                        child: Text(
-                          title,
-                          style: style,
-                        ));
-                  });
+                  child: itemBuilder!(context, isHovered));
             } else {
-              return const BackButton();
+              if (variant == NextButtonVariant.filled) {
+                return MaterialButton(
+                    padding: padding,
+                    elevation: elevation ?? 0.0,
+                    hoverElevation: hoverElevation ?? 0.0,
+                    focusElevation: focusElevation,
+                    disabledElevation: disabledElevation,
+                    highlightElevation: highlightElevation,
+                    shape: RoundedRectangleBorder(borderRadius: borderRadius),
+                    color: color ?? context.primaryColor,
+                    onPressed: onPressed,
+                    child: Text(
+                      title,
+                      style: style,
+                    ));
+              } else if (variant == NextButtonVariant.outlined) {
+                return NextColorTweenWidget(
+                    beginColor: color ?? context.themeData.backgroundColor,
+                    endColor: outlineColor ?? context.primaryColor,
+                    child: (controller, value) {
+                      if (isHovered) {
+                        controller.forward();
+                      } else {
+                        controller.reverse();
+                      }
+                      return MaterialButton(
+                          padding: padding,
+                          elevation: elevation ?? 0.0,
+                          hoverElevation: hoverElevation ?? 0.0,
+                          focusElevation: focusElevation,
+                          disabledElevation: disabledElevation,
+                          highlightElevation: highlightElevation,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: borderRadius,
+                              side: BorderSide(
+                                  width: 2,
+                                  color: outlineColor ?? context.primaryColor)),
+                          color: value,
+                          onPressed: onPressed,
+                          child: Text(
+                            title,
+                            style: (style ??
+                                    context.themeData.textTheme.button ??
+                                    const TextStyle(
+                                        fontWeight: FontWeight.w600))
+                                .copyWith(
+                                    color: isHovered
+                                        ? color ??
+                                            context.themeData.backgroundColor
+                                        : outlineColor ?? context.primaryColor),
+                          ));
+                    });
+              } else {
+                return const BackButton();
+              }
             }
           }),
     );
