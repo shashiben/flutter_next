@@ -89,17 +89,7 @@ class NextButton extends StatelessWidget {
           hoverDuration: hoverDuration ?? const Duration(milliseconds: 800),
           builder: (context, isHovered) {
             if (itemBuilder != null) {
-              return MaterialButton(
-                  padding: padding,
-                  elevation: elevation ?? 0.0,
-                  hoverElevation: hoverElevation ?? 0.0,
-                  focusElevation: focusElevation,
-                  disabledElevation: disabledElevation,
-                  highlightElevation: highlightElevation,
-                  shape: RoundedRectangleBorder(borderRadius: borderRadius),
-                  color: color ?? context.primaryColor,
-                  onPressed: onPressed,
-                  child: itemBuilder!(context, isHovered));
+              return itemBuilder!(context, isHovered);
             } else {
               if (variant == NextButtonVariant.filled) {
                 return MaterialButton(
