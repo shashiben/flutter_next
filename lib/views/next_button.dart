@@ -89,7 +89,11 @@ class NextButton extends StatelessWidget {
           hoverDuration: hoverDuration ?? const Duration(milliseconds: 800),
           builder: (context, isHovered) {
             if (itemBuilder != null) {
-              return itemBuilder!(context, isHovered);
+              return (itemBuilder!(context, isHovered)).onTap(() {
+                if (onPressed != null) {
+                  onPressed!();
+                }
+              });
             } else {
               if (variant == NextButtonVariant.filled) {
                 return MaterialButton(
@@ -129,7 +133,7 @@ class NextButton extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: borderRadius,
                               side: BorderSide(
-                                  width: 2,
+                                  width: 1.5,
                                   color: outlineColor ?? context.primaryColor)),
                           color: value,
                           onPressed: onPressed,
