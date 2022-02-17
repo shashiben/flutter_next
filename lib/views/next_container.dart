@@ -1,4 +1,5 @@
-import '../../flutter_next.dart';
+import 'package:flutter/material.dart';
+import '../flutter_next.dart';
 
 ///
 /// Implementation of the Bootstrap .container and .container-fluid
@@ -8,6 +9,9 @@ class NextContainer extends StatelessWidget {
     Key? key,
     this.alignment = Alignment.topCenter,
     required this.children,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.mainAxisSize = MainAxisSize.max,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
     this.fluid = false,
     this.decoration,
     this.physics,
@@ -50,7 +54,9 @@ class NextContainer extends StatelessWidget {
   /// Scroll Physics
   ///
   final ScrollPhysics? physics;
-
+  final MainAxisAlignment mainAxisAlignment;
+  final MainAxisSize mainAxisSize;
+  final CrossAxisAlignment crossAxisAlignment;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -66,6 +72,9 @@ class NextContainer extends StatelessWidget {
         controller: scrollController,
         padding: padding,
         child: Column(
+          mainAxisAlignment: mainAxisAlignment,
+          mainAxisSize: mainAxisSize,
+          crossAxisAlignment: crossAxisAlignment,
           children: children,
         ),
       ),

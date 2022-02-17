@@ -1,6 +1,5 @@
-import 'package:nil/nil.dart';
-
-import '../../flutter_next.dart';
+import 'package:flutter/material.dart';
+import '../flutter_next.dart';
 
 class NextRow extends StatelessWidget {
   ///
@@ -134,7 +133,7 @@ class NextRow extends StatelessWidget {
                     availableWidth * (currentSegmentValue / 12);
                 wrapChildrens.add(SizedBox(
                   width: offsetWidth,
-                  child: const Nil(),
+                  child: const SizedBox(),
                 ));
               }
               Map<String, int> prefixMap =

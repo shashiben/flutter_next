@@ -1,8 +1,9 @@
-import '../../flutter_next.dart';
+import 'package:flutter/material.dart';
+import '../flutter_next.dart';
 
 class NextButton extends StatelessWidget {
-  /// Title of the button or else you can customise using itemBuilder
-  final String title;
+  /// Main Child
+  final Widget? child;
 
   /// Text style for the title
   final TextStyle? style;
@@ -41,7 +42,8 @@ class NextButton extends StatelessWidget {
   ///
   /// Customise your button
   ///
-  final Widget Function(BuildContext context, bool isHovered)? itemBuilder;
+  final Widget Function(BuildContext context, bool isHovered, Color? color)?
+      itemBuilder;
 
   ///
   /// [Hover Duration] - Animation to reverse from hover to normal state
@@ -63,8 +65,8 @@ class NextButton extends StatelessWidget {
       this.itemBuilder,
       this.enabled = true,
       this.trailing,
-      this.title = "",
       this.style,
+      this.child,
       this.onPressed,
       this.color,
       this.outlineColor,
@@ -89,11 +91,21 @@ class NextButton extends StatelessWidget {
           hoverDuration: hoverDuration ?? const Duration(milliseconds: 800),
           builder: (context, isHovered) {
             if (itemBuilder != null) {
-              return (itemBuilder!(context, isHovered)).onTap(() {
-                if (onPressed != null) {
-                  onPressed!();
-                }
-              });
+              return NextColorTweenWidget(
+                  beginColor: color ?? context.themeData.backgroundColor,
+                  endColor: outlineColor ?? context.primaryColor,
+                  child: (controller, value) {
+                    if (isHovered) {
+                      controller.forward();
+                    } else {
+                      controller.reverse();
+                    }
+                    return (itemBuilder!(context, isHovered, value)).onTap(() {
+                      if (onPressed != null) {
+                        onPressed!();
+                      }
+                    });
+                  });
             } else {
               if (variant == NextButtonVariant.filled) {
                 return MaterialButton(
@@ -108,10 +120,7 @@ class NextButton extends StatelessWidget {
                     onPressed: onPressed,
                     child: Padding(
                       padding: padding,
-                      child: Text(
-                        title,
-                        style: style,
-                      ),
+                      child: child,
                     ));
               } else if (variant == NextButtonVariant.outlined) {
                 return NextColorTweenWidget(
@@ -139,8 +148,7 @@ class NextButton extends StatelessWidget {
                           onPressed: onPressed,
                           child: Padding(
                             padding: padding,
-                            child: Text(
-                              title,
+                            child: DefaultTextStyle(
                               style: (style ??
                                       context.themeData.textTheme.button ??
                                       const TextStyle(
@@ -151,6 +159,7 @@ class NextButton extends StatelessWidget {
                                               context.themeData.backgroundColor
                                           : outlineColor ??
                                               context.primaryColor),
+                              child: child ?? const SizedBox(),
                             ),
                           ));
                     });

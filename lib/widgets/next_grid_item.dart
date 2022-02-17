@@ -1,4 +1,4 @@
-import '../../flutter_next.dart';
+import 'package:flutter/material.dart';
 
 class NextGridItem extends StatelessWidget {
   ///

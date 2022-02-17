@@ -13,7 +13,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  nil: ^1.1.1
   universal_io: ^2.0.4
   visibility_detector: ^0.2.2
 

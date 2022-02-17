@@ -1,4 +1,4 @@
-import '../../flutter_next.dart';
+import 'package:flutter/material.dart';
 
 extension WidgetExtensions on Widget {
   Widget container(

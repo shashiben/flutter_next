@@ -1,6 +1,5 @@
 library flutter_next;
 
-export 'package:flutter/material.dart';
 /*
    export Constants
 */

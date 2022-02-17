@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nil/nil.dart';
 
 class NextLoadingHelper extends StatelessWidget {
   ///isLoading--> true shows loading widget
@@ -153,7 +152,7 @@ class NextLoadingHelper extends StatelessWidget {
                         ),
                       ),
                     )
-                : const Nil())
+                : const SizedBox())
       ],
     );
   }
