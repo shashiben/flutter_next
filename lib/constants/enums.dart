@@ -7,7 +7,8 @@ enum NextVariant {
   warning,
   info,
   light,
-  dark
+  dark,
+  custom
 }
 enum NextButtonVariant { filled, outlined }
 enum NextFadeInVariant { fadeInLeft, fadeInRight, fadeInTop, fadeInBottom }
