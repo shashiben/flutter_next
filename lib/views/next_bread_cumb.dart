@@ -14,70 +14,59 @@ class NextBreadCumb extends StatelessWidget {
   final double spacing;
 
   ///
-  /// By adding limitTo param you can limit no of items displaying
+  /// Bread cumb variant
   ///
-  final int? limitTo;
+  final NextBreadCumbVariant variant;
 
-  /// Widget to display as a placeholder for which items are limmited
-  final Widget limitIndicator;
+  ///
+  /// Physics for [NextBreadCumbVariant.scroll]
+  ///
+  final ScrollPhysics physics;
+
+  /// Whther primary for [NextBreadCumbVariant.scroll] should be true or not
+  final bool primary;
 
   const NextBreadCumb({
     Key? key,
     required this.childrens,
-    this.limitIndicator = const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Text("...."),
-    ),
-    this.limitTo,
+    this.primary = false,
+    this.physics = const AlwaysScrollableScrollPhysics(),
+    this.variant = NextBreadCumbVariant.wrap,
     this.spacing = 8.0,
     this.seperator = const Icon(
       Icons.chevron_right,
       size: 18.0,
     ),
-  })  : assert((limitTo ?? 0) >= 0,
-            "Limit to should be greater than zero or null."),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: _joinItems(),
-      spacing: spacing,
-      runSpacing: spacing,
-      crossAxisAlignment: WrapCrossAlignment.center,
-    );
+    return variant == NextBreadCumbVariant.wrap
+        ? Wrap(
+            children: _joinItems(),
+            spacing: spacing,
+            runSpacing: spacing,
+            crossAxisAlignment: WrapCrossAlignment.center,
+          )
+        : SingleChildScrollView(
+            physics: physics,
+            primary: primary,
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: _joinItems(),
+            ),
+          );
   }
 
   List<Widget> _joinItems() {
     final List<Widget> _joinedItems = [];
-    if (limitTo != null) {
-      for (final item in childrens) {
-        _joinedItems
-          ..add(item)
-          ..add(seperator);
-      }
-      _joinedItems.removeLast();
-      if (_joinedItems.length > limitTo! + 2) {
-        List<Widget> result = [];
-        result
-          ..add(_joinedItems.first)
-          ..add(seperator);
-        result
-          ..add(limitIndicator)
-          ..add(seperator);
-        result.add(_joinedItems.last);
-        return result;
-      }
 
-      return _joinedItems;
-    } else {
-      for (final item in childrens) {
-        _joinedItems
-          ..add(item)
-          ..add(seperator);
-      }
-      _joinedItems.removeLast();
-      return _joinedItems;
+    for (final item in childrens) {
+      _joinedItems
+        ..add(item)
+        ..add(seperator);
     }
+    _joinedItems.removeLast();
+    return _joinedItems;
   }
 }

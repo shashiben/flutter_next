@@ -1,3 +1,8 @@
+## 0.0.7
+
+- Updated Documentation with more examples
+- Increased performance of components
+
 ## 0.0.6
 
 - Updated Documentation

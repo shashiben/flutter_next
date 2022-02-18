@@ -28,6 +28,7 @@ export 'views/next_accordion.dart';
 export 'views/next_button.dart';
 export 'views/next_grid_view.dart';
 export 'views/next_container.dart';
+export 'views/next_bread_cumb.dart';
 /*
   export Widgets
 */

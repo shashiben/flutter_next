@@ -23,3 +23,4 @@ enum NextBounceVariant {
 }
 
 enum NextFlipVariant { flipX, flipY }
+enum NextBreadCumbVariant { wrap, scroll }

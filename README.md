@@ -25,6 +25,7 @@ An advanced flutter package to build responsive application accross all platform
 ## Components
 
 - [Hover Widget](#hover-widget)
+- [BreadCumb](#breadcumb)
 - [Alerts](#alerts)
 - [Grid System](#grid-system)
 - [Container](#container)
@@ -45,6 +46,32 @@ Using this you can know whether widget is hovered or not. Even it works for mobi
     builder:(context,isHovered)=>Container(child:....)
   )
 ```
+
+## BreadCumb
+
+<img  src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/breadcumb_example.png"/>
+
+```dart
+   NextBreadCumb(
+      childrens: ["Home", "Dashboard", "Payment", "Checkout"]
+          .map((e) => NextBreadCumbItem(child: (isHovered) => Text(e)))
+          .toList()),
+    SizedBox(height: 20),
+    Text("With Custom Separator"),
+    SizedBox(height: 10),
+    NextBreadCumb(
+        seperator: Text("---"),
+        childrens: ["A", "B", "C", "D", "E", "F", "G", "H"]
+            .map(
+              (e) => NextBreadCumbItem(child: (isHovered) => Text(e)),
+            )
+            .toList()),
+```
+
+Additionally you can provide variant
+
+- Wrap (If exceeds more than width then it will move to next line)
+- Scroll (It will scroll horizontally)
 
 ## Alerts
 
@@ -126,11 +153,11 @@ And you can even define custom,variant should be custom
     </tr>
     <tr>
       <th class="text-nowrap" scope="row">Class prefix</th>
-      <td><code>.col-</code></td>
-      <td><code>.col-sm-</code></td>
-      <td><code>.col-md-</code></td>
-      <td><code>.col-lg-</code></td>
-      <td><code>.col-xl-</code></td>
+      <td><code>col-</code></td>
+      <td><code>col-sm-</code></td>
+      <td><code>col-md-</code></td>
+      <td><code>col-lg-</code></td>
+      <td><code>col-xl-</code></td>
     </tr>
   </tbody>
 </table>
@@ -373,7 +400,7 @@ Container(
 ).center()
 
 //Now you can use column/row/stack like this
-[Widget1(),Widget2(),Widget3()].column()
+[Widget1(),Widget2(),Widget3()]column()
 ```
 
 ## Padding
