@@ -10,13 +10,19 @@
 <br>
 
 <p  align="center">
-<img  src="example/assets/Flutter Next.png"/>
+<img  src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/Flutter%20Next.png"/>
 <br>
 <b>Now build flutter apps with ease and responsive.</b>
 </p>
 <br>
 
 An advanced flutter package to build responsive application accross all platform with ease and has an handful of different types of extension.
+
+## Demo
+
+- [One Page](https://one-page-with-flutter.netlify.app/)
+
+## Components
 
 - [Alerts](#alerts)
 - [Grid System](#grid-system)
@@ -64,7 +70,7 @@ And you can even define custom,variant should be custom
   ),
 ```
 
-<img  src="example/assets/alert_example.png"/>
+<img  src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/alert_example.png"/>
 
 ## Grid System
 
@@ -141,7 +147,7 @@ NextRow(
       .toList())
 ```
 
-<img src="example/assets/grid_example.gif" height=300>
+<img src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/grid_example.gif" height=300>
 
 ## Accordion
 
@@ -162,11 +168,11 @@ NextRow(
   ),
 ```
 
-<img src="example/assets/accordion_example.png">
+<img src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/accordion_example.png">
 
 ## Button
 
-<img src="example/assets/button_example.gif">
+<img src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/button_example.gif">
 
 You can customise button by using itemBuilder
 
@@ -204,7 +210,7 @@ You can customise button by using itemBuilder
 
 ## Animations
 
-<img src="example/assets/animation_example.gif">
+<img src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/animation_example.gif">
 
 ```dart
  Text("Fade In Animations").customPadding(bottom: 20),

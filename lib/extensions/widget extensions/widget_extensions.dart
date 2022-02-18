@@ -29,7 +29,7 @@ extension WidgetExtensions on Widget {
               margin: margin,
               child: this,
             );
-  Widget decoration(BoxDecoration decoration) => DecoratedBox(
+  Widget addDecoration(BoxDecoration decoration) => DecoratedBox(
         decoration: decoration,
         child: this,
       );

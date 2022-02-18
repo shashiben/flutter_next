@@ -1,3 +1,9 @@
+## 0.0.6
+
+- Updated Documentation
+- Fixed Ui issues
+- Updated Components
+
 ## 0.0.5
 
 - Fixed Import error

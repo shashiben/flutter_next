@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension PaddingExtension on Widget {
-  Widget padding(
+  Widget pad(
     double padding, {
     Key? key,
   }) {
