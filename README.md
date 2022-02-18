@@ -24,8 +24,9 @@ An advanced flutter package to build responsive application accross all platform
 
 ## Components
 
-- [Alerts](#alerts)
+- [Alerts](#alerts)]
 - [Grid System](#grid-system)
+- [Container](#container)
 - [Accordion](#accordion)
 - [Button](#button)
 - [Animations](#animations)
@@ -149,6 +150,53 @@ NextRow(
 ```
 
 <img src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/grid_example.gif" height=300>
+
+## Container
+
+<table class="table">
+  <thead>
+    <tr>
+      <td class="border-dark"></td>
+      <th scope="col">
+        Extra small<br>
+        <span class="fw-normal">&lt;576px</span>
+      </th>
+      <th scope="col">
+        Small<br>
+        <span class="fw-normal">≥576px</span>
+      </th>
+      <th scope="col">
+        Medium<br>
+        <span class="fw-normal">≥768px</span>
+      </th>
+      <th scope="col">
+        Large<br>
+        <span class="fw-normal">≥992px</span>
+      </th>
+      <th scope="col">
+        X-Large<br>
+        <span class="fw-normal">≥1200px</span>
+      </th>
+      <th scope="col">
+        XX-Large<br>
+        <span class="fw-normal">≥1400px</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row" class="fw-normal"><code>Next Container</code></th>
+      <td class="text-muted">100%</td>
+      <td>540px</td>
+      <td>720px</td>
+      <td>960px</td>
+      <td>1140px</td>
+      <td>1320px</td>
+    </tr>
+  </tbody>
+</table>
+
+- If you pass fluid as true then it will take whole width
 
 ## Accordion
 

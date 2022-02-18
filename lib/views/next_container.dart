@@ -14,9 +14,7 @@ class NextContainer extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.fluid = false,
     this.decoration,
-    this.physics,
-    this.scrollController,
-    this.padding = const EdgeInsets.all(0),
+      this.padding = const EdgeInsets.all(0),
   }) : super(key: key);
 
   ///
@@ -45,15 +43,6 @@ class NextContainer extends StatelessWidget {
   ///
   final Alignment alignment;
 
-  ///
-  /// ScrollController
-  ///
-  final ScrollController? scrollController;
-
-  ///
-  /// Scroll Physics
-  ///
-  final ScrollPhysics? physics;
   final MainAxisAlignment mainAxisAlignment;
   final MainAxisSize mainAxisSize;
   final CrossAxisAlignment crossAxisAlignment;
@@ -62,21 +51,16 @@ class NextContainer extends StatelessWidget {
     return Material(
         child: Container(
       decoration: decoration,
+      padding: padding,
       width: fluid
           ? context.width
           : NextUtils.getMaxWidthForNonFluid(context.width),
       alignment: alignment,
-      child: SingleChildScrollView(
-        primary: false,
-        physics: physics ?? const AlwaysScrollableScrollPhysics(),
-        controller: scrollController,
-        padding: padding,
-        child: Column(
-          mainAxisAlignment: mainAxisAlignment,
-          mainAxisSize: mainAxisSize,
-          crossAxisAlignment: crossAxisAlignment,
-          children: children,
-        ),
+      child: Column(
+        mainAxisAlignment: mainAxisAlignment,
+        mainAxisSize: mainAxisSize,
+        crossAxisAlignment: crossAxisAlignment,
+        children: children,
       ),
     ));
   }
