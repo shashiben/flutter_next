@@ -24,7 +24,8 @@ An advanced flutter package to build responsive application accross all platform
 
 ## Components
 
-- [Alerts](#alerts)]
+- [Hover Widget](#hover-widget)
+- [Alerts](#alerts)
 - [Grid System](#grid-system)
 - [Container](#container)
 - [Accordion](#accordion)
@@ -32,6 +33,18 @@ An advanced flutter package to build responsive application accross all platform
 - [Animations](#animations)
 - [Extensions](#extensions)
   - [Padding](#padding)
+
+## Hover Widget
+
+Using this you can know whether widget is hovered or not. Even it works for mobile and everything
+
+``Hover Duration` - Duration for returning from hover to normal state
+
+```dart
+  HoverWidget(
+    builder:(context,isHovered)=>Container(child:....)
+  )
+```
 
 ## Alerts
 
