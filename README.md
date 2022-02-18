@@ -30,6 +30,7 @@ An advanced flutter package to build responsive application accross all platform
 - [Button](#button)
 - [Animations](#animations)
 - [Extensions](#extensions)
+  - [Padding](#padding)
 
 ## Alerts
 
@@ -296,14 +297,38 @@ Now access themedata and mediaquery data easily like
   context.backgroundColor
 ```
 
-And for widgets
+And for Widgets
 
 ```dart
-// Just center like this
+/// Instead of this
+Center(
+  child:Container(
+    child:....
+  )
+)
+// You can write like this
 Container(
   child:....
 ).center()
 
 //Now you can use column/row/stack like this
-[WIdget1(),WIdget2(),WIdget3()].column()
+[Widget1(),Widget2(),Widget3()].column()
+```
+
+## Padding
+
+And for padding
+
+```dart
+Widget(
+  child:...
+).pad(20)
+// Or
+Widget(
+  child:...
+).paddingSymmetric(horizontal:20,vertical:12)
+//or
+Widget(
+  child:...
+).customPadding(left:10,right:12)
 ```
