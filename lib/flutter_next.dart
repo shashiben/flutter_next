@@ -29,6 +29,7 @@ export 'views/next_button.dart';
 export 'views/next_grid_view.dart';
 export 'views/next_container.dart';
 export 'views/next_bread_cumb.dart';
+export 'views/next_avatar_group.dart';
 /*
   export Widgets
 */

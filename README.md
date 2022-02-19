@@ -25,6 +25,7 @@ An advanced flutter package to build responsive application accross all platform
 ## Components
 
 - ### [Widgets](#widgets)
+  - [Avatar](#avatar)
   - [Hover Widget](#hover-widget)
   - [BreadCumb](#breadcumb)
   - [Alerts](#alerts)
@@ -42,9 +43,83 @@ An advanced flutter package to build responsive application accross all platform
 
 # Widgets
 
+## Avatar
+
+<img src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/avatar_example.png">
+
+```dart
+  Text(
+    "Avatar Group",
+    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+  ),
+  SizedBox(
+    height: 15,
+  ),
+  NextAvatarGroup(
+      backgroundColor: Colors.orange,
+      imagesList: List.generate(
+          6,
+          (index) => NetworkImage(
+              "https://images.ctfassets.net/hrltx12pl8hq/qGOnNvgfJIe2MytFdIcTQ/429dd7e2cb176f93bf9b21a8f89edc77/Images.jpg?fit=fill&w=175&h=175&fm=webp"))),
+  Text(
+    "Custom Avatar Group",
+    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+  ),
+  SizedBox(
+    height: 15,
+  ),
+  NextAvatarGroup(
+    backgroundColor: Colors.orange,
+    itemCount: 6,
+    widthFactor: 0.8,
+    imagesList: List.generate(
+        10,
+        (index) => NetworkImage(
+            "https://images.ctfassets.net/hrltx12pl8hq/qGOnNvgfJIe2MytFdIcTQ/429dd7e2cb176f93bf9b21a8f89edc77/Images.jpg?fit=fill&w=175&h=175&fm=webp")),
+    itemBuilder: (context, index, image) => Stack(
+      children: [
+        Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+              image: DecorationImage(image: image),
+              border: Border.all(color: Colors.orange, width: 1.5),
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(10)),
+        ),
+        if (index % 3 == 0)
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: CircleAvatar(
+              backgroundColor: Colors.green,
+              radius: 5,
+            ),
+          )
+      ],
+    ),
+  ),
+      Text(
+        "Avatar Group Limit count",
+        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+      ),
+      SizedBox(
+        height: 15,
+      ),
+      NextAvatarGroup(
+        backgroundColor: Colors.orange,
+        limitTo: 5,
+        imagesList: List.generate(
+            10,
+            (index) => NetworkImage(
+                "https://images.ctfassets.net/hrltx12pl8hq/qGOnNvgfJIe2MytFdIcTQ/429dd7e2cb176f93bf9b21a8f89edc77/Images.jpg?fit=fill&w=175&h=175&fm=webp")),
+        widthFactor: 0.5,
+      )
+```
+
 ## Hover Widget
 
-Using this you can know whether widget is hovered or not. Even it works for mobile and everything
+Using this you can know whether widget is hovered or not. Even it works for mobile and every device.
 
 `Hover Duration` - Duration for returning from hover to normal state
 
@@ -444,7 +519,7 @@ Widget(
 
 # Shadows
 
-<img src="example/assets/shadows_example.png">
+<img src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/shadows_example.png">
 
 ```dart
   ContainerThing(
