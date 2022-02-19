@@ -1,3 +1,6 @@
+## 0.0.8
+- Added shadows
+- Added Avatar Group
 ## 0.0.7
 
 - Updated Documentation with more examples
