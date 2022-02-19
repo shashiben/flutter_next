@@ -14,7 +14,7 @@ class NextContainer extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.fluid = false,
     this.decoration,
-      this.padding = const EdgeInsets.all(0),
+    this.padding = const EdgeInsets.all(0),
   }) : super(key: key);
 
   ///

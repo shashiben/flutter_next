@@ -24,22 +24,29 @@ An advanced flutter package to build responsive application accross all platform
 
 ## Components
 
-- [Hover Widget](#hover-widget)
-- [BreadCumb](#breadcumb)
-- [Alerts](#alerts)
-- [Grid System](#grid-system)
-- [Container](#container)
-- [Accordion](#accordion)
-- [Button](#button)
-- [Animations](#animations)
-- [Extensions](#extensions)
+- ### [Widgets](#widgets)
+  - [Hover Widget](#hover-widget)
+  - [BreadCumb](#breadcumb)
+  - [Alerts](#alerts)
+  - [Grid System](#grid-system)
+  - [Container](#container)
+  - [Accordion](#accordion)
+  - [Button](#button)
+- ### [Animations](#animations)
+
+- ### [Extensions](#extensions)
   - [Padding](#padding)
+  - [String](#string)
+  - [Bool](#bool)
+- ### [Shadows](#shadows)
+
+# Widgets
 
 ## Hover Widget
 
 Using this you can know whether widget is hovered or not. Even it works for mobile and everything
 
-``Hover Duration` - Duration for returning from hover to normal state
+`Hover Duration` - Duration for returning from hover to normal state
 
 ```dart
   HoverWidget(
@@ -419,4 +426,36 @@ Widget(
 Widget(
   child:...
 ).customPadding(left:10,right:12)
+```
+
+## String
+
+- We provide handful of string extensions
+  - `"string".capitalize()` // Output is: String
+  - `"45".toInt()` // Output is: 45
+  - `"45.4".toDouble()` // Output is: 45.4
+  - `"flutter".isInt()` //Output is: False
+  - `"flutter".isDouble()` //Output is: False
+  - `"flutter".toDouble() `//Output is: null
+
+## Bool
+
+- `false.toggle()` //Output is true
+
+# Shadows
+
+<img src="example/assets/shadows_example.png">
+
+```dart
+  ContainerThing(
+    shadows: NextShadow.shadow100()
+  ),
+```
+
+- Additionally you can provide customshadow color
+
+```dart
+  ContainerThing(
+    shadows: NextShadow.shadow100(color:Colors.red)
+  ),
 ```
