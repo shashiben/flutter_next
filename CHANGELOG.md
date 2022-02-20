@@ -1,3 +1,9 @@
+## 0.1.0
+
+- ✨ Stable Release
+- 📝 Updated Documentation with more examples
+- 🥱 Added more examples
+
 ## 0.0.9
 
 - Fixed slow animation
