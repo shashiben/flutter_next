@@ -4,6 +4,9 @@
 
 [![pub package](https://img.shields.io/pub/v/flutter_next)](https://pub.dev/packages/flutter_next)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
+[![popularity](https://badges.bar/flutter_next/popularity)](https://pub.dev/packages/flutter_next/score)
+[![likes](https://badges.bar/flutter_next/likes)](https://pub.dev/packages/flutter_next/score)
+[![pub points](https://badges.bar/flutter_next/pub%20points)](https://pub.dev/packages/flutter_next/score)
 <a href="https://github.com/shashiben/flutter_next"><img src="https://img.shields.io/github/stars/shashiben/flutter_next.svg?style=flat&logo=github&label=stars" alt="Star on Github"></a>
 <a href="https://github.com/shashiben/flutter_next"><img src="https://img.shields.io/github/forks/shashiben/flutter_next.svg?style=flat&logo=github&label=fork" alt="Star on Github"></a>
 <br>
@@ -18,13 +21,20 @@
 
 An advanced flutter package to build responsive application accross all platform with ease and has an handful of different types of extension.
 
-## Demo
+## Features
 
-- [One Page](https://one-page-with-flutter.netlify.app/)
+- Develop Responsive Ui
+- Add animations with single line
+- Handful of extension
 
-## Components
+## Usage/Examples
 
-- ### [Widgets](#widgets)
+🔗 [One Page](https://one-page-with-flutter.netlify.app/)
+
+## Appendix
+
+- [Widgets](#widgets)
+
   - [Avatar](#avatar)
   - [Hover Widget](#hover-widget)
   - [BreadCumb](#breadcumb)
@@ -33,13 +43,15 @@ An advanced flutter package to build responsive application accross all platform
   - [Container](#container)
   - [Accordion](#accordion)
   - [Button](#button)
-- ### [Animations](#animations)
 
-- ### [Extensions](#extensions)
+- [Animations](#animations)
+
+- [Extensions](#extensions)
+  - [Context](#context)
   - [Padding](#padding)
   - [String](#string)
   - [Bool](#bool)
-- ### [Shadows](#shadows)
+- [Shadows](#shadows)
 
 # Widgets
 
@@ -459,12 +471,31 @@ You can customise button by using itemBuilder
 
 ## Extensions
 
+## Context
+
 Now access themedata and mediaquery data easily like
 
 ```dart
   context.themeData
+  context.textTheme
+  context.buttonTheme
+  context.snackBarTheme
+```
+
+Or if you want to develop responsive views w.r.t height and width
+
+```dart
+  context.height
+  context.width
+```
+
+And for colors
+
+```dart
   context.primaryColor
   context.backgroundColor
+  context.canvasColor
+  context.dividerColor
 ```
 
 And for Widgets
@@ -487,7 +518,18 @@ Container(
 
 ## Padding
 
-And for padding
+Instead of
+
+```dart
+Padding(
+  padding: const EdgeInsets.all(20)
+  child:Widget(
+    child...
+  )
+)
+```
+
+You can use
 
 ```dart
 Widget(
@@ -534,3 +576,14 @@ Widget(
     shadows: NextShadow.shadow100(color:Colors.red)
   ),
 ```
+
+## 🔗 Links
+
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://shashiben.me/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shashi-kumar-58ab1b1a4/)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/Shashi35744438)
+
+# Contributions
+
+- Contributions are always welcome
+- Follow the linting

@@ -19,13 +19,33 @@ extension WidgetExtensions on Widget {
           Duration animationDuration = const Duration(milliseconds: 450)}) =>
       shouldAnimate
           ? AnimatedContainer(
-              duration: animationDuration,
+              decoration: decoration,
+              alignment: alignment,
               padding: padding,
+              color: color,
+              clipBehavior: clipBehavior,
+              duration: animationDuration,
+              foregroundDecoration: foregroundDecoration,
+              width: width,
+              height: height,
+              constraints: constraints,
+              transform: transform,
+              transformAlignment: transformAlignment,
               margin: margin,
               child: this,
             )
           : Container(
+              decoration: decoration,
+              alignment: alignment,
               padding: padding,
+              color: color,
+              clipBehavior: clipBehavior,
+              foregroundDecoration: foregroundDecoration,
+              width: width,
+              height: height,
+              constraints: constraints,
+              transform: transform,
+              transformAlignment: transformAlignment,
               margin: margin,
               child: this,
             );

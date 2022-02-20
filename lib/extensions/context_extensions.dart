@@ -16,6 +16,7 @@ extension ContextExtension on BuildContext {
   TextTheme get textTheme => themeData.textTheme;
   ButtonThemeData get buttonTheme => themeData.buttonTheme;
   SnackBarThemeData get snackBarTheme => themeData.snackBarTheme;
+  IconThemeData get primaryIconTheme => themeData.primaryIconTheme;
 
   EdgeInsets get mediaQueryPadding => MediaQuery.of(this).padding;
   EdgeInsets get mediaQueryViewPadding => MediaQuery.of(this).viewPadding;
@@ -59,7 +60,6 @@ extension ContextExtension on BuildContext {
   Color get selectedRowColor => themeData.selectedRowColor;
   Color get unselectedWidgetColor => themeData.unselectedWidgetColor;
   Color get secondaryHeaderColor => themeData.secondaryHeaderColor;
-  IconThemeData get primaryIconTheme => themeData.primaryIconTheme;
 
   TextStyle? get textThemeHeadline1 => textTheme.headline1;
   TextStyle? get textThemeHeadline2 => textTheme.headline2;
@@ -74,4 +74,6 @@ extension ContextExtension on BuildContext {
   TextStyle? get textThemeButton => textTheme.button;
   TextStyle? get textThemeCaption => textTheme.caption;
   TextStyle? get textThemeOverline => textTheme.overline;
+
+  NavigatorState get navigator => Navigator.of(this);
 }
