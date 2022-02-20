@@ -1,6 +1,13 @@
+## 0.0.9
+
+- Fixed slow animation
+- Updated documentation
+
 ## 0.0.8
+
 - Added shadows
 - Added Avatar Group
+
 ## 0.0.7
 
 - Updated Documentation with more examples
