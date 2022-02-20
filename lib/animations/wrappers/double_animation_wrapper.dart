@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:visibility_detector/visibility_detector.dart';
 
 class DoubleAnimationWrapper<T> extends StatefulWidget {
@@ -61,7 +60,7 @@ class _DoubleAnimationWrapperState<T> extends State<DoubleAnimationWrapper<T>>
         if (info.visibleFraction > widget.viewPort) {
           if (!isAnimated || widget.loop) {
             if (mounted && widget.startAnimation) {
-              Future.delayed(widget.duration).then((value) {
+              Future.delayed(widget.delay).then((value) {
                 if (mounted) {
                   controller.forward().then((value) {
                     if (!isAnimated) {

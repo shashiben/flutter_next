@@ -57,7 +57,7 @@ class _SingleAnimationWrapperState<T> extends State<SingleAnimationWrapper<T>>
         if (info.visibleFraction > widget.viewPort) {
           if (!isAnimated || widget.loop) {
             if (mounted && widget.startAnimation) {
-              Future.delayed(widget.duration).then((value) {
+              Future.delayed(widget.delay).then((value) {
                 if (mounted) {
                   controller.forward().then((value) {
                     if (!isAnimated) {
