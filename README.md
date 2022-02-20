@@ -40,6 +40,7 @@ An advanced flutter package to build responsive application accross all platform
   - [BreadCumb](#breadcumb)
   - [Alerts](#alerts)
   - [Grid System](#grid-system)
+  - [Next Grid](#next-grid)
   - [Container](#container)
   - [Accordion](#accordion)
   - [Button](#button)
@@ -47,6 +48,7 @@ An advanced flutter package to build responsive application accross all platform
 - [Animations](#animations)
 
 - [Extensions](#extensions)
+  - [Widget Extensions](#widget-extensions)
   - [Context](#context)
   - [Padding](#padding)
   - [String](#string)
@@ -285,6 +287,34 @@ NextRow(
 
 <img src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/grid_example.gif" height=300>
 
+## Next Grid
+
+<img src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/next_grid.gif">
+
+```dart
+ NextGridView(
+  sizes: "col-6 col-md-3 col-lg-4 col-xl-3 col-xs-6",
+  childrens: List.generate(
+      12,
+      (index) => NextGridItem(
+          child: Text(
+                  "$index ${NextUtils.getPrefixByWidth(context.width)}")
+              .center()
+              .sizedBox(width: double.infinity, height: 100)
+              .addDecoration(BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(8))))))
+```
+
+- Additionaly you can even provide vertical spacing or horizontal spacing and for each children you can even define separate sizes
+
+```dart
+NextGridItem(
+  sizes: "col-12 col-md-6 col-lg-6",
+  ....
+)
+```
+
 ## Container
 
 <table class="table">
@@ -393,6 +423,34 @@ You can customise button by using itemBuilder
 
 ## Animations
 
+### Available Animations
+
+- Slide Animation
+  - SlideInLeft
+  - SlideInRight
+  - SlideInTop
+  - SlideInBottom
+- Zoom Animation
+  - ZoomIn
+  - ZoomOut
+- Fade Animation
+  - FadeInLeft
+  - FadeInRight
+  - FadeInTop
+  - FadeInBottom
+  - FadeOutLeft
+  - FadeOutRight
+  - FadeOutTop
+  - FadeOutBottom
+- Flip Animation
+  - Flipx
+  - FlipY
+- Bounce Animation
+  - BounceInLeft
+  - BounceInRight
+  - BounceInTop
+  - BounceInBottom
+
 <img src="https://raw.githubusercontent.com/shashiben/flutter_next/master/example/assets/animation_example.gif">
 
 ```dart
@@ -469,7 +527,59 @@ You can customise button by using itemBuilder
   )
 ```
 
-## Extensions
+# Extensions
+
+## Widget Extensions
+
+- Now you can add onTap function easily
+
+```dart
+Widget().onTap((){
+  ....
+})
+```
+
+- Double Tap
+
+```dart
+Widget().onDoubleTap((){
+  ....
+})
+```
+
+- On Long press
+
+```dart
+Widget().onLongPress((){
+  ....
+})
+```
+
+- And center your widget easily
+
+```dart
+Widget(
+  child:...
+).center()
+```
+
+- And for column/row/stack
+
+```dart
+[Widget1(),Widget2(),Widget3()].column(
+  // Additionally you can provide mainAxis and remaining params here
+)
+```
+
+- For decoration
+
+```dart
+Widget().addDecoration(BoxDecoration(
+  // Add params here
+))
+```
+
+- you can even use clipRRect,clipper,safearea etc...
 
 ## Context
 
@@ -496,24 +606,6 @@ And for colors
   context.backgroundColor
   context.canvasColor
   context.dividerColor
-```
-
-And for Widgets
-
-```dart
-/// Instead of this
-Center(
-  child:Container(
-    child:....
-  )
-)
-// You can write like this
-Container(
-  child:....
-).center()
-
-//Now you can use column/row/stack like this
-[Widget1(),Widget2(),Widget3()]column()
 ```
 
 ## Padding

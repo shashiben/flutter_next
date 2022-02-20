@@ -65,11 +65,7 @@ extension WidgetExtensions on Widget {
         child: this,
       );
 
-  Widget onTap(void Function() onTap) => InkWell(
-        radius: 40,
-        onTap: onTap,
-        child: this,
-      );
+
   Widget aspectRatio({
     Key? key,
     required double aspectRatio,
