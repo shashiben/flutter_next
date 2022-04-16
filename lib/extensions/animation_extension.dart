@@ -15,7 +15,6 @@ extension AnimationExtension on Widget {
       child: this,
       duration: duration,
       delay: delay,
-      loop: loop,
       viewPort: viewPort,
       controller: controller,
       initialPosition: initialPosition,
@@ -38,7 +37,6 @@ extension AnimationExtension on Widget {
       duration: duration,
       delay: delay,
       controller: controller,
-      loop: loop,
       viewPort: viewPort,
       initialPosition: initialPosition,
       startAnimation: startAnimation,
@@ -60,7 +58,6 @@ extension AnimationExtension on Widget {
       duration: duration,
       delay: delay,
       controller: controller,
-      loop: loop,
       viewPort: viewPort,
       initialPosition: initialPosition,
       startAnimation: startAnimation,
@@ -81,7 +78,6 @@ extension AnimationExtension on Widget {
       child: this,
       duration: duration,
       delay: delay,
-      loop: loop,
       viewPort: viewPort,
       controller: controller,
       initialPosition: initialPosition,
@@ -106,7 +102,6 @@ extension AnimationExtension on Widget {
       controller: controller,
       initialPosition: initialPosition,
       startAnimation: startAnimation,
-      loop: loop,
       viewPort: viewPort,
       variant: variant,
     );
@@ -127,7 +122,6 @@ extension AnimationExtension on Widget {
       controller: controller,
       startAnimation: startAnimation,
       variant: variant,
-      loop: loop,
       viewPort: viewPort,
     );
   }

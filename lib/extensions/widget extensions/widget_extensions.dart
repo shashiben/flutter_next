@@ -65,7 +65,6 @@ extension WidgetExtensions on Widget {
         child: this,
       );
 
-
   Widget aspectRatio({
     Key? key,
     required double aspectRatio,

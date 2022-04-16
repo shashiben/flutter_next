@@ -13,8 +13,8 @@ extension PaddingExtension on Widget {
   }
 
   Widget paddingSymmetric({
-    required double horizontal,
-    required double vertical,
+    double horizontal = 0.0,
+    double vertical = 0.0,
     Key? key,
   }) {
     return Padding(

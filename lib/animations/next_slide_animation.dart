@@ -33,11 +33,6 @@ class NextSlideAnimation extends StatelessWidget {
   final NextSlideVariant? variant;
 
   ///
-  /// Should animation need to loop continuously
-  ///
-  final bool loop;
-
-  ///
   /// At which viewport the animation should start
   ///
   final double viewPort;
@@ -59,7 +54,6 @@ class NextSlideAnimation extends StatelessWidget {
       this.delay = Duration.zero,
       this.variant = NextSlideVariant.slideInLeft,
       this.controller,
-      this.loop = false,
       this.viewPort = 0.1,
       this.startAnimation = true,
       this.initialPosition = 100,
@@ -69,7 +63,6 @@ class NextSlideAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleAnimationWrapper(
-        loop: loop,
         viewPort: viewPort,
         duration: duration,
         startAnimation: startAnimation,

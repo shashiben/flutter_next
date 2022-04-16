@@ -79,12 +79,10 @@ packages:
   flutter_next:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: d79115f576a7064445d2c649d84093e49f3e08b0
-      url: "git://github.com/shashiben/flutter_next.git"
-    source: git
-    version: "0.0.8"
+      name: flutter_next
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

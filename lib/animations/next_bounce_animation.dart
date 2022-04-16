@@ -38,11 +38,6 @@ class NextBounceAnimation extends StatelessWidget {
   final NextBounceVariant variant;
 
   ///
-  /// Should animation need to loop continuously
-  ///
-  final bool loop;
-
-  ///
   /// At which viewport the animation should start
   ///
   final double viewPort;
@@ -53,7 +48,6 @@ class NextBounceAnimation extends StatelessWidget {
   final Key? visibilityKey;
   const NextBounceAnimation(
       {Key? key,
-      this.loop = false,
       this.viewPort = 0.1,
       required this.child,
       this.duration = const Duration(milliseconds: 350),
@@ -68,7 +62,6 @@ class NextBounceAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DoubleAnimationWrapper(
-        loop: loop,
         viewPort: viewPort,
         controller: controller,
         duration: duration,

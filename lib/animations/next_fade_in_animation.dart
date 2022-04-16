@@ -38,11 +38,6 @@ class NextFadeInAnimation extends StatelessWidget {
   final NextFadeInVariant? variant;
 
   ///
-  /// Should animation need to loop continuously
-  ///
-  final bool loop;
-
-  ///
   /// At which viewport the animation should start
   ///
   final double viewPort;
@@ -57,7 +52,6 @@ class NextFadeInAnimation extends StatelessWidget {
       required this.child,
       this.duration = const Duration(milliseconds: 350),
       this.delay = Duration.zero,
-      this.loop = false,
       this.viewPort = 0.1,
       this.variant,
       this.controller,
@@ -70,7 +64,6 @@ class NextFadeInAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return variant == null
         ? SingleAnimationWrapper(
-            loop: loop,
             viewPort: viewPort,
             child: (controller, value) => AnimatedOpacity(
                   opacity: value as double,
@@ -80,7 +73,6 @@ class NextFadeInAnimation extends StatelessWidget {
             animation: (controller) =>
                 CurvedAnimation(curve: Curves.easeOut, parent: controller))
         : DoubleAnimationWrapper(
-            loop: loop,
             viewPort: viewPort,
             controller: controller,
             duration: duration,

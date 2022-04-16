@@ -33,11 +33,6 @@ class NextZoomAnimation extends StatelessWidget {
   final NextZoomVariant? variant;
 
   ///
-  /// Should animation need to loop continuously
-  ///
-  final bool loop;
-
-  ///
   /// At which viewport the animation should start
   ///
   final double viewPort;
@@ -59,7 +54,6 @@ class NextZoomAnimation extends StatelessWidget {
       this.delay = Duration.zero,
       this.variant = NextZoomVariant.zoomIn,
       this.controller,
-      this.loop = false,
       this.viewPort = 0.1,
       this.startAnimation = true,
       this.initialPosition = 1,
@@ -69,7 +63,6 @@ class NextZoomAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DoubleAnimationWrapper(
-        loop: loop,
         viewPort: viewPort,
         controller: controller,
         duration: duration,

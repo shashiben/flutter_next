@@ -48,20 +48,26 @@ class NextContainer extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   @override
   Widget build(BuildContext context) {
-    return Material(
-        child: Container(
-      decoration: decoration,
-      padding: padding,
-      width: fluid
-          ? context.width
-          : NextUtils.getMaxWidthForNonFluid(context.width),
-      alignment: alignment,
-      child: Column(
-        mainAxisAlignment: mainAxisAlignment,
-        mainAxisSize: mainAxisSize,
-        crossAxisAlignment: crossAxisAlignment,
-        children: children,
-      ),
-    ));
+    return LayoutBuilder(builder: (context, constraints) {
+      return SizedBox(
+        width: constraints.maxWidth,
+        child: Align(
+          alignment: alignment,
+          child: Container(
+            decoration: decoration,
+            padding: padding,
+            width: fluid
+                ? context.width
+                : NextUtils.getMaxWidthForNonFluid(context.width),
+            child: Column(
+              mainAxisAlignment: mainAxisAlignment,
+              mainAxisSize: mainAxisSize,
+              crossAxisAlignment: crossAxisAlignment,
+              children: children,
+            ),
+          ),
+        ),
+      );
+    });
   }
 }

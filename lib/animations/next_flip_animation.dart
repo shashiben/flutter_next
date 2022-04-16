@@ -33,11 +33,6 @@ class NextFlipAnimation extends StatelessWidget {
   final NextFlipVariant? variant;
 
   ///
-  /// Should animation need to loop continuously
-  ///
-  final bool loop;
-
-  ///
   /// At which viewport the animation should start
   ///
   final double viewPort;
@@ -53,7 +48,6 @@ class NextFlipAnimation extends StatelessWidget {
       this.duration = const Duration(milliseconds: 350),
       this.delay = Duration.zero,
       this.controller,
-      this.loop = false,
       this.viewPort = 0.1,
       this.startAnimation = true,
       this.variant = NextFlipVariant.flipX,
@@ -63,7 +57,6 @@ class NextFlipAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DoubleAnimationWrapper(
-      loop: loop,
       viewPort: viewPort,
       duration: duration,
       startAnimation: startAnimation,

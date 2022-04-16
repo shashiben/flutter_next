@@ -10,7 +10,6 @@ class DoubleAnimationWrapper<T> extends StatefulWidget {
       secondAnimation;
   final Widget Function(AnimationController controller, T first, T second)
       child;
-  final bool loop;
   final double viewPort;
   const DoubleAnimationWrapper(
       {Key? key,
@@ -20,7 +19,6 @@ class DoubleAnimationWrapper<T> extends StatefulWidget {
       this.controller,
       required this.firstAnimation,
       required this.secondAnimation,
-      this.loop = false,
       this.viewPort = 0.1,
       required this.child})
       : super(key: key);
@@ -58,7 +56,7 @@ class _DoubleAnimationWrapperState<T> extends State<DoubleAnimationWrapper<T>>
       key: key,
       onVisibilityChanged: (info) {
         if (info.visibleFraction > widget.viewPort) {
-          if (!isAnimated || widget.loop) {
+          if (!isAnimated) {
             if (mounted && widget.startAnimation) {
               Future.delayed(widget.delay).then((value) {
                 if (mounted) {

@@ -2,16 +2,10 @@ import 'package:flutter/material.dart';
 
 class NextGridItem extends StatelessWidget {
   ///
-  ///  If [sizes] is null then it will take from [NextGrid] parent size value
-  ///
-  final String? sizes;
-
-  ///
   /// Child
   ///
   final Widget child;
-  const NextGridItem({Key? key, this.sizes, required this.child})
-      : super(key: key);
+  const NextGridItem({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

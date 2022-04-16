@@ -7,7 +7,6 @@ class SingleAnimationWrapper<T> extends StatefulWidget {
   final Duration delay;
   final AnimationController? controller;
   final bool startAnimation;
-  final bool loop;
   final double viewPort;
   final Animation<T> Function(AnimationController) animation;
 
@@ -19,7 +18,6 @@ class SingleAnimationWrapper<T> extends StatefulWidget {
       this.controller,
       required this.animation,
       this.startAnimation = true,
-      this.loop = false,
       this.viewPort = 0.1})
       : super(key: key);
 
@@ -55,7 +53,7 @@ class _SingleAnimationWrapperState<T> extends State<SingleAnimationWrapper<T>>
       key: key,
       onVisibilityChanged: (info) {
         if (info.visibleFraction > widget.viewPort) {
-          if (!isAnimated || widget.loop) {
+          if (!isAnimated) {
             if (mounted && widget.startAnimation) {
               Future.delayed(widget.delay).then((value) {
                 if (mounted) {
