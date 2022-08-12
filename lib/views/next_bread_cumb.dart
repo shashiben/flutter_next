@@ -43,10 +43,10 @@ class NextBreadCumb extends StatelessWidget {
   Widget build(BuildContext context) {
     return variant == NextBreadCumbVariant.wrap
         ? Wrap(
-            children: _joinItems(),
             spacing: spacing,
             runSpacing: spacing,
             crossAxisAlignment: WrapCrossAlignment.center,
+            children: _joinItems(),
           )
         : SingleChildScrollView(
             physics: physics,
@@ -59,14 +59,14 @@ class NextBreadCumb extends StatelessWidget {
   }
 
   List<Widget> _joinItems() {
-    final List<Widget> _joinedItems = [];
+    final List<Widget> joinedItems = [];
 
     for (final item in childrens) {
-      _joinedItems
+      joinedItems
         ..add(item)
         ..add(seperator);
     }
-    _joinedItems.removeLast();
-    return _joinedItems;
+    joinedItems.removeLast();
+    return joinedItems;
   }
 }

@@ -65,7 +65,7 @@ class NextAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NextAlertColorUtils _config = variant == NextVariant.custom
+    final NextAlertColorUtils config = variant == NextVariant.custom
         ? customConfigs ?? NextAlertColorUtils.danger
         : NextVariantUtils.getColorUtilsByVariant(variant);
     return AnimatedSwitcher(
@@ -85,11 +85,11 @@ class NextAlert extends StatelessWidget {
               padding: padding ??
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               decoration: BoxDecoration(
-                  color: _config.backgroundColor,
+                  color: config.backgroundColor,
                   borderRadius: borderRadius,
-                  border: Border.all(color: _config.borderColor, width: 0.5)),
+                  border: Border.all(color: config.borderColor, width: 0.5)),
               child: DefaultTextStyle(
-                style: TextStyle(color: _config.color, fontSize: 16.0)
+                style: TextStyle(color: config.color, fontSize: 16.0)
                     .merge(textStyle),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +102,7 @@ class NextAlert extends StatelessWidget {
                         if (heading != null)
                           DefaultTextStyle(
                             style: TextStyle(
-                                color: _config.color,
+                                color: config.color,
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.bold),
                             child: Container(
@@ -121,7 +121,7 @@ class NextAlert extends StatelessWidget {
                           ),
                           onPressed: onClosedIconPressed,
                           child: Icon(Icons.close,
-                              size: 14.0, color: _config.color),
+                              size: 14.0, color: config.color),
                         )
                   ],
                 ),

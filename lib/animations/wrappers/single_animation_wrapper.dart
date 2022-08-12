@@ -22,7 +22,7 @@ class SingleAnimationWrapper<T> extends StatefulWidget {
       : super(key: key);
 
   @override
-  _SingleAnimationWrapperState createState() => _SingleAnimationWrapperState();
+  State<SingleAnimationWrapper> createState() => _SingleAnimationWrapperState();
 }
 
 class _SingleAnimationWrapperState<T> extends State<SingleAnimationWrapper<T>>

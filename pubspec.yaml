@@ -1,7 +1,7 @@
 name: flutter_next
 description: A flutter package for faster UI developement and provide
   responsiveness for flutter web applications and has multiple extensions.
-version: 0.1.0
+version: 0.1.1
 homepage: https://shashiben.github.io
 repository: https://github.com/shashiben/flutter_next
 issue_tracker: https://github.com/shashiben/flutter_next/issues
@@ -14,10 +14,10 @@ dependencies:
   flutter:
     sdk: flutter
   universal_io: ^2.0.4
-  visibility_detector: ^0.2.2
+  visibility_detector: ^0.3.3
 
 dev_dependencies:
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
 flutter:

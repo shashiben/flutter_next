@@ -12,7 +12,6 @@ extension AnimationExtension on Widget {
       double viewPort = 0.1,
       NextBounceVariant variant = NextBounceVariant.bounceInLeft}) {
     return NextBounceAnimation(
-      child: this,
       duration: duration,
       delay: delay,
       viewPort: viewPort,
@@ -20,6 +19,7 @@ extension AnimationExtension on Widget {
       initialPosition: initialPosition,
       startAnimation: startAnimation,
       variant: variant,
+      child: this,
     );
   }
 
@@ -33,7 +33,6 @@ extension AnimationExtension on Widget {
       double initialPosition = 100,
       NextFadeInVariant variant = NextFadeInVariant.fadeInLeft}) {
     return NextFadeInAnimation(
-      child: this,
       duration: duration,
       delay: delay,
       controller: controller,
@@ -41,6 +40,7 @@ extension AnimationExtension on Widget {
       initialPosition: initialPosition,
       startAnimation: startAnimation,
       variant: variant,
+      child: this,
     );
   }
 
@@ -54,7 +54,6 @@ extension AnimationExtension on Widget {
       double viewPort = 0.1,
       NextFadeOutVariant variant = NextFadeOutVariant.fadeOutLeft}) {
     return NextFadeOutAnimation(
-      child: this,
       duration: duration,
       delay: delay,
       controller: controller,
@@ -62,6 +61,7 @@ extension AnimationExtension on Widget {
       initialPosition: initialPosition,
       startAnimation: startAnimation,
       variant: variant,
+      child: this,
     );
   }
 
@@ -75,7 +75,6 @@ extension AnimationExtension on Widget {
       double initialPosition = 1,
       NextZoomVariant variant = NextZoomVariant.zoomIn}) {
     return NextZoomAnimation(
-      child: this,
       duration: duration,
       delay: delay,
       viewPort: viewPort,
@@ -83,6 +82,7 @@ extension AnimationExtension on Widget {
       initialPosition: initialPosition,
       startAnimation: startAnimation,
       variant: variant,
+      child: this,
     );
   }
 
@@ -96,7 +96,6 @@ extension AnimationExtension on Widget {
       double initialPosition = 100,
       NextSlideVariant variant = NextSlideVariant.slideInLeft}) {
     return NextSlideAnimation(
-      child: this,
       duration: duration,
       delay: delay,
       controller: controller,
@@ -104,6 +103,7 @@ extension AnimationExtension on Widget {
       startAnimation: startAnimation,
       viewPort: viewPort,
       variant: variant,
+      child: this,
     );
   }
 
@@ -116,13 +116,13 @@ extension AnimationExtension on Widget {
       double viewPort = 0.1,
       NextFlipVariant variant = NextFlipVariant.flipX}) {
     return NextFlipAnimation(
-      child: this,
       duration: duration,
       delay: delay,
       controller: controller,
       startAnimation: startAnimation,
       variant: variant,
       viewPort: viewPort,
+      child: this,
     );
   }
 }

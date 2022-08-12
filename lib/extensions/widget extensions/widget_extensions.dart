@@ -107,9 +107,9 @@ extension WidgetExtensions on Widget {
   }) =>
       Flexible(
         key: key,
-        child: this,
         flex: flex,
         fit: fit,
+        child: this,
       );
   Widget clipRect({
     Key? key,
@@ -154,8 +154,8 @@ extension WidgetExtensions on Widget {
     );
     return DecoratedBox(
       key: key,
-      child: this,
       decoration: decoration,
+      child: this,
     );
   }
 
@@ -172,7 +172,6 @@ extension WidgetExtensions on Widget {
   }) =>
       ClipRRect(
         key: key,
-        child: this,
         clipper: clipper,
         clipBehavior: clipBehavior,
         borderRadius: BorderRadius.only(
@@ -181,6 +180,7 @@ extension WidgetExtensions on Widget {
           bottomLeft: Radius.circular(bottomLeft ?? all ?? 0.0),
           bottomRight: Radius.circular(bottomRight ?? all ?? 0.0),
         ),
+        child: this,
       );
   Widget sizedBox({Key? key, double? width, double? height}) {
     return SizedBox(
@@ -201,7 +201,6 @@ extension WidgetExtensions on Widget {
     bool maintainBottomViewPadding = false,
   }) {
     return SafeArea(
-      child: this,
       key: key,
       left: left,
       top: top,
@@ -209,6 +208,7 @@ extension WidgetExtensions on Widget {
       bottom: bottom,
       maintainBottomViewPadding: maintainBottomViewPadding,
       minimum: minimum,
+      child: this,
     );
   }
 }

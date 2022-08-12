@@ -144,8 +144,8 @@ class NextRow extends StatelessWidget {
                 padding: subChild.padding,
                 margin: subChild.margin,
                 decoration: subChild.decoration,
-                child: subChild.child,
                 width: childWidth,
+                child: subChild.child,
               ));
             }
           }

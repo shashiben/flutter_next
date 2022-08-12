@@ -24,7 +24,7 @@ class DoubleAnimationWrapper<T> extends StatefulWidget {
       : super(key: key);
 
   @override
-  _DoubleAnimationWrapperState createState() => _DoubleAnimationWrapperState();
+  State<DoubleAnimationWrapper> createState() => _DoubleAnimationWrapperState();
 }
 
 class _DoubleAnimationWrapperState<T> extends State<DoubleAnimationWrapper<T>>

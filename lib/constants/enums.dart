@@ -1,4 +1,5 @@
 enum GridPrefixes { xxl, xl, lg, md, sm, xs }
+
 enum NextVariant {
   primary,
   secondary,
@@ -10,11 +11,17 @@ enum NextVariant {
   dark,
   custom
 }
+
 enum NextButtonVariant { filled, outlined }
+
 enum NextFadeInVariant { fadeInLeft, fadeInRight, fadeInTop, fadeInBottom }
+
 enum NextFadeOutVariant { fadeOutLeft, fadeOutRight, fadeOutTop, fadeOutBottom }
+
 enum NextSlideVariant { slideInTop, slideInBottom, slideInLeft, slideInRight }
+
 enum NextZoomVariant { zoomIn, zoomOut }
+
 enum NextBounceVariant {
   bounceInTop,
   bounceInBottom,
@@ -23,4 +30,5 @@ enum NextBounceVariant {
 }
 
 enum NextFlipVariant { flipX, flipY }
+
 enum NextBreadCumbVariant { wrap, scroll }

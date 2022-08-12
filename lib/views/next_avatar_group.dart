@@ -45,15 +45,15 @@ class NextAvatarGroup extends StatelessWidget {
           if ((limitTo != null && imagesList.length > (limitTo ?? 0)) &&
               index > (limitTo! - 1)) {
             return Align(
+              widthFactor: widthFactor,
               child: CircleAvatar(
                 radius: outerRadius,
+                backgroundColor: backgroundColor ?? context.accentColor,
                 child: limitBuilder != null
                     ? limitBuilder!(context, imagesList.length - limitTo!)
                     : Text("+${imagesList.length - limitTo!}",
                         style: const TextStyle(fontWeight: FontWeight.bold)),
-                backgroundColor: backgroundColor ?? context.accentColor,
               ),
-              widthFactor: widthFactor,
             );
           } else {
             return Align(

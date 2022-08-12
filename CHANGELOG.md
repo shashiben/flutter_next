@@ -1,3 +1,6 @@
+## 0.1.1
+- 🚀 Upgraded packages
+- 🔨 Formatted with lints
 ## 0.1.0
 
 - ✨ Stable Release
