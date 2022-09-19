@@ -62,6 +62,7 @@ class NextRow extends StatelessWidget {
   /// [WrapCrossAlignment.end], or there's more than one child, then the
   /// [verticalDirection] must not be null.
   final VerticalDirection verticalDirection;
+  final WrapCrossAlignment crossAxisAlignment;
 
   ///
   /// Padding to the widget
@@ -73,6 +74,7 @@ class NextRow extends StatelessWidget {
     this.verticalDirection = VerticalDirection.down,
     this.verticalAlignment = WrapAlignment.start,
     required this.children,
+    this.crossAxisAlignment = WrapCrossAlignment.start,
     this.horizontalAlignment = WrapAlignment.start,
     this.horizontalSpacing = 20.0,
     this.verticalSpacing = 20.0,
@@ -151,6 +153,7 @@ class NextRow extends StatelessWidget {
           }
         }
         return Wrap(
+          crossAxisAlignment: crossAxisAlignment,
           runSpacing: verticalSpacing,
           spacing: horizontalSpacing,
           verticalDirection: verticalDirection,
