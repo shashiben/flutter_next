@@ -72,7 +72,7 @@ class _SingleAnimationWrapperState<T> extends State<SingleAnimationWrapper<T>>
             !isAnimated &&
             mounted &&
             widget.startAnimationImmediately) {
-          Future<double>.delayed(widget.animationDelay).then((double? value) {
+          Future.delayed(widget.animationDelay).then((value) {
             if (mounted) {
               animationController.forward().then((dynamic value) {
                 if (!isAnimated) {

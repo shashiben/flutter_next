@@ -77,7 +77,7 @@ class _DoubleAnimationWrapperState<T> extends State<DoubleAnimationWrapper<T>>
             !isAnimated &&
             mounted &&
             widget.startAnimationImmediately) {
-          Future<Duration>.delayed(widget.animationDelay).then((Duration? value) {
+          Future.delayed(widget.animationDelay).then((value) {
             if (mounted) {
               animationController.forward().then((value) {
                 if (!isAnimated) {
