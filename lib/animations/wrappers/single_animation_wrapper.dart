@@ -8,7 +8,7 @@ class SingleAnimationWrapper<T> extends StatefulWidget {
     super.key,
     required this.child,
     this.animationDuration = const Duration(milliseconds: 300),
-    this.animationDelay = const Duration(),
+    this.animationDelay = Duration.zero,
     this.animationController,
     required this.animation,
     this.startAnimationImmediately = true,
@@ -72,7 +72,7 @@ class _SingleAnimationWrapperState<T> extends State<SingleAnimationWrapper<T>>
             !isAnimated &&
             mounted &&
             widget.startAnimationImmediately) {
-          Future<double>.delayed(widget.animationDelay).then((double value) {
+          Future<double>.delayed(widget.animationDelay).then((double? value) {
             if (mounted) {
               animationController.forward().then((dynamic value) {
                 if (!isAnimated) {
