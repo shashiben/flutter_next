@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
 class NextGridView extends StatelessWidget {
+  const NextGridView(
+      {super.key,
+      required this.sizes,
+      required this.childrens,
+      this.horizontalSpacing = 20.0,
+      this.verticalSpacing = 20.0});
+
   ///
   /// Give bootstrap grid sizes
   ///
@@ -16,24 +23,17 @@ class NextGridView extends StatelessWidget {
   /// Give Horizontal and vertical spacing
   ///
   final double horizontalSpacing, verticalSpacing;
-  const NextGridView(
-      {Key? key,
-      required this.sizes,
-      required this.childrens,
-      this.horizontalSpacing = 20.0,
-      this.verticalSpacing = 20.0})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String type = "";
-    Map<String, int> sizeMap = {};
-    List<List<Widget>> resultChildrens = [];
-    resultChildrens = List.generate(12, (index) => []);
+    String type = '';
+    Map<String, int> sizeMap = <String, int>{};
+    List<List<Widget>> resultChildrens = <List<Widget>>[];
+    resultChildrens = List.generate(12, (int index) => <Widget>[]);
     sizeMap = NextUtils.getAllColValues(sizes);
     type = NextUtils.getPrefixByWidth(context.width);
     int sizeIndex = 0;
-    for (Widget child in childrens) {
+    for (final Widget child in childrens) {
       resultChildrens[sizeIndex].add(child);
       sizeIndex = (sizeIndex + 1) % (12 ~/ (sizeMap[type]!));
     }
@@ -41,7 +41,7 @@ class NextGridView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: _buildHorizontalChildrens(List.generate(
           12 ~/ (sizeMap[type] ?? 12),
-          (index) => Expanded(
+          (int index) => Expanded(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: _buildVerticalChildrens(resultChildrens[index]),
@@ -50,8 +50,8 @@ class NextGridView extends StatelessWidget {
   }
 
   List<Widget> _buildVerticalChildrens(List<Widget> childrens) {
-    List<Widget> result = [];
-    for (Widget element in childrens) {
+    final List<Widget> result = <Widget>[];
+    for (final Widget element in childrens) {
       result.add(element);
       if (childrens.last != element) {
         result.add(SizedBox(
@@ -63,8 +63,8 @@ class NextGridView extends StatelessWidget {
   }
 
   List<Widget> _buildHorizontalChildrens(List<Widget> childrens) {
-    List<Widget> result = [];
-    for (Widget element in childrens) {
+    final List<Widget> result = <Widget>[];
+    for (final Widget element in childrens) {
       result.add(element);
       if (childrens.last != element) {
         result.add(SizedBox(

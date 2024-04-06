@@ -142,8 +142,8 @@ extension WidgetExtensions on Widget {
     double spreadRadius = 0.0,
     bool animate = false,
   }) {
-    BoxDecoration decoration = BoxDecoration(
-      boxShadow: [
+    final BoxDecoration decoration = BoxDecoration(
+      boxShadow: <BoxShadow>[
         BoxShadow(
           color: color,
           blurRadius: blurRadius,

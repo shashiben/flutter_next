@@ -22,7 +22,7 @@ const Duration _kExpand = Duration(milliseconds: 200);
 
 class NextAccordion extends StatefulWidget {
   const NextAccordion({
-    Key? key,
+    super.key,
     this.leading,
     required this.title,
     this.subtitle,
@@ -44,12 +44,11 @@ class NextAccordion extends StatefulWidget {
     this.iconColor,
     this.collapsedIconColor,
     this.controlAffinity,
-  })  : assert(
+  }) : assert(
           expandedCrossAxisAlignment != CrossAxisAlignment.baseline,
           'CrossAxisAlignment.baseline is not supported since the expanded children '
           'are aligned in a column, not a row. Try to use another constant.',
-        ),
-        super(key: key);
+        );
 
   /// A widget to display before the title.
   ///
@@ -225,7 +224,7 @@ class _NextAccordionState extends State<NextAccordion>
     _backgroundColor =
         _controller.drive(_backgroundColorTween.chain(_easeOutTween));
 
-    _isExpanded = PageStorage.of(context)?.readState(context) as bool? ??
+    _isExpanded = PageStorage.of(context).readState(context) as bool? ??
         widget.initiallyExpanded;
     if (_isExpanded) {
       _controller.value = 1.0;
@@ -253,7 +252,7 @@ class _NextAccordionState extends State<NextAccordion>
           });
         });
       }
-      PageStorage.of(context)?.writeState(context, _isExpanded);
+      PageStorage.of(context).writeState(context, _isExpanded);
     });
     widget.onExpansionChanged?.call(_isExpanded);
   }
@@ -340,7 +339,7 @@ class _NextAccordionState extends State<NextAccordion>
     final ColorScheme colorScheme = theme.colorScheme;
     _borderColorTween.end = widget.borderColor ?? theme.dividerColor;
     _headerColorTween
-      ..begin = widget.collapsedTextColor ?? theme.textTheme.subtitle1!.color
+      ..begin = widget.collapsedTextColor ?? theme.textTheme.titleMedium!.color
       ..end = widget.textColor ?? colorScheme.primary;
     _iconColorTween
       ..begin = widget.collapsedIconColor ?? theme.unselectedWidgetColor

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NextShadow {
-  static List<BoxShadow> shadow100({Color? color}) => [
+  static List<BoxShadow> shadow100({Color? color}) => <BoxShadow>[
         BoxShadow(
             blurStyle: BlurStyle.solid,
             offset: const Offset(0, 4),
@@ -14,7 +14,7 @@ class NextShadow {
             blurRadius: 4,
             color: (color ?? const Color(0xFF18274B)).withOpacity(0.12))
       ];
-  static List<BoxShadow> shadow200({Color? color}) => [
+  static List<BoxShadow> shadow200({Color? color}) => <BoxShadow>[
         BoxShadow(
             offset: const Offset(0, 8),
             spreadRadius: -4,
@@ -26,7 +26,7 @@ class NextShadow {
             blurRadius: 6,
             color: (color ?? const Color(0xFF18274B)).withOpacity(0.12))
       ];
-  static List<BoxShadow> shadow300({Color? color}) => [
+  static List<BoxShadow> shadow300({Color? color}) => <BoxShadow>[
         BoxShadow(
             offset: const Offset(0, 8),
             spreadRadius: -6,
@@ -38,7 +38,7 @@ class NextShadow {
             blurRadius: 8,
             color: (color ?? const Color(0xFF18274B)).withOpacity(0.12))
       ];
-  static List<BoxShadow> shadow400({Color? color}) => [
+  static List<BoxShadow> shadow400({Color? color}) => <BoxShadow>[
         BoxShadow(
             offset: const Offset(0, 8),
             spreadRadius: -4,
@@ -50,7 +50,7 @@ class NextShadow {
             blurRadius: 12,
             color: (color ?? const Color(0xFF18274B)).withOpacity(0.12))
       ];
-  static List<BoxShadow> shadow500({Color? color}) => [
+  static List<BoxShadow> shadow500({Color? color}) => <BoxShadow>[
         BoxShadow(
             offset: const Offset(0, 10),
             spreadRadius: -4,
@@ -62,7 +62,7 @@ class NextShadow {
             blurRadius: 14,
             color: (color ?? const Color(0xFF18274B)).withOpacity(0.12))
       ];
-  static List<BoxShadow> shadow600({Color? color}) => [
+  static List<BoxShadow> shadow600({Color? color}) => <BoxShadow>[
         BoxShadow(
             offset: const Offset(0, 12),
             spreadRadius: -4,
@@ -74,7 +74,7 @@ class NextShadow {
             blurRadius: 18,
             color: (color ?? const Color(0xFF18274B)).withOpacity(0.12))
       ];
-  static List<BoxShadow> shadow700({Color? color}) => [
+  static List<BoxShadow> shadow700({Color? color}) => <BoxShadow>[
         BoxShadow(
             offset: const Offset(0, 14),
             spreadRadius: -4,
@@ -86,7 +86,7 @@ class NextShadow {
             blurRadius: 22,
             color: (color ?? const Color(0xFF18274B)).withOpacity(0.12))
       ];
-  static List<BoxShadow> shadow800({Color? color}) => [
+  static List<BoxShadow> shadow800({Color? color}) => <BoxShadow>[
         BoxShadow(
             offset: const Offset(0, 18),
             spreadRadius: -4,

@@ -6,7 +6,7 @@ import '../flutter_next.dart';
 ///
 class NextContainer extends StatelessWidget {
   const NextContainer({
-    Key? key,
+    super.key,
     this.alignment = Alignment.topCenter,
     required this.children,
     this.mainAxisAlignment = MainAxisAlignment.start,
@@ -15,7 +15,7 @@ class NextContainer extends StatelessWidget {
     this.fluid = false,
     this.decoration,
     this.padding = const EdgeInsets.all(0),
-  }) : super(key: key);
+  });
 
   ///
   /// Is the container fluid => if yes, takes the whole width
@@ -48,7 +48,8 @@ class NextContainer extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
       return SizedBox(
         width: constraints.maxWidth,
         child: Align(

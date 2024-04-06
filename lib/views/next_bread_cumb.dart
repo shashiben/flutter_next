@@ -2,10 +2,23 @@ import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
 class NextBreadCumb extends StatelessWidget {
+  const NextBreadCumb({
+    super.key,
+    required this.childrens,
+    this.primary = false,
+    this.physics = const AlwaysScrollableScrollPhysics(),
+    this.variant = NextBreadcrumbVariant.wrap,
+    this.spacing = 8.0,
+    this.seperator = const Icon(
+      Icons.chevron_right,
+      size: 18.0,
+    ),
+  });
+
   ///
   /// Childrens
   ///
-  final List<NextBreadCumbItem> childrens;
+  final List<NextBreadcrumbItem> childrens;
 
   /// Separator between items
   final Widget seperator;
@@ -16,7 +29,7 @@ class NextBreadCumb extends StatelessWidget {
   ///
   /// Bread cumb variant
   ///
-  final NextBreadCumbVariant variant;
+  final NextBreadcrumbVariant variant;
 
   ///
   /// Physics for [NextBreadCumbVariant.scroll]
@@ -26,22 +39,9 @@ class NextBreadCumb extends StatelessWidget {
   /// Whther primary for [NextBreadCumbVariant.scroll] should be true or not
   final bool primary;
 
-  const NextBreadCumb({
-    Key? key,
-    required this.childrens,
-    this.primary = false,
-    this.physics = const AlwaysScrollableScrollPhysics(),
-    this.variant = NextBreadCumbVariant.wrap,
-    this.spacing = 8.0,
-    this.seperator = const Icon(
-      Icons.chevron_right,
-      size: 18.0,
-    ),
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return variant == NextBreadCumbVariant.wrap
+    return variant == NextBreadcrumbVariant.wrap
         ? Wrap(
             spacing: spacing,
             runSpacing: spacing,
@@ -59,9 +59,9 @@ class NextBreadCumb extends StatelessWidget {
   }
 
   List<Widget> _joinItems() {
-    final List<Widget> joinedItems = [];
+    final List<Widget> joinedItems = <Widget>[];
 
-    for (final item in childrens) {
+    for (final NextBreadcrumbItem item in childrens) {
       joinedItems
         ..add(item)
         ..add(seperator);

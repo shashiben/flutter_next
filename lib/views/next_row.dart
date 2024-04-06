@@ -2,6 +2,18 @@ import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
 class NextRow extends StatelessWidget {
+  const NextRow({
+    super.key,
+    this.padding = const EdgeInsets.all(0),
+    this.verticalDirection = VerticalDirection.down,
+    this.verticalAlignment = WrapAlignment.start,
+    required this.children,
+    this.crossAxisAlignment = WrapCrossAlignment.start,
+    this.horizontalAlignment = WrapAlignment.start,
+    this.horizontalSpacing = 20.0,
+    this.verticalSpacing = 20.0,
+  });
+
   ///
   /// List of [NextCol] childrens
   ///
@@ -68,36 +80,27 @@ class NextRow extends StatelessWidget {
   /// Padding to the widget
   ///
   final EdgeInsets padding;
-  const NextRow({
-    Key? key,
-    this.padding = const EdgeInsets.all(0),
-    this.verticalDirection = VerticalDirection.down,
-    this.verticalAlignment = WrapAlignment.start,
-    required this.children,
-    this.crossAxisAlignment = WrapCrossAlignment.start,
-    this.horizontalAlignment = WrapAlignment.start,
-    this.horizontalSpacing = 20.0,
-    this.verticalSpacing = 20.0,
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: padding,
-      child: LayoutBuilder(builder: (context, constraints) {
-        double maxWidth = constraints.maxWidth;
-        List<Widget> wrapChildrens = [];
-        List<List<NextCol>> horizontalChildrens = [];
-        List<NextCol> verticalChildrens = [];
+      child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+        final double maxWidth = constraints.maxWidth;
+        final List<Widget> wrapChildrens = <Widget>[];
+        final List<List<NextCol>> horizontalChildrens = <List<NextCol>>[];
+        List<NextCol> verticalChildrens = <NextCol>[];
         int accumulatedWidth = 0;
         for (int i = 0; i < children.length; i++) {
           final NextCol col = children.elementAt(i);
-          Map<String, int> allColValues = NextUtils.getAllColValues(col.sizes);
-          String currentPrefix = NextUtils.getPrefixByWidth(maxWidth);
+          final Map<String, int> allColValues =
+              NextUtils.getAllColValues(col.sizes);
+          final String currentPrefix = NextUtils.getPrefixByWidth(maxWidth);
 
           final int colWidth = allColValues[currentPrefix] ?? 12;
           if (accumulatedWidth + colWidth > 12) {
-            horizontalChildrens.add((verticalChildrens));
+            horizontalChildrens.add(verticalChildrens);
             verticalChildrens = <NextCol>[];
             accumulatedWidth = 0;
           }
@@ -111,37 +114,39 @@ class NextRow extends StatelessWidget {
             verticalChildrens,
           );
         }
-        for (List<NextCol> child in horizontalChildrens) {
-          for (NextCol subChild in child) {
-            String currentPrefix = NextUtils.getPrefixByWidth(maxWidth);
+        for (final List<NextCol> child in horizontalChildrens) {
+          for (final NextCol subChild in child) {
+            final String currentPrefix = NextUtils.getPrefixByWidth(maxWidth);
             if (!subChild.invisibleFor.contains(currentPrefix)) {
-              double offsetSize = subChild.getOffsetWidth(context);
-              double spaceToRemove = child.length > 1
+              final double offsetSize = subChild.getOffsetWidth(context);
+              num spaceToRemove = child.length > 1
                   ? ((child.length - 1) * horizontalSpacing)
                   : 0;
-              for (NextCol offsetChecking in child) {
-                double offsetSize = offsetChecking.getOffsetWidth(context);
+              for (final NextCol offsetChecking in child) {
+                final double offsetSize =
+                    offsetChecking.getOffsetWidth(context);
                 if (offsetSize > 0) {
                   spaceToRemove += horizontalSpacing;
                 }
               }
 
-              double availableWidth = maxWidth - spaceToRemove;
+              final double availableWidth = maxWidth - spaceToRemove;
               if (offsetSize > 0) {
-                Map<String, int> prefixMap =
+                final Map<String, int> prefixMap =
                     NextUtils.getAllOffsetsValue(subChild.offset);
-                int currentSegmentValue = prefixMap[currentPrefix] ?? 0;
-                double offsetWidth =
+                final int currentSegmentValue = prefixMap[currentPrefix] ?? 0;
+                final double offsetWidth =
                     availableWidth * (currentSegmentValue / 12);
                 wrapChildrens.add(SizedBox(
                   width: offsetWidth,
                   child: const SizedBox(),
                 ));
               }
-              Map<String, int> prefixMap =
+              final Map<String, int> prefixMap =
                   NextUtils.getAllColValues(subChild.sizes);
-              int currentSegmentValue = prefixMap[currentPrefix] ?? 0;
-              double childWidth = availableWidth * (currentSegmentValue / 12);
+              final int currentSegmentValue = prefixMap[currentPrefix] ?? 0;
+              final double childWidth =
+                  availableWidth * (currentSegmentValue / 12);
               wrapChildrens.add(Container(
                 padding: subChild.padding,
                 margin: subChild.margin,

@@ -1,7 +1,8 @@
 import 'dart:convert';
 
+/// Extension on [String] to provide additional functionality.
 extension StringExtension on String {
-  /// Returns capitalised string
+  /// Returns the string with the first letter capitalized.
   ///
   /// ```dart
   /// print('flutter'.capitalize()) // Flutter
@@ -18,27 +19,31 @@ extension StringExtension on String {
     }
   }
 
-  ///Returns whether string can be converted to int or not
+  /// Returns `true` if the string can be converted to an integer, `false` otherwise.
   bool isInt() {
     return int.tryParse(this) != null;
   }
 
-  ///Returns whether string can be converted to double or not
+  /// Returns `true` if the string can be converted to a double, `false` otherwise.
   bool isDouble() {
     return double.tryParse(this) != null;
   }
 
-  /// Parse [source] as a, possibly signed, integer literal.
+  /// Tries to parse the string as an integer and returns the result.
+  ///
+  /// Returns `null` if the string cannot be parsed as an integer.
   int? toInt({int? radix}) {
     return int.tryParse(this, radix: radix);
   }
 
-  /// Parse [source] as an double literal and return its value.
+  /// Tries to parse the string as a double and returns the result.
+  ///
+  /// Returns `null` if the string cannot be parsed as a double.
   double? toDouble() {
     return double.tryParse(this);
   }
 
-  ///Returns if string can be converted to json or not
+  /// Returns `true` if the string can be parsed as a JSON object, `false` otherwise.
   bool isJson() {
     try {
       jsonDecode(this);
@@ -46,5 +51,10 @@ extension StringExtension on String {
     } on FormatException catch (_) {
       return false;
     }
+  }
+
+  /// Returns `true` if the string is blank or empty, `false` otherwise.
+  bool isBlank() {
+    return trim().isEmpty;
   }
 }

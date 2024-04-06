@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+/// A grid item widget for the Next UI.
+///
+/// This is a simple wrapper widget that takes a child widget and builds it.
 class NextGridItem extends StatelessWidget {
-  ///
-  /// Child
-  ///
+  const NextGridItem({super.key, required this.child});
+
+  /// The child widget to be built by this grid item.
   final Widget child;
-  const NextGridItem({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

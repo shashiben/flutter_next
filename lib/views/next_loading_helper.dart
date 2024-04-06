@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 
 class NextLoadingHelper extends StatelessWidget {
+  const NextLoadingHelper(
+      {super.key,
+      required this.isLoading,
+      this.ignoreWhileLoading = true,
+      this.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
+      required this.child,
+      this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
+      this.switchOutCurve = Curves.linear,
+      this.switchInCurve = Curves.linear,
+      this.loadingWidget,
+      this.duration = const Duration(milliseconds: 200),
+      this.reverseDuration});
+
   ///isLoading--> true shows loading widget
   final bool isLoading;
 
@@ -86,24 +99,11 @@ class NextLoadingHelper extends StatelessWidget {
   ///  * [AnimatedSwitcherLayoutBuilder] for more information about
   ///    how a layout builder should function.
   final AnimatedSwitcherLayoutBuilder layoutBuilder;
-  const NextLoadingHelper(
-      {Key? key,
-      required this.isLoading,
-      this.ignoreWhileLoading = true,
-      this.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
-      required this.child,
-      this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
-      this.switchOutCurve = Curves.linear,
-      this.switchInCurve = Curves.linear,
-      this.loadingWidget,
-      this.duration = const Duration(milliseconds: 200),
-      this.reverseDuration})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
+      children: <Widget>[
         Positioned.fill(
             child: IgnorePointer(ignoring: ignoreWhileLoading, child: child)),
         AnimatedSwitcher(
@@ -128,10 +128,10 @@ class NextLoadingHelper extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12)),
                               contentPadding:
                                   const EdgeInsets.symmetric(vertical: 15),
-                              content: Row(
+                              content: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
-                                children: const [
+                                children: <Widget>[
                                   Center(
                                     child: CircularProgressIndicator(),
                                   ),
@@ -139,7 +139,7 @@ class NextLoadingHelper extends StatelessWidget {
                                     width: 20,
                                   ),
                                   Text(
-                                    "Loading....",
+                                    'Loading....',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 16),

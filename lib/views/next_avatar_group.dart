@@ -1,71 +1,91 @@
 import 'package:flutter/material.dart';
-import '../flutter_next.dart';
 
+/// A [NextAvatarGroup] is a widget that displays a horizontal list of avatars.
+/// It takes a list of images and displays them as circular avatars.
+/// If the number of images exceeds a certain limit, it shows the excess count on the last avatar.
 class NextAvatarGroup extends StatelessWidget {
-  final List<ImageProvider> imagesList;
-  final double widthFactor;
-  final double radius;
+  const NextAvatarGroup({
+    super.key,
+    this.excessCountBuilder,
+    required this.avatarImages,
+    this.outerRadius = 24.0,
+    this.displayLimit,
+    this.avatarBuilder,
+    this.avatarBackgroundColor,
+    this.widthReductionFactor = 0.6,
+    this.innerRadius = 20.0,
+  });
+
+  /// List of images to be displayed as avatars.
+  final List<ImageProvider> avatarImages;
+
+  /// Factor by which to reduce the width of the avatars.
+  final double widthReductionFactor;
+
+  /// Radius of the inner avatar.
+  final double innerRadius;
+
+  /// Radius of the outer avatar.
   final double outerRadius;
-  final int? limitTo;
-  final int? itemCount;
-  final Widget Function(BuildContext context, int hiddenitemCount)?
-      limitBuilder;
-  final Color? backgroundColor;
+
+  /// Limit to the number of avatars to be displayed.
+  final int? displayLimit;
+
+  /// Function to build the widget that displays the excess count.
+  final Widget Function(BuildContext context, int hiddenCount)?
+      excessCountBuilder;
+
+  /// Background color of the avatars.
+  final Color? avatarBackgroundColor;
+
+  /// Function to build the avatar widget.
   final Widget Function(BuildContext context, int index, ImageProvider image)?
-      itemBuilder;
-  const NextAvatarGroup(
-      {Key? key,
-      this.limitBuilder,
-      required this.imagesList,
-      this.itemCount,
-      this.outerRadius = 24.0,
-      this.limitTo,
-      this.itemBuilder,
-      this.backgroundColor,
-      this.widthFactor = 0.6,
-      this.radius = 20.0})
-      : super(key: key);
+      avatarBuilder;
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth:
-            itemBuilder != null ? 0.0 : (imagesList.length) * (2 * outerRadius),
+        minWidth: avatarBuilder != null
+            ? 0.0
+            : (avatarImages.length) * (2 * outerRadius),
         maxHeight: outerRadius * 2,
       ),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: (limitTo != null && imagesList.length > (limitTo ?? 0))
-            ? limitTo! + 1
-            : imagesList.length,
+        itemCount:
+            (displayLimit != null && avatarImages.length > (displayLimit ?? 0))
+                ? displayLimit! + 1
+                : avatarImages.length,
         primary: false,
         shrinkWrap: true,
-        itemBuilder: (context, index) {
-          if ((limitTo != null && imagesList.length > (limitTo ?? 0)) &&
-              index > (limitTo! - 1)) {
+        itemBuilder: (BuildContext context, int index) {
+          if ((displayLimit != null &&
+                  avatarImages.length > (displayLimit ?? 0)) &&
+              index > (displayLimit! - 1)) {
             return Align(
-              widthFactor: widthFactor,
+              widthFactor: widthReductionFactor,
               child: CircleAvatar(
                 radius: outerRadius,
-                backgroundColor: backgroundColor ?? context.accentColor,
-                child: limitBuilder != null
-                    ? limitBuilder!(context, imagesList.length - limitTo!)
-                    : Text("+${imagesList.length - limitTo!}",
+                backgroundColor: avatarBackgroundColor,
+                child: excessCountBuilder != null
+                    ? excessCountBuilder!(
+                        context, avatarImages.length - displayLimit!)
+                    : Text('+${avatarImages.length - displayLimit!}',
                         style: const TextStyle(fontWeight: FontWeight.bold)),
               ),
             );
           } else {
             return Align(
-              widthFactor: widthFactor,
-              child: itemBuilder != null
-                  ? itemBuilder!(context, index, imagesList[index])
+              widthFactor: widthReductionFactor,
+              child: avatarBuilder != null
+                  ? avatarBuilder!(context, index, avatarImages[index])
                   : CircleAvatar(
                       radius: outerRadius,
-                      backgroundColor: backgroundColor ?? context.accentColor,
+                      backgroundColor: avatarBackgroundColor,
                       child: CircleAvatar(
-                        radius: radius,
-                        backgroundImage: imagesList[index],
+                        radius: innerRadius,
+                        backgroundImage: avatarImages[index],
                       )),
             );
           }

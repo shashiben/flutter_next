@@ -1,113 +1,99 @@
 import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
+/// A [NextFadeOutAnimation] is a widget that provides fade out animations.
+/// It takes a child widget and applies a fade out animation to it.
 class NextFadeOutAnimation extends StatelessWidget {
-  ///
-  /// Child widget
-  ///
+  const NextFadeOutAnimation({
+    super.key,
+    required this.child,
+    this.animationDuration = const Duration(milliseconds: 350),
+    this.animationDelay = Duration.zero,
+    this.fadeOutVariant,
+    this.viewportStart = 0.1,
+    this.animationController,
+    this.startAnimationImmediately = true,
+    this.initialPosition = 100,
+    this.visibilityWidgetKey,
+  });
+
+  /// The child widget to which the animation is applied.
   final Widget child;
 
-  ///
-  /// Duration of animation
-  ///
-  final Duration duration;
+  /// The duration of the animation.
+  final Duration animationDuration;
 
-  ///
-  /// Start animation after an delay
-  ///
-  final Duration delay;
+  /// The delay before the animation starts.
+  final Duration animationDelay;
 
-  ///
-  /// Add an controller to control animation
-  ///
-  final AnimationController? controller;
+  /// The controller for the animation.
+  final AnimationController? animationController;
 
-  ///
-  /// if value is true, animation will be started immediately
-  ///
-  final bool startAnimation;
+  /// If true, the animation starts immediately.
+  final bool startAnimationImmediately;
 
-  ///
-  /// Initial position from where it needs to begin
-  ///
+  /// The initial position from where the animation needs to begin.
   final double initialPosition;
 
-  ///
-  /// Provide variant type
-  ///
-  final NextFadeOutVariant? variant;
+  /// The type of fade out animation.
+  final NextFadeOutVariant? fadeOutVariant;
 
-  ///
-  /// At which viewport the animation should start
-  ///
-  final double viewPort;
+  /// The viewport at which the animation should start.
+  final double viewportStart;
 
-  ///
-  /// Custom key for visibility widget
-  ///
-  final Key? visibilityKey;
-
-  const NextFadeOutAnimation(
-      {Key? key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 350),
-      this.delay = Duration.zero,
-      this.variant,
-      this.viewPort = 0.1,
-      this.controller,
-      this.startAnimation = true,
-      this.initialPosition = 100,
-      this.visibilityKey})
-      : super(key: key);
+  /// The key for the visibility widget.
+  final Key? visibilityWidgetKey;
 
   @override
   Widget build(BuildContext context) {
-    return variant == null
-        ? SingleAnimationWrapper(
-            viewPort: viewPort,
-            child: (controller, value) => AnimatedOpacity(
-                  opacity: 1 - (value as double),
-                  duration: duration,
+    return fadeOutVariant == null
+        ? SingleAnimationWrapper<double>(
+            viewportStart: viewportStart,
+            child: (AnimationController controller, double value) =>
+                AnimatedOpacity(
+                  opacity: 1 - value,
+                  duration: animationDuration,
                   child: child,
                 ),
-            animation: (controller) =>
+            animation: (AnimationController controller) =>
                 CurvedAnimation(curve: Curves.easeOut, parent: controller))
-        : DoubleAnimationWrapper(
-            viewPort: viewPort,
-            controller: controller,
-            duration: duration,
-            firstAnimation: (controller) => getTween().animate(
-                CurvedAnimation(parent: controller, curve: Curves.easeOut)),
-            startAnimation: startAnimation,
-            secondAnimation: (controller) => Tween<double>(begin: 0, end: 1)
-                .animate(CurvedAnimation(
+        : DoubleAnimationWrapper<double>(
+            viewportStart: viewportStart,
+            animationController: animationController,
+            animationDuration: animationDuration,
+            firstAnimation: (AnimationController controller) => getTween()
+                .animate(
+                    CurvedAnimation(parent: controller, curve: Curves.easeOut)),
+            startAnimationImmediately: startAnimationImmediately,
+            secondAnimation: (AnimationController controller) =>
+                Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
                     parent: controller, curve: const Interval(0, 0.7))),
-            child: (AnimationController controller, dynamic animation,
-                dynamic opacity) {
+            child: (AnimationController controller, double animation,
+                double opacity) {
               return Transform.translate(
                   offset: getOffset(animation),
                   child: Opacity(
-                    opacity: (1 - opacity).toDouble(),
+                    opacity: 1 - opacity,
                     child: child,
                   ));
             });
   }
 
-  Offset getOffset(animation) {
-    switch (variant) {
+  Offset getOffset(double animation) {
+    switch (fadeOutVariant) {
       case NextFadeOutVariant.fadeOutTop:
       case NextFadeOutVariant.fadeOutBottom:
         return Offset(0, animation);
       case NextFadeOutVariant.fadeOutLeft:
       case NextFadeOutVariant.fadeOutRight:
         return Offset(animation, 0);
-      default:
+      case null:
         return const Offset(0, 0);
     }
   }
 
   Tween<double> getTween() {
-    switch (variant) {
+    switch (fadeOutVariant) {
       case NextFadeOutVariant.fadeOutTop:
         return Tween<double>(end: initialPosition * 1, begin: 0);
       case NextFadeOutVariant.fadeOutBottom:
@@ -116,7 +102,7 @@ class NextFadeOutAnimation extends StatelessWidget {
         return Tween<double>(end: initialPosition * -1, begin: 0);
       case NextFadeOutVariant.fadeOutRight:
         return Tween<double>(end: initialPosition, begin: 0);
-      default:
+      case null:
         return Tween<double>(end: initialPosition * -1, begin: 0);
     }
   }

@@ -2,6 +2,29 @@ import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
 class NextButton extends StatelessWidget {
+  const NextButton(
+      {super.key,
+      this.leading,
+      this.itemBuilder,
+      this.enabled = true,
+      this.trailing,
+      this.style,
+      this.child,
+      this.onPressed,
+      this.color,
+      this.outlineColor,
+      this.padding = const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+      this.margin = const EdgeInsets.all(4),
+      this.variant = NextButtonVariant.filled,
+      this.borderRadius = const BorderRadius.all(Radius.circular(6)),
+      this.animationDuration,
+      this.hoverDuration,
+      this.elevation,
+      this.focusElevation,
+      this.hoverElevation,
+      this.highlightElevation,
+      this.disabledElevation});
+
   /// Main Child
   final Widget? child;
 
@@ -59,42 +82,20 @@ class NextButton extends StatelessWidget {
   final double? hoverElevation;
   final double? highlightElevation;
   final double? disabledElevation;
-  const NextButton(
-      {Key? key,
-      this.leading,
-      this.itemBuilder,
-      this.enabled = true,
-      this.trailing,
-      this.style,
-      this.child,
-      this.onPressed,
-      this.color,
-      this.outlineColor,
-      this.padding = const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-      this.margin = const EdgeInsets.all(4),
-      this.variant = NextButtonVariant.filled,
-      this.borderRadius = const BorderRadius.all(Radius.circular(6)),
-      this.animationDuration,
-      this.hoverDuration,
-      this.elevation,
-      this.focusElevation,
-      this.hoverElevation,
-      this.highlightElevation,
-      this.disabledElevation})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: margin,
-      child: HoverWidget(
-          hoverDuration: hoverDuration ?? const Duration(milliseconds: 800),
-          builder: (context, isHovered) {
+      child: HoverableWidget(
+          hoverTransitionDuration:
+              hoverDuration ?? const Duration(milliseconds: 800),
+          hoverBuilder: (BuildContext context, bool isHovered) {
             if (itemBuilder != null) {
               return NextColorTweenWidget(
-                  beginColor: color ?? context.themeData.backgroundColor,
+                  beginColor: color ?? context.themeData.colorScheme.background,
                   endColor: outlineColor ?? context.primaryColor,
-                  child: (controller, value) {
+                  child: (AnimationController controller, Color? value) {
                     if (isHovered) {
                       controller.forward();
                     } else {
@@ -124,9 +125,10 @@ class NextButton extends StatelessWidget {
                     ));
               } else if (variant == NextButtonVariant.outlined) {
                 return NextColorTweenWidget(
-                    beginColor: color ?? context.themeData.backgroundColor,
+                    beginColor:
+                        color ?? context.themeData.colorScheme.background,
                     endColor: outlineColor ?? context.primaryColor,
-                    child: (controller, value) {
+                    child: (AnimationController controller, Color? value) {
                       if (isHovered) {
                         controller.forward();
                       } else {
@@ -150,13 +152,14 @@ class NextButton extends StatelessWidget {
                             padding: padding,
                             child: DefaultTextStyle(
                               style: (style ??
-                                      context.themeData.textTheme.button ??
+                                      context.themeData.textTheme.labelLarge ??
                                       const TextStyle(
                                           fontWeight: FontWeight.w600))
                                   .copyWith(
                                       color: isHovered
                                           ? color ??
-                                              context.themeData.backgroundColor
+                                              context.themeData.colorScheme
+                                                  .background
                                           : outlineColor ??
                                               context.primaryColor),
                               child: child ?? const SizedBox(),
