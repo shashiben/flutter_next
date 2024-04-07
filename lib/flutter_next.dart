@@ -15,7 +15,6 @@ export 'animations/wrappers/double_animation_wrapper.dart';
 export 'animations/wrappers/single_animation_wrapper.dart';
 export 'constants/colors.dart';
 export 'constants/constants.dart';
-export 'constants/enums.dart';
 /*
    export Extensions
 */
@@ -44,3 +43,5 @@ export 'widgets/next_bread_cumb_item.dart';
   export Widgets
 */
 export 'widgets/next_grid_item.dart';
+
+part 'constants/enums.dart';

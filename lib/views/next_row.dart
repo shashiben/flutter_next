@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '../flutter_next.dart';
 
 class NextRow extends StatelessWidget {
   const NextRow({
     super.key,
-    this.padding = const EdgeInsets.all(0),
+    this.padding = EdgeInsets.zero,
     this.verticalDirection = VerticalDirection.down,
     this.verticalAlignment = WrapAlignment.start,
     required this.children,
@@ -83,7 +84,7 @@ class NextRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: padding,
       child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -91,79 +92,50 @@ class NextRow extends StatelessWidget {
         final List<Widget> wrapChildrens = <Widget>[];
         final List<List<NextCol>> horizontalChildrens = <List<NextCol>>[];
         List<NextCol> verticalChildrens = <NextCol>[];
-        int accumulatedWidth = 0;
+        double accumulatedPer = 0;
         for (int i = 0; i < children.length; i++) {
           final NextCol col = children.elementAt(i);
-          final Map<String, int> allColValues =
-              NextUtils.getAllColValues(col.sizes);
-          final String currentPrefix = NextUtils.getPrefixByWidth(maxWidth);
+          final Map<GridPrefix, double> allColValues = col.widthPercentages;
+          final GridPrefix currentPrefix =
+              NextUtils.getPrefixEnumByWidth(maxWidth);
 
-          final int colWidth = allColValues[currentPrefix] ?? 12;
-          if (accumulatedWidth + colWidth > 12) {
+          final double colPercentage = allColValues[currentPrefix] ?? 100;
+          if (accumulatedPer + colPercentage > 100) {
             horizontalChildrens.add(verticalChildrens);
             verticalChildrens = <NextCol>[];
-            accumulatedWidth = 0;
+            accumulatedPer = 0;
           }
 
           verticalChildrens.add(col);
-          accumulatedWidth += colWidth;
+          accumulatedPer += colPercentage;
         }
 
-        if (accumulatedWidth >= 0) {
-          horizontalChildrens.add(
-            verticalChildrens,
-          );
+        if (accumulatedPer >= 0) {
+          horizontalChildrens.add(verticalChildrens);
         }
         for (final List<NextCol> child in horizontalChildrens) {
           for (final NextCol subChild in child) {
-            final String currentPrefix = NextUtils.getPrefixByWidth(maxWidth);
-            if (!subChild.invisibleFor.contains(currentPrefix)) {
-              final double offsetSize = subChild.getOffsetWidth(context);
-              num spaceToRemove = child.length > 1
-                  ? ((child.length - 1) * horizontalSpacing)
-                  : 0;
-              for (final NextCol offsetChecking in child) {
-                final double offsetSize =
-                    offsetChecking.getOffsetWidth(context);
-                if (offsetSize > 0) {
-                  spaceToRemove += horizontalSpacing;
-                }
-              }
+            final double spaceToRemove = (child.length > 1
+                    ? ((child.length - 1) * horizontalSpacing)
+                    : 0) /
+                child.length;
 
-              final double availableWidth = maxWidth - spaceToRemove;
-              if (offsetSize > 0) {
-                final Map<String, int> prefixMap =
-                    NextUtils.getAllOffsetsValue(subChild.offset);
-                final int currentSegmentValue = prefixMap[currentPrefix] ?? 0;
-                final double offsetWidth =
-                    availableWidth * (currentSegmentValue / 12);
-                wrapChildrens.add(SizedBox(
-                  width: offsetWidth,
-                  child: const SizedBox(),
-                ));
-              }
-              final Map<String, int> prefixMap =
-                  NextUtils.getAllColValues(subChild.sizes);
-              final int currentSegmentValue = prefixMap[currentPrefix] ?? 0;
-              final double childWidth =
-                  availableWidth * (currentSegmentValue / 12);
-              wrapChildrens.add(Container(
-                padding: subChild.padding,
-                margin: subChild.margin,
-                decoration: subChild.decoration,
-                width: childWidth,
-                child: subChild.child,
-              ));
-            }
+            final double subChildSize =
+                (maxWidth / child.length) - spaceToRemove;
+            wrapChildrens.add(SizedBox(
+              width: subChildSize,
+              height: 40,
+              child: subChild.child,
+            ));
           }
         }
         return Wrap(
+          alignment: horizontalAlignment,
           crossAxisAlignment: crossAxisAlignment,
+          runAlignment: verticalAlignment,
           runSpacing: verticalSpacing,
           spacing: horizontalSpacing,
           verticalDirection: verticalDirection,
-          alignment: horizontalAlignment,
-          runAlignment: verticalAlignment,
           children: wrapChildrens,
         );
       }),

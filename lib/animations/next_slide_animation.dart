@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
-/// A [NextSlideAnimation] is a widget that provides slide animations.
-/// It takes a child widget and applies a slide animation to it.
 class NextSlideAnimation extends StatelessWidget {
   const NextSlideAnimation({
     super.key,
@@ -17,31 +15,14 @@ class NextSlideAnimation extends StatelessWidget {
     this.visibilityWidgetKey,
   });
 
-  /// The child widget to which the animation is applied.
   final Widget child;
-
-  /// The duration of the animation.
   final Duration animationDuration;
-
-  /// The delay before the animation starts.
   final Duration animationDelay;
-
-  /// The controller for the animation.
   final AnimationController? animationController;
-
-  /// If true, the animation starts immediately.
   final bool startAnimationImmediately;
-
-  /// The type of slide animation.
   final NextSlideVariant? slideVariant;
-
-  /// The viewport at which the animation should start.
   final double viewportStart;
-
-  /// The key for the visibility widget.
   final Key? visibilityWidgetKey;
-
-  /// The initial position from where the animation should start.
   final double initialAnimationPosition;
 
   @override
@@ -53,9 +34,15 @@ class NextSlideAnimation extends StatelessWidget {
         animationDelay: animationDelay,
         animationController: animationController,
         child: (AnimationController controller, double value) {
-          return Transform.translate(
-            offset: _getOffset(value),
+          return AnimatedBuilder(
+            animation: controller,
             child: child,
+            builder: (BuildContext context, Widget? child) {
+              return Transform.translate(
+                offset: _getOffset(value),
+                child: child,
+              );
+            },
           );
         },
         animation: (AnimationController controller) => _getTween().animate(

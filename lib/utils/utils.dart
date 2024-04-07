@@ -1,22 +1,21 @@
-import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
 class NextUtils {
-  static const List<String> _prefixes = <String>[
-    'xxl',
-    'xl',
-    'lg',
-    'md',
-    'sm',
-    'xs'
+  static const List<GridPrefix> _prefixes = [
+    GridPrefix.xxl,
+    GridPrefix.xl,
+    GridPrefix.lg,
+    GridPrefix.md,
+    GridPrefix.sm,
+    GridPrefix.xs
   ];
-  static const List<String> _prefixesEnum = <String>[
-    GridPrefixes.xxl,
-    GridPrefixes.xl,
-    GridPrefixes.lg,
-    GridPrefixes.md,
-    GridPrefixes.sm,
-    GridPrefixes.xs
+  static const List<GridPrefix> _prefixesEnum = [
+    GridPrefix.xxl,
+    GridPrefix.xl,
+    GridPrefix.lg,
+    GridPrefix.md,
+    GridPrefix.sm,
+    GridPrefix.xs
   ];
   static const List<int> _widthThresholds = <int>[1400, 1200, 992, 768, 576];
   static const List<int> _maxWidthsForNonFluid = <int>[
@@ -27,28 +26,20 @@ class NextUtils {
     540
   ];
 
-  static double getMaxWidth(String sizes,
-      {required BuildContext context, bool isOffset = false, double? width}) {
-    final double maxWidth = width ?? context.width;
-    final Map<String, int> sizeMap =
-        isOffset ? getAllOffsetsValue(sizes) : getAllColValues(sizes);
-    final String getCurrentPrefix = getPrefixByWidth(maxWidth);
-    return maxWidth *
-        ((sizeMap[getCurrentPrefix] ?? (isOffset ? 0.0 : 1.0)) / 12);
-  }
-
-  static String getPrefixByWidth(double width) {
+  static GridPrefix getPrefixByWidth(double width) {
     for (int i = 0; i < _widthThresholds.length; i++) {
-      if (width >= _widthThresholds[i]) return _prefixes[i];
+      if (width >= _widthThresholds[i]) {
+        return _prefixes[i];
+      }
     }
-    return 'xs';
+    return GridPrefix.xs;
   }
 
-  static String getPrefixEnumByWidth(double width) {
+  static GridPrefix getPrefixEnumByWidth(double width) {
     for (int i = 0; i < _widthThresholds.length; i++) {
       if (width >= _widthThresholds[i]) return _prefixesEnum[i];
     }
-    return GridPrefixes.xs;
+    return GridPrefix.xs;
   }
 
   static double getMaxWidthForNonFluid(double width) {
@@ -60,38 +51,23 @@ class NextUtils {
     return width;
   }
 
-  static Map<String, int> getAllOffsetsValue(String sizes) {
-    return _getValuesFromSizes(sizes, 'offset');
-  }
-
-  static Map<String, int> getAllColValues(String sizes) {
-    return _getValuesFromSizes(sizes, 'col', defaultValue: 12);
-  }
-
-  static Map<String, int> _getValuesFromSizes(String sizes, String prefix,
-      {int defaultValue = 0}) {
-    final Map<String, int> subResult = <String, int>{};
-    final List<String> getPrefixList = sizes
-        .toLowerCase()
-        .trim()
-        .split(' ')
-        .where((String order) => order.trim().isNotEmpty)
-        .toList();
-    for (final String element in getPrefixList) {
-      final List<String> splittedList = element.split('-');
-      if (splittedList.first == prefix &&
-          int.tryParse(splittedList.last) != null &&
-          int.parse(splittedList.last) <= 12) {
-        subResult[splittedList.length == 2 ? 'sm' : splittedList[1]] =
-            int.parse(splittedList.last);
+  //Define similar for getAllColValues from sizes of Map<GridPrefix, double>
+  static Map<GridPrefix, int> getAllColValuesFromMap(
+      Map<GridPrefix, double> sizes) {
+    final Map<GridPrefix, int> subResult = <GridPrefix, int>{};
+    for (final GridPrefix prefix in GridPrefix.values) {
+      final double? value = sizes[prefix];
+      if (value != null && value <= 12) {
+        subResult[prefix] = value.toInt();
       }
     }
-    final Map<String, int> result = <String, int>{};
+    final Map<GridPrefix, int> result = <GridPrefix, int>{};
     for (int i = 0; i < _prefixes.length; i++) {
-      final String prefix = _prefixes[i];
-      final int nullValue = i == 0 ? defaultValue : result[_prefixes[i - 1]]!;
+      final GridPrefix prefix = _prefixes[i];
+      final int nullValue = i == 0 ? 12 : result[_prefixes[i - 1]]!;
       result[prefix] = subResult[prefix] ?? nullValue;
     }
     return result;
   }
+
 }

@@ -1,3 +1,5 @@
+part of '../flutter_next.dart';
+
 /// Enum for grid prefixes.
 enum GridPrefix {
   xxl,

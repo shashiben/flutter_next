@@ -13,27 +13,27 @@ extension AnimationExtension on Widget {
   /// [loop] - If true, the animation loops. Default is false.
   /// [viewPort] - The viewport at which the animation should start. Default is 0.1.
   /// [variant] - The variant of the bounce animation. Default is [NextBounceVariant.bounceInLeft].
-  Widget bounce({
-    Duration duration = const Duration(milliseconds: 350),
-    Duration delay = Duration.zero,
-    AnimationController? controller,
-    bool startAnimation = true,
-    double initialPosition = 100,
-    bool loop = false,
-    double viewPort = 0.1,
-    NextBounceVariant variant = NextBounceVariant.bounceInLeft,
-  }) {
-    return NextBounceAnimation(
-      duration: duration,
-      delay: delay,
-      viewPort: viewPort,
-      controller: controller,
-      initialPosition: initialPosition,
-      startAnimation: startAnimation,
-      variant: variant,
-      child: this,
-    );
-  }
+  // Widget bounce({
+  //   Duration duration = const Duration(milliseconds: 350),
+  //   Duration delay = Duration.zero,
+  //   AnimationController? controller,
+  //   bool startAnimation = true,
+  //   double initialPosition = 100,
+  //   bool loop = false,
+  //   double viewPort = 0.1,
+  //   NextBounceVariant variant = NextBounceVariant.bounceInLeft,
+  // }) {
+  //   return NextBounceAnimation(
+  //     duration: duration,
+  //     delay: delay,
+  //     viewPort: viewPort,
+  //     controller: controller,
+  //     initialPosition: initialPosition,
+  //     startAnimation: startAnimation,
+  //     variant: variant,
+  //     child: this,
+  //   );
+  // }
 
   /// Wraps the widget with a fade in animation.
   ///
@@ -116,7 +116,6 @@ extension AnimationExtension on Widget {
     bool startAnimation = true,
     bool loop = false,
     double viewPort = 0.1,
-    double initialPosition = 1,
     NextZoomVariant variant = NextZoomVariant.zoomIn,
   }) {
     return NextZoomAnimation(
@@ -124,7 +123,6 @@ extension AnimationExtension on Widget {
       delay: delay,
       viewPort: viewPort,
       controller: controller,
-      initialPosition: initialPosition,
       startAnimation: startAnimation,
       variant: variant,
       child: this,

@@ -16,16 +16,6 @@ double gutterSize = 48.0;
 /// Number of columns in the grid.
 int numberOfColumns = 12;
 
-/// Mixin for grid prefixes.
-mixin GridPrefixes {
-  static const String xxl = 'xxl';
-  static const String xl = 'xl';
-  static const String lg = 'lg';
-  static const String md = 'md';
-  static const String sm = 'sm';
-  static const String xs = 'xs';
-}
-
 /// Mixin for argument prefix types.
 mixin ArgPrefixType {
   static const String order = 'order';

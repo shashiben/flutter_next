@@ -22,7 +22,7 @@ class NextVariantUtil {
         return NextColorVariant.danger;
       case NextVariant.dark:
         return NextColorVariant.dark;
-      default:
+      case NextVariant.custom:
         return NextColorVariant.success;
     }
   }
@@ -46,7 +46,7 @@ class NextVariantUtil {
         return NextAlertColorUtil.danger;
       case NextVariant.dark:
         return NextAlertColorUtil.dark;
-      default:
+      case NextVariant.custom:
         return NextAlertColorUtil.success;
     }
   }

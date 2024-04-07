@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
-/// A [NextFadeOutAnimation] is a widget that provides fade out animations.
-/// It takes a child widget and applies a fade out animation to it.
 class NextFadeOutAnimation extends StatelessWidget {
   const NextFadeOutAnimation({
     super.key,
@@ -17,31 +15,14 @@ class NextFadeOutAnimation extends StatelessWidget {
     this.visibilityWidgetKey,
   });
 
-  /// The child widget to which the animation is applied.
   final Widget child;
-
-  /// The duration of the animation.
   final Duration animationDuration;
-
-  /// The delay before the animation starts.
   final Duration animationDelay;
-
-  /// The controller for the animation.
   final AnimationController? animationController;
-
-  /// If true, the animation starts immediately.
   final bool startAnimationImmediately;
-
-  /// The initial position from where the animation needs to begin.
   final double initialPosition;
-
-  /// The type of fade out animation.
   final NextFadeOutVariant? fadeOutVariant;
-
-  /// The viewport at which the animation should start.
   final double viewportStart;
-
-  /// The key for the visibility widget.
   final Key? visibilityWidgetKey;
 
   @override
@@ -70,12 +51,19 @@ class NextFadeOutAnimation extends StatelessWidget {
                     parent: controller, curve: const Interval(0, 0.7))),
             child: (AnimationController controller, double animation,
                 double opacity) {
-              return Transform.translate(
-                  offset: getOffset(animation),
-                  child: Opacity(
-                    opacity: 1 - opacity,
-                    child: child,
-                  ));
+              return AnimatedBuilder(
+                animation: controller,
+                child: child,
+                builder: (BuildContext context, Widget? child) {
+                  return Transform.translate(
+                    offset: getOffset(animation),
+                    child: Opacity(
+                      opacity: 1 - opacity,
+                      child: child,
+                    ),
+                  );
+                },
+              );
             });
   }
 
@@ -88,21 +76,21 @@ class NextFadeOutAnimation extends StatelessWidget {
       case NextFadeOutVariant.fadeOutRight:
         return Offset(animation, 0);
       case null:
-        return const Offset(0, 0);
+        return Offset.zero;
     }
   }
 
   Tween<double> getTween() {
     switch (fadeOutVariant) {
       case NextFadeOutVariant.fadeOutTop:
-        return Tween<double>(end: initialPosition * 1, begin: 0);
+        return Tween<double>(end: initialPosition, begin: 0);
       case NextFadeOutVariant.fadeOutBottom:
         return Tween<double>(end: initialPosition * -1, begin: 0);
       case NextFadeOutVariant.fadeOutLeft:
         return Tween<double>(end: initialPosition * -1, begin: 0);
       case NextFadeOutVariant.fadeOutRight:
         return Tween<double>(end: initialPosition, begin: 0);
-      case null:
+      default:
         return Tween<double>(end: initialPosition * -1, begin: 0);
     }
   }
