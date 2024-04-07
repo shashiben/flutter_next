@@ -20,7 +20,7 @@ class NextBounceAnimation extends StatefulWidget {
   final NextBounceVariant variant;
 
   @override
-  _NextBounceAnimationState createState() => _NextBounceAnimationState();
+  State<NextBounceAnimation> createState() => _NextBounceAnimationState();
 }
 
 class _NextBounceAnimationState extends State<NextBounceAnimation>

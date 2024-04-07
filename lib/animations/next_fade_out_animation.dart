@@ -90,7 +90,7 @@ class NextFadeOutAnimation extends StatelessWidget {
         return Tween<double>(end: initialPosition * -1, begin: 0);
       case NextFadeOutVariant.fadeOutRight:
         return Tween<double>(end: initialPosition, begin: 0);
-      default:
+      case null:
         return Tween<double>(end: initialPosition * -1, begin: 0);
     }
   }

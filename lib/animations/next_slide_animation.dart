@@ -59,7 +59,7 @@ class NextSlideAnimation extends StatelessWidget {
       case NextSlideVariant.slideInRight:
         return Offset(animation, 0);
       case null:
-        return const Offset(0, 0);
+        return Offset.zero;
     }
   }
 

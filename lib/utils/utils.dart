@@ -37,7 +37,9 @@ class NextUtils {
 
   static GridPrefix getPrefixEnumByWidth(double width) {
     for (int i = 0; i < _widthThresholds.length; i++) {
-      if (width >= _widthThresholds[i]) return _prefixesEnum[i];
+      if (width >= _widthThresholds[i]) {
+        return _prefixesEnum[i];
+      }
     }
     return GridPrefix.xs;
   }
