@@ -124,7 +124,6 @@ class NextRow extends StatelessWidget {
                 (maxWidth / child.length) - spaceToRemove;
             wrapChildrens.add(SizedBox(
               width: subChildSize,
-              height: 40,
               child: subChild.child,
             ));
           }
