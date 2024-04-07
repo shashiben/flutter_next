@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
 class NextGridView extends StatelessWidget {
-
   const NextGridView({
     super.key,
     required this.children,
@@ -40,8 +39,10 @@ class NextGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
+        final populatedWidthPercentages =
+            NextUtils.populateAllColValues(widthPercentages);
         final crossAxisCount = _calculateCrossAxisCount(
-            constraints.maxWidth, widthPercentages);
+            constraints.maxWidth, populatedWidthPercentages);
         return GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),

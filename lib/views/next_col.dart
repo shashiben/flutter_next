@@ -5,32 +5,33 @@ import '../flutter_next.dart';
 class NextCol extends StatelessWidget {
   const NextCol(
       {super.key,
-      required this.widthPercentages, 
+      required this.widthPercentages,
       required this.child,
       this.decoration,
       this.margin,
       this.padding,
-      this.offset = const{},
+      this.offset = const {},
       this.invisibleFor = const <GridPrefix>[]});
-  final Map<GridPrefix, double>
-      widthPercentages; 
+  final Map<GridPrefix, double> widthPercentages;
   final BoxDecoration? decoration;
-  final  Map<GridPrefix,double> offset;
+  final Map<GridPrefix, double> offset;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
   final List<GridPrefix> invisibleFor;
   final Widget child;
 
   double getWidthOfChild(double availableWidth, GridPrefix prefix) {
+    final populatedWidthPercentages =
+        NextUtils.populateAllColValues(widthPercentages);
+
     double? widthPercentage;
     for (final GridPrefix p in GridPrefix.values.reversed) {
-      widthPercentage = widthPercentages[p];
+      widthPercentage = populatedWidthPercentages[p];
       if (widthPercentage != null || p == prefix) {
         break;
       }
     }
-    widthPercentage ??=
-        100; 
+    widthPercentage ??= 100;
 
     return availableWidth * (widthPercentage / 100);
   }

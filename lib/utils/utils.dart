@@ -1,4 +1,4 @@
-import '../flutter_next.dart';
+part of '../flutter_next.dart';
 
 class NextUtils {
   static const List<GridPrefix> _prefixes = [
@@ -9,14 +9,7 @@ class NextUtils {
     GridPrefix.sm,
     GridPrefix.xs
   ];
-  static const List<GridPrefix> _prefixesEnum = [
-    GridPrefix.xxl,
-    GridPrefix.xl,
-    GridPrefix.lg,
-    GridPrefix.md,
-    GridPrefix.sm,
-    GridPrefix.xs
-  ];
+
   static const List<int> _widthThresholds = <int>[1400, 1200, 992, 768, 576];
   static const List<int> _maxWidthsForNonFluid = <int>[
     1320,
@@ -38,7 +31,7 @@ class NextUtils {
   static GridPrefix getPrefixEnumByWidth(double width) {
     for (int i = 0; i < _widthThresholds.length; i++) {
       if (width >= _widthThresholds[i]) {
-        return _prefixesEnum[i];
+        return _prefixes[i];
       }
     }
     return GridPrefix.xs;
@@ -72,4 +65,18 @@ class NextUtils {
     return result;
   }
 
+  static Map<GridPrefix, double> populateAllColValues(
+      Map<GridPrefix, double> sizes) {
+    final Map<GridPrefix, double> result = <GridPrefix, double>{};
+    double? lastSize;
+
+    for (final GridPrefix prefix in _prefixes) {
+      if (sizes.containsKey(prefix)) {
+        lastSize = sizes[prefix];
+      }
+      result[prefix] = lastSize ?? 100.0;
+    }
+
+    return result;
+  }
 }

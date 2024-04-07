@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
                             child: Icon(Icons.star),
                           ),
                         ))),
-                         Text(
+            Text(
               "Next Row",
               style: context.titleLarge,
             ),

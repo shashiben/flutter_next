@@ -22,7 +22,6 @@ export 'extensions/extensions.dart';
 /*
    export Utils
 */
-export 'utils/utils.dart';
 export 'utils/variant_utils.dart';
 export 'views/next_accordion.dart';
 export 'views/next_alerts.dart';
@@ -45,3 +44,4 @@ export 'widgets/next_bread_cumb_item.dart';
 export 'widgets/next_grid_item.dart';
 
 part 'constants/enums.dart';
+part 'utils/utils.dart';
