@@ -1,0 +1,6 @@
+name: flutter_next_workspace
+packages:
+  - next_animation/
+  - next_table/
+  - flutter_next/
+

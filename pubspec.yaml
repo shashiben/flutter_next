@@ -1,0 +1,10 @@
+name: flutter_next_workspace
+environment:
+  sdk: '^3.8.0'
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  melos: ^6.0.0
+
