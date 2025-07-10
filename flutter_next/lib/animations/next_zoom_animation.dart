@@ -26,31 +26,31 @@ class NextZoomAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DoubleAnimationWrapper<double>(
-        viewportStart: viewPort,
-        animationController: controller,
-        animationDuration: duration,
-        firstAnimation: (AnimationController controller) => getTween().animate(
-            CurvedAnimation(curve: Curves.easeOut, parent: controller)),
-        startAnimationImmediately: startAnimation,
-        secondAnimation: (AnimationController controller) => getOpacityTween()
-            .animate(CurvedAnimation(
-                parent: controller, curve: const Interval(0, 0.7))),
-        child:
-            (AnimationController controller, double animation, double opacity) {
-          return AnimatedBuilder(
-            animation: controller,
-            child: child,
-            builder: (BuildContext context, Widget? child) {
-              return Transform.scale(
-                scale: animation,
-                child: Opacity(
-                  opacity: opacity,
-                  child: child,
-                ),
-              );
-            },
-          );
-        });
+      viewportStart: viewPort,
+      animationController: controller,
+      animationDuration: duration,
+      firstAnimation: (AnimationController controller) => getTween().animate(
+        CurvedAnimation(curve: Curves.easeOut, parent: controller),
+      ),
+      startAnimationImmediately: startAnimation,
+      secondAnimation: (AnimationController controller) =>
+          getOpacityTween().animate(
+            CurvedAnimation(parent: controller, curve: const Interval(0, 0.7)),
+          ),
+      child:
+          (AnimationController controller, double animation, double opacity) {
+            return AnimatedBuilder(
+              animation: controller,
+              child: child,
+              builder: (BuildContext context, Widget? child) {
+                return Transform.scale(
+                  scale: animation,
+                  child: Opacity(opacity: opacity, child: child),
+                );
+              },
+            );
+          },
+    );
   }
 
   Tween<double> getTween() {

@@ -37,34 +37,42 @@ class NextFadeOutAnimation extends StatelessWidget {
                   child: child,
                 ),
             animation: (AnimationController controller) =>
-                CurvedAnimation(curve: Curves.easeOut, parent: controller))
+                CurvedAnimation(curve: Curves.easeOut, parent: controller),
+          )
         : DoubleAnimationWrapper<double>(
             viewportStart: viewportStart,
             animationController: animationController,
             animationDuration: animationDuration,
-            firstAnimation: (AnimationController controller) => getTween()
-                .animate(
-                    CurvedAnimation(parent: controller, curve: Curves.easeOut)),
+            firstAnimation: (AnimationController controller) =>
+                getTween().animate(
+                  CurvedAnimation(parent: controller, curve: Curves.easeOut),
+                ),
             startAnimationImmediately: startAnimationImmediately,
             secondAnimation: (AnimationController controller) =>
-                Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
-                    parent: controller, curve: const Interval(0, 0.7))),
-            child: (AnimationController controller, double animation,
-                double opacity) {
-              return AnimatedBuilder(
-                animation: controller,
-                child: child,
-                builder: (BuildContext context, Widget? child) {
-                  return Transform.translate(
-                    offset: getOffset(animation),
-                    child: Opacity(
-                      opacity: 1 - opacity,
-                      child: child,
-                    ),
+                Tween<double>(begin: 0, end: 1).animate(
+                  CurvedAnimation(
+                    parent: controller,
+                    curve: const Interval(0, 0.7),
+                  ),
+                ),
+            child:
+                (
+                  AnimationController controller,
+                  double animation,
+                  double opacity,
+                ) {
+                  return AnimatedBuilder(
+                    animation: controller,
+                    child: child,
+                    builder: (BuildContext context, Widget? child) {
+                      return Transform.translate(
+                        offset: getOffset(animation),
+                        child: Opacity(opacity: 1 - opacity, child: child),
+                      );
+                    },
                   );
                 },
-              );
-            });
+          );
   }
 
   Offset getOffset(double animation) {

@@ -21,16 +21,17 @@ class NextColorTweenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleAnimationWrapper<Color?>(
-        animation: (controller) =>
-            ColorTween(begin: beginColor, end: endColor).animate(controller),
-        animationController: controller,
-        child: (AnimationController controller, Color? value) {
-          return AnimatedBuilder(
-            animation: controller,
-            builder: (BuildContext _, Widget? __) {
-              return child(controller, value);
-            },
-          );
-        });
+      animation: (controller) =>
+          ColorTween(begin: beginColor, end: endColor).animate(controller),
+      animationController: controller,
+      child: (AnimationController controller, Color? value) {
+        return AnimatedBuilder(
+          animation: controller,
+          builder: (BuildContext _, Widget? __) {
+            return child(controller, value);
+          },
+        );
+      },
+    );
   }
 }

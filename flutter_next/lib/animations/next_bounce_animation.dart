@@ -32,20 +32,12 @@ class _NextBounceAnimationState extends State<NextBounceAnimation>
   void initState() {
     super.initState();
 
-    _controller = AnimationController(
-      duration: widget.duration,
-      vsync: this,
-    );
+    _controller = AnimationController(duration: widget.duration, vsync: this);
 
     _animation = Tween<double>(
       begin: widget.initialPosition,
       end: 0,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.bounceOut,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceOut));
 
     if (widget.startAnimation) {
       Future.delayed(widget.delay, () {

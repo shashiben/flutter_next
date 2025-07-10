@@ -8,10 +8,7 @@ class NextAvatarShowcasePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('NextAvatar Showcase'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text('NextAvatar Showcase'), centerTitle: true),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -102,9 +99,7 @@ class NextAvatarShowcasePage extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 15),
       child: Card(
         elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -113,20 +108,14 @@ class NextAvatarShowcasePage extends StatelessWidget {
               // Avatar Section Title
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
 
               // Description
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[700],
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey[700]),
               ),
               SizedBox(height: 20),
 

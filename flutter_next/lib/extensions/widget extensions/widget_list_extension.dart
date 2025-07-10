@@ -9,17 +9,16 @@ extension WidgetListExtension on List<Widget> {
     TextDirection? textDirection,
     VerticalDirection verticalDirection = VerticalDirection.down,
     TextBaseline? textBaseline,
-  }) =>
-      Column(
-        key: key,
-        mainAxisAlignment: mainAxisAlignment,
-        mainAxisSize: mainAxisSize,
-        crossAxisAlignment: crossAxisAlignment,
-        textDirection: textDirection,
-        verticalDirection: verticalDirection,
-        textBaseline: textBaseline,
-        children: this,
-      );
+  }) => Column(
+    key: key,
+    mainAxisAlignment: mainAxisAlignment,
+    mainAxisSize: mainAxisSize,
+    crossAxisAlignment: crossAxisAlignment,
+    textDirection: textDirection,
+    verticalDirection: verticalDirection,
+    textBaseline: textBaseline,
+    children: this,
+  );
 
   Widget row({
     Key? key,
@@ -29,17 +28,16 @@ extension WidgetListExtension on List<Widget> {
     TextDirection? textDirection,
     VerticalDirection verticalDirection = VerticalDirection.down,
     TextBaseline? textBaseline,
-  }) =>
-      Row(
-        key: key,
-        mainAxisAlignment: mainAxisAlignment,
-        mainAxisSize: mainAxisSize,
-        crossAxisAlignment: crossAxisAlignment,
-        textDirection: textDirection,
-        verticalDirection: verticalDirection,
-        textBaseline: textBaseline,
-        children: this,
-      );
+  }) => Row(
+    key: key,
+    mainAxisAlignment: mainAxisAlignment,
+    mainAxisSize: mainAxisSize,
+    crossAxisAlignment: crossAxisAlignment,
+    textDirection: textDirection,
+    verticalDirection: verticalDirection,
+    textBaseline: textBaseline,
+    children: this,
+  );
 
   Widget stack({
     Key? key,
@@ -47,15 +45,14 @@ extension WidgetListExtension on List<Widget> {
     TextDirection? textDirection,
     StackFit fit = StackFit.loose,
     Clip clipBehavior = Clip.hardEdge,
-  }) =>
-      Stack(
-        key: key,
-        alignment: alignment,
-        textDirection: textDirection,
-        fit: fit,
-        clipBehavior: clipBehavior,
-        children: this,
-      );
+  }) => Stack(
+    key: key,
+    alignment: alignment,
+    textDirection: textDirection,
+    fit: fit,
+    clipBehavior: clipBehavior,
+    children: this,
+  );
   Widget wrap({
     Key? key,
     Axis direction = Axis.horizontal,
@@ -67,18 +64,17 @@ extension WidgetListExtension on List<Widget> {
     TextDirection? textDirection,
     VerticalDirection verticalDirection = VerticalDirection.down,
     Clip clipBehavior = Clip.none,
-  }) =>
-      Wrap(
-        key: key,
-        direction: direction,
-        alignment: alignment,
-        spacing: spacing,
-        runSpacing: runSpacing,
-        runAlignment: runAlignment,
-        crossAxisAlignment: crossAxisAlignment,
-        verticalDirection: verticalDirection,
-        textDirection: textDirection,
-        clipBehavior: clipBehavior,
-        children: this,
-      );
+  }) => Wrap(
+    key: key,
+    direction: direction,
+    alignment: alignment,
+    spacing: spacing,
+    runSpacing: runSpacing,
+    runAlignment: runAlignment,
+    crossAxisAlignment: crossAxisAlignment,
+    verticalDirection: verticalDirection,
+    textDirection: textDirection,
+    clipBehavior: clipBehavior,
+    children: this,
+  );
 }

@@ -56,7 +56,8 @@ class _SingleAnimationWrapperState<T> extends State<SingleAnimationWrapper<T>>
   @override
   void initState() {
     super.initState();
-    animationController = widget.animationController ??
+    animationController =
+        widget.animationController ??
         AnimationController(duration: widget.animationDuration, vsync: this);
     animation = widget.animation(animationController);
   }
@@ -84,10 +85,11 @@ class _SingleAnimationWrapperState<T> extends State<SingleAnimationWrapper<T>>
         }
       },
       child: AnimatedBuilder(
-          animation: animationController,
-          builder: (BuildContext context, Widget? child) {
-            return widget.child(animationController, animation.value);
-          }),
+        animation: animationController,
+        builder: (BuildContext context, Widget? child) {
+          return widget.child(animationController, animation.value);
+        },
+      ),
     );
   }
 }

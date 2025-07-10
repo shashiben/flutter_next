@@ -24,13 +24,7 @@ class BounceAnimationsExample extends StatelessWidget {
             width: 100,
             height: 100,
             color: Colors.orange,
-            child: Center(
-              child: Icon(
-                icon,
-                size: 50,
-                color: Colors.white,
-              ),
-            ),
+            child: Center(child: Icon(icon, size: 50, color: Colors.white)),
           ),
         );
       }).toList(),

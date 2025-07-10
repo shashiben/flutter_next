@@ -9,10 +9,7 @@ class NextBreadCumb extends StatelessWidget {
     this.physics = const AlwaysScrollableScrollPhysics(),
     this.variant = NextBreadcrumbVariant.wrap,
     this.spacing = 8.0,
-    this.seperator = const Icon(
-      Icons.chevron_right,
-      size: 18.0,
-    ),
+    this.seperator = const Icon(Icons.chevron_right, size: 18.0),
   });
 
   ///
@@ -52,9 +49,7 @@ class NextBreadCumb extends StatelessWidget {
             physics: physics,
             primary: primary,
             scrollDirection: Axis.horizontal,
-            child: Row(
-              children: _joinItems(),
-            ),
+            child: Row(children: _joinItems()),
           );
   }
 

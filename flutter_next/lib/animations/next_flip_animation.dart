@@ -31,12 +31,14 @@ class NextFlipAnimation extends StatelessWidget {
       startAnimationImmediately: startAnimationImmediately,
       animationDelay: animationDelay,
       animationController: animationController,
-      firstAnimation: (AnimationController controller) =>
-          Tween<double>(begin: 1.5, end: 0.0).animate(
-              CurvedAnimation(parent: controller, curve: Curves.bounceOut)),
+      firstAnimation: (AnimationController controller) => Tween<double>(
+        begin: 1.5,
+        end: 0.0,
+      ).animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut)),
       secondAnimation: (AnimationController controller) =>
-          Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
-              parent: controller, curve: const Interval(0, 0.7))),
+          Tween<double>(begin: 0, end: 1).animate(
+            CurvedAnimation(parent: controller, curve: const Interval(0, 0.7)),
+          ),
       child: (AnimationController controller, double first, double second) {
         return AnimatedBuilder(
           animation: controller,
@@ -47,10 +49,7 @@ class NextFlipAnimation extends StatelessWidget {
               transform: flipVariant == NextFlipVariant.flipY
                   ? (Matrix4.identity()..rotateX(first))
                   : (Matrix4.identity()..rotateY(first)),
-              child: Opacity(
-                opacity: second,
-                child: child,
-              ),
+              child: Opacity(opacity: second, child: child),
             );
           },
         );

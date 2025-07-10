@@ -49,26 +49,27 @@ class NextContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return SizedBox(
-        width: constraints.maxWidth,
-        child: Align(
-          alignment: alignment,
-          child: Container(
-            decoration: decoration,
-            padding: padding,
-            width: fluid
-                ? context.width
-                : NextUtils.getMaxWidthForNonFluid(context.width),
-            child: Column(
-              mainAxisAlignment: mainAxisAlignment,
-              mainAxisSize: mainAxisSize,
-              crossAxisAlignment: crossAxisAlignment,
-              children: children,
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return SizedBox(
+          width: constraints.maxWidth,
+          child: Align(
+            alignment: alignment,
+            child: Container(
+              decoration: decoration,
+              padding: padding,
+              width: fluid
+                  ? context.width
+                  : NextUtils.getMaxWidthForNonFluid(context.width),
+              child: Column(
+                mainAxisAlignment: mainAxisAlignment,
+                mainAxisSize: mainAxisSize,
+                crossAxisAlignment: crossAxisAlignment,
+                children: children,
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

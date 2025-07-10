@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
 class NextCol extends StatelessWidget {
-  const NextCol(
-      {super.key,
-      required this.widthPercentages,
-      required this.child,
-      this.decoration,
-      this.margin,
-      this.padding,
-      this.offset = const {},
-      this.invisibleFor = const <GridPrefix>[]});
+  const NextCol({
+    super.key,
+    required this.widthPercentages,
+    required this.child,
+    this.decoration,
+    this.margin,
+    this.padding,
+    this.offset = const {},
+    this.invisibleFor = const <GridPrefix>[],
+  });
   final Map<GridPrefix, double> widthPercentages;
   final BoxDecoration? decoration;
   final Map<GridPrefix, double> offset;
@@ -21,8 +22,9 @@ class NextCol extends StatelessWidget {
   final Widget child;
 
   double getWidthOfChild(double availableWidth, GridPrefix prefix) {
-    final populatedWidthPercentages =
-        NextUtils.populateAllColValues(widthPercentages);
+    final populatedWidthPercentages = NextUtils.populateAllColValues(
+      widthPercentages,
+    );
 
     double? widthPercentage;
     for (final GridPrefix p in GridPrefix.values.reversed) {

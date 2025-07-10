@@ -87,57 +87,59 @@ class NextRow extends StatelessWidget {
     return Padding(
       padding: padding,
       child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-        final double maxWidth = constraints.maxWidth;
-        final List<Widget> wrapChildrens = <Widget>[];
-        final List<List<NextCol>> horizontalChildrens = <List<NextCol>>[];
-        List<NextCol> verticalChildrens = <NextCol>[];
-        double accumulatedPer = 0;
-        for (int i = 0; i < children.length; i++) {
-          final NextCol col = children.elementAt(i);
-          final Map<GridPrefix, double> allColValues = col.widthPercentages;
-          final GridPrefix currentPrefix =
-              NextUtils.getPrefixEnumByWidth(maxWidth);
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final double maxWidth = constraints.maxWidth;
+          final List<Widget> wrapChildrens = <Widget>[];
+          final List<List<NextCol>> horizontalChildrens = <List<NextCol>>[];
+          List<NextCol> verticalChildrens = <NextCol>[];
+          double accumulatedPer = 0;
+          for (int i = 0; i < children.length; i++) {
+            final NextCol col = children.elementAt(i);
+            final Map<GridPrefix, double> allColValues = col.widthPercentages;
+            final GridPrefix currentPrefix = NextUtils.getPrefixEnumByWidth(
+              maxWidth,
+            );
 
-          final double colPercentage = allColValues[currentPrefix] ?? 100;
-          if (accumulatedPer + colPercentage > 100) {
+            final double colPercentage = allColValues[currentPrefix] ?? 100;
+            if (accumulatedPer + colPercentage > 100) {
+              horizontalChildrens.add(verticalChildrens);
+              verticalChildrens = <NextCol>[];
+              accumulatedPer = 0;
+            }
+
+            verticalChildrens.add(col);
+            accumulatedPer += colPercentage;
+          }
+
+          if (accumulatedPer >= 0) {
             horizontalChildrens.add(verticalChildrens);
-            verticalChildrens = <NextCol>[];
-            accumulatedPer = 0;
           }
+          for (final List<NextCol> child in horizontalChildrens) {
+            for (final NextCol subChild in child) {
+              final double spaceToRemove =
+                  (child.length > 1
+                      ? ((child.length - 1) * horizontalSpacing)
+                      : 0) /
+                  child.length;
 
-          verticalChildrens.add(col);
-          accumulatedPer += colPercentage;
-        }
-
-        if (accumulatedPer >= 0) {
-          horizontalChildrens.add(verticalChildrens);
-        }
-        for (final List<NextCol> child in horizontalChildrens) {
-          for (final NextCol subChild in child) {
-            final double spaceToRemove = (child.length > 1
-                    ? ((child.length - 1) * horizontalSpacing)
-                    : 0) /
-                child.length;
-
-            final double subChildSize =
-                (maxWidth / child.length) - spaceToRemove;
-            wrapChildrens.add(SizedBox(
-              width: subChildSize,
-              child: subChild.child,
-            ));
+              final double subChildSize =
+                  (maxWidth / child.length) - spaceToRemove;
+              wrapChildrens.add(
+                SizedBox(width: subChildSize, child: subChild.child),
+              );
+            }
           }
-        }
-        return Wrap(
-          alignment: horizontalAlignment,
-          crossAxisAlignment: crossAxisAlignment,
-          runAlignment: verticalAlignment,
-          runSpacing: verticalSpacing,
-          spacing: horizontalSpacing,
-          verticalDirection: verticalDirection,
-          children: wrapChildrens,
-        );
-      }),
+          return Wrap(
+            alignment: horizontalAlignment,
+            crossAxisAlignment: crossAxisAlignment,
+            runAlignment: verticalAlignment,
+            runSpacing: verticalSpacing,
+            spacing: horizontalSpacing,
+            verticalDirection: verticalDirection,
+            children: wrapChildrens,
+          );
+        },
+      ),
     );
   }
 }

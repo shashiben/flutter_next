@@ -130,7 +130,10 @@ class NextAlert extends StatelessWidget {
       children.add(
         DefaultTextStyle(
           style: TextStyle(
-              color: config.color, fontSize: 24.0, fontWeight: FontWeight.bold),
+            color: config.color,
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
           child: Container(
             padding: EdgeInsets.only(bottom: verticalHeadingSpace),
             child: heading,

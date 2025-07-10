@@ -28,25 +28,24 @@ class NextSlideAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleAnimationWrapper<double>(
-        viewportStart: viewportStart,
-        animationDuration: animationDuration,
-        startAnimationImmediately: startAnimationImmediately,
-        animationDelay: animationDelay,
-        animationController: animationController,
-        child: (AnimationController controller, double value) {
-          return AnimatedBuilder(
-            animation: controller,
-            child: child,
-            builder: (BuildContext context, Widget? child) {
-              return Transform.translate(
-                offset: _getOffset(value),
-                child: child,
-              );
-            },
-          );
-        },
-        animation: (AnimationController controller) => _getTween().animate(
-            CurvedAnimation(parent: controller, curve: Curves.easeOut)));
+      viewportStart: viewportStart,
+      animationDuration: animationDuration,
+      startAnimationImmediately: startAnimationImmediately,
+      animationDelay: animationDelay,
+      animationController: animationController,
+      child: (AnimationController controller, double value) {
+        return AnimatedBuilder(
+          animation: controller,
+          child: child,
+          builder: (BuildContext context, Widget? child) {
+            return Transform.translate(offset: _getOffset(value), child: child);
+          },
+        );
+      },
+      animation: (AnimationController controller) => _getTween().animate(
+        CurvedAnimation(parent: controller, curve: Curves.easeOut),
+      ),
+    );
   }
 
   Offset _getOffset(double animation) {

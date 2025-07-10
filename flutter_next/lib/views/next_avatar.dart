@@ -19,33 +19,16 @@ class TextAvatar implements NextAvatarChild {
 }
 
 // Step 2: Enum for Avatar Size, Shape, Border, and Badge Position
-enum AvatarSize {
-  small,
-  medium,
-  large,
-}
+enum AvatarSize { small, medium, large }
 
-enum AvatarShape {
-  circle,
-  square,
-}
+enum AvatarShape { circle, square }
 
-enum AvatarBorder {
-  none,
-  thin,
-  thick,
-}
+enum AvatarBorder { none, thin, thick }
 
-enum BadgePosition {
-  topLeft,
-  topRight,
-  bottomLeft,
-  bottomRight,
-}
+enum BadgePosition { topLeft, topRight, bottomLeft, bottomRight }
 
 // Step 3: NextIndicatorBadge for the badge
 class NextIndicatorBadge extends StatelessWidget {
-
   const NextIndicatorBadge({
     super.key,
     required this.badgeColor, // Custom color for the badge
@@ -114,9 +97,11 @@ class NextAvatar extends StatelessWidget {
             child: (child is IconAvatar)
                 ? Icon((child as IconAvatar).icon, size: scaledAvatarSize / 2)
                 : (child is TextAvatar)
-                    ? Text((child as TextAvatar).text,
-                        style: TextStyle(fontSize: scaledAvatarSize / 3))
-                    : null,
+                ? Text(
+                    (child as TextAvatar).text,
+                    style: TextStyle(fontSize: scaledAvatarSize / 3),
+                  )
+                : null,
           )
         : Container(
             width: scaledAvatarSize,
@@ -134,13 +119,13 @@ class NextAvatar extends StatelessWidget {
             child: (child is IconAvatar)
                 ? Icon((child as IconAvatar).icon, size: scaledAvatarSize / 2)
                 : (child is TextAvatar)
-                    ? Center(
-                        child: Text(
-                          (child as TextAvatar).text,
-                          style: TextStyle(fontSize: scaledAvatarSize / 3),
-                        ),
-                      )
-                    : null,
+                ? Center(
+                    child: Text(
+                      (child as TextAvatar).text,
+                      style: TextStyle(fontSize: scaledAvatarSize / 3),
+                    ),
+                  )
+                : null,
           );
 
     // Step 6: Apply border if selected

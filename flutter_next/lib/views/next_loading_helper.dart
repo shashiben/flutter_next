@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 class NextLoadingHelper extends StatelessWidget {
-  const NextLoadingHelper(
-      {super.key,
-      required this.isLoading,
-      this.ignoreWhileLoading = true,
-      this.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
-      required this.child,
-      this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
-      this.switchOutCurve = Curves.linear,
-      this.switchInCurve = Curves.linear,
-      this.loadingWidget,
-      this.duration = const Duration(milliseconds: 200),
-      this.reverseDuration});
+  const NextLoadingHelper({
+    super.key,
+    required this.isLoading,
+    this.ignoreWhileLoading = true,
+    this.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
+    required this.child,
+    this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
+    this.switchOutCurve = Curves.linear,
+    this.switchInCurve = Curves.linear,
+    this.loadingWidget,
+    this.duration = const Duration(milliseconds: 200),
+    this.reverseDuration,
+  });
 
   ///isLoading--> true shows loading widget
   final bool isLoading;
@@ -105,16 +106,17 @@ class NextLoadingHelper extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Positioned.fill(
-            child: IgnorePointer(ignoring: ignoreWhileLoading, child: child)),
+          child: IgnorePointer(ignoring: ignoreWhileLoading, child: child),
+        ),
         AnimatedSwitcher(
-            duration: duration,
-            reverseDuration: reverseDuration,
-            switchInCurve: switchInCurve,
-            switchOutCurve: switchOutCurve,
-            transitionBuilder: transitionBuilder,
-            layoutBuilder: layoutBuilder,
-            child: isLoading
-                ? loadingWidget ??
+          duration: duration,
+          reverseDuration: reverseDuration,
+          switchInCurve: switchInCurve,
+          switchOutCurve: switchOutCurve,
+          transitionBuilder: transitionBuilder,
+          layoutBuilder: layoutBuilder,
+          child: isLoading
+              ? loadingWidget ??
                     Scaffold(
                       backgroundColor: Colors.transparent,
                       body: Container(
@@ -125,26 +127,25 @@ class NextLoadingHelper extends StatelessWidget {
                             height: 100,
                             child: AlertDialog(
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                              contentPadding:
-                                  const EdgeInsets.symmetric(vertical: 15),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 15,
+                              ),
                               content: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
+                                  Center(child: CircularProgressIndicator()),
+                                  SizedBox(width: 20),
                                   Text(
                                     'Loading....',
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 16),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                    ),
                                     textAlign: TextAlign.center,
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -152,7 +153,8 @@ class NextLoadingHelper extends StatelessWidget {
                         ),
                       ),
                     )
-                : const SizedBox())
+              : const SizedBox(),
+        ),
       ],
     );
   }

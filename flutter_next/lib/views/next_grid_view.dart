@@ -39,10 +39,13 @@ class NextGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final populatedWidthPercentages =
-            NextUtils.populateAllColValues(widthPercentages);
+        final populatedWidthPercentages = NextUtils.populateAllColValues(
+          widthPercentages,
+        );
         final crossAxisCount = _calculateCrossAxisCount(
-            constraints.maxWidth, populatedWidthPercentages);
+          constraints.maxWidth,
+          populatedWidthPercentages,
+        );
         return GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -71,9 +74,12 @@ class NextGridView extends StatelessWidget {
   }
 
   static int _calculateCrossAxisCount(
-      double maxWidth, Map<GridPrefix, double> widthPercentages) {
-    final GridPrefix currentSystemGridPrefix =
-        NextUtils.getPrefixByWidth(maxWidth);
+    double maxWidth,
+    Map<GridPrefix, double> widthPercentages,
+  ) {
+    final GridPrefix currentSystemGridPrefix = NextUtils.getPrefixByWidth(
+      maxWidth,
+    );
     final int percentageWidthForChild =
         (100 / (widthPercentages[currentSystemGridPrefix] ?? 100)).round();
     return percentageWidthForChild;

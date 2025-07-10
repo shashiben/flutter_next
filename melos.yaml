@@ -1,6 +1,28 @@
 name: flutter_next_workspace
+
 packages:
   - next_animation/
-  - next_table/
   - flutter_next/
 
+scripts:
+  get:
+    run: flutter pub get
+    description: Run flutter pub get in all packages.
+
+  upgrade:
+    run: flutter pub upgrade
+    description: Run flutter pub upgrade in all packages.
+
+  magic:
+    run: |
+      flutter pub get
+      dart format .
+      dart fix --apply
+    description: Pub get, format code, and apply Dart fixes.
+
+  all:
+    run: |
+      melos run get
+      melos run upgrade
+      melos run magic
+    description: Run get, upgrade, format, and fix everything.

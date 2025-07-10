@@ -17,11 +17,7 @@ class SlideAnimationsExample extends StatelessWidget {
             height: 100,
             color: Colors.orange,
             child: const Center(
-              child: Icon(
-                Icons.star,
-                size: 50,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.star, size: 50, color: Colors.white),
             ),
           ),
         );
