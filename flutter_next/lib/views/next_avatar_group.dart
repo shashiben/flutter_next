@@ -33,14 +33,14 @@ class NextAvatarGroup extends StatelessWidget {
 
   /// Function to build the widget that displays the excess count.
   final Widget Function(BuildContext context, int hiddenCount)?
-  excessCountBuilder;
+      excessCountBuilder;
 
   /// Background color of the avatars.
   final Color? avatarBackgroundColor;
 
   /// Function to build the avatar widget.
   final Widget Function(BuildContext context, int index, ImageProvider image)?
-  avatarBuilder;
+      avatarBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +55,8 @@ class NextAvatarGroup extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount:
             (displayLimit != null && avatarImages.length > (displayLimit ?? 0))
-            ? displayLimit! + 1
-            : avatarImages.length,
+                ? displayLimit! + 1
+                : avatarImages.length,
         primary: false,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {

@@ -37,8 +37,8 @@ class NextFlipAnimation extends StatelessWidget {
       ).animate(CurvedAnimation(parent: controller, curve: Curves.bounceOut)),
       secondAnimation: (AnimationController controller) =>
           Tween<double>(begin: 0, end: 1).animate(
-            CurvedAnimation(parent: controller, curve: const Interval(0, 0.7)),
-          ),
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.7)),
+      ),
       child: (AnimationController controller, double first, double second) {
         return AnimatedBuilder(
           animation: controller,

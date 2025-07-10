@@ -45,10 +45,10 @@ class NextAccordion extends StatefulWidget {
     this.collapsedIconColor,
     this.controlAffinity,
   }) : assert(
-         expandedCrossAxisAlignment != CrossAxisAlignment.baseline,
-         'CrossAxisAlignment.baseline is not supported since the expanded children '
-         'are aligned in a column, not a row. Try to use another constant.',
-       );
+          expandedCrossAxisAlignment != CrossAxisAlignment.baseline,
+          'CrossAxisAlignment.baseline is not supported since the expanded children '
+          'are aligned in a column, not a row. Try to use another constant.',
+        );
 
   /// A widget to display before the title.
   ///
@@ -229,8 +229,7 @@ class _NextAccordionState extends State<NextAccordion>
       _backgroundColorTween.chain(_easeOutTween),
     );
 
-    _isExpanded =
-        PageStorage.of(context).readState(context) as bool? ??
+    _isExpanded = PageStorage.of(context).readState(context) as bool? ??
         widget.initiallyExpanded;
     if (_isExpanded) {
       _controller.value = 1.0;

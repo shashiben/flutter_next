@@ -56,8 +56,7 @@ class _SingleAnimationWrapperState<T> extends State<SingleAnimationWrapper<T>>
   @override
   void initState() {
     super.initState();
-    animationController =
-        widget.animationController ??
+    animationController = widget.animationController ??
         AnimationController(duration: widget.animationDuration, vsync: this);
     animation = widget.animation(animationController);
   }

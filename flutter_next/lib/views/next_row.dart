@@ -116,8 +116,7 @@ class NextRow extends StatelessWidget {
           }
           for (final List<NextCol> child in horizontalChildrens) {
             for (final NextCol subChild in child) {
-              final double spaceToRemove =
-                  (child.length > 1
+              final double spaceToRemove = (child.length > 1
                       ? ((child.length - 1) * horizontalSpacing)
                       : 0) /
                   child.length;

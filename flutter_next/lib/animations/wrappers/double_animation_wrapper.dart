@@ -34,7 +34,7 @@ class DoubleAnimationWrapper<T> extends StatefulWidget {
 
   /// The child widget to which the animation is applied.
   final Widget Function(AnimationController controller, T first, T second)
-  child;
+      child;
 
   /// The viewport at which the animation should start.
   final double viewportStart;
@@ -59,8 +59,7 @@ class _DoubleAnimationWrapperState<T> extends State<DoubleAnimationWrapper<T>>
   @override
   void initState() {
     super.initState();
-    animationController =
-        widget.animationController ??
+    animationController = widget.animationController ??
         AnimationController(duration: widget.animationDuration, vsync: this);
     firstAnimation = widget.firstAnimation(animationController);
     secondAnimation = widget.secondAnimation(animationController);

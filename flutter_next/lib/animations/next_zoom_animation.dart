@@ -35,21 +35,21 @@ class NextZoomAnimation extends StatelessWidget {
       startAnimationImmediately: startAnimation,
       secondAnimation: (AnimationController controller) =>
           getOpacityTween().animate(
-            CurvedAnimation(parent: controller, curve: const Interval(0, 0.7)),
-          ),
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.7)),
+      ),
       child:
           (AnimationController controller, double animation, double opacity) {
-            return AnimatedBuilder(
-              animation: controller,
-              child: child,
-              builder: (BuildContext context, Widget? child) {
-                return Transform.scale(
-                  scale: animation,
-                  child: Opacity(opacity: opacity, child: child),
-                );
-              },
+        return AnimatedBuilder(
+          animation: controller,
+          child: child,
+          builder: (BuildContext context, Widget? child) {
+            return Transform.scale(
+              scale: animation,
+              child: Opacity(opacity: opacity, child: child),
             );
           },
+        );
+      },
     );
   }
 

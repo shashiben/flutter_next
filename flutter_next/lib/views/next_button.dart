@@ -67,7 +67,7 @@ class NextButton extends StatelessWidget {
   /// Customise your button
   ///
   final Widget Function(BuildContext context, bool isHovered, Color? color)?
-  itemBuilder;
+      itemBuilder;
 
   ///
   /// [Hover Duration] - Animation to reverse from hover to normal state
@@ -152,21 +152,17 @@ class NextButton extends StatelessWidget {
                     child: Padding(
                       padding: padding,
                       child: DefaultTextStyle(
-                        style:
-                            (style ??
-                                    context.themeData.textTheme.labelLarge ??
-                                    const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ))
-                                .copyWith(
-                                  color: isHovered
-                                      ? color ??
-                                            context
-                                                .themeData
-                                                .colorScheme
-                                                .background
-                                      : outlineColor ?? context.primaryColor,
-                                ),
+                        style: (style ??
+                                context.themeData.textTheme.labelLarge ??
+                                const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                ))
+                            .copyWith(
+                          color: isHovered
+                              ? color ??
+                                  context.themeData.colorScheme.background
+                              : outlineColor ?? context.primaryColor,
+                        ),
                         child: child ?? const SizedBox(),
                       ),
                     ),

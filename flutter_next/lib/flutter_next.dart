@@ -14,7 +14,6 @@ export 'animations/next_zoom_animation.dart';
 export 'animations/wrappers/double_animation_wrapper.dart';
 export 'animations/wrappers/single_animation_wrapper.dart';
 export 'constants/colors.dart';
-export 'constants/constants.dart';
 /*
    export Extensions
 */
@@ -35,6 +34,8 @@ export 'views/next_col.dart';
 export 'views/next_container.dart';
 export 'views/next_grid_view.dart';
 export 'views/next_loading_helper.dart';
+export 'views/next_responsive_container.dart';
+export 'views/next_responsive_visibility.dart';
 export 'views/next_row.dart';
 export 'widgets/hover_widget.dart';
 export 'widgets/next_bread_cumb_item.dart';

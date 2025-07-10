@@ -17,38 +17,39 @@ extension WidgetExtensions on Widget {
     Clip clipBehavior = Clip.none,
     bool shouldAnimate = false,
     Duration animationDuration = const Duration(milliseconds: 450),
-  }) => shouldAnimate
-      ? AnimatedContainer(
-          decoration: decoration,
-          alignment: alignment,
-          padding: padding,
-          color: color,
-          clipBehavior: clipBehavior,
-          duration: animationDuration,
-          foregroundDecoration: foregroundDecoration,
-          width: width,
-          height: height,
-          constraints: constraints,
-          transform: transform,
-          transformAlignment: transformAlignment,
-          margin: margin,
-          child: this,
-        )
-      : Container(
-          decoration: decoration,
-          alignment: alignment,
-          padding: padding,
-          color: color,
-          clipBehavior: clipBehavior,
-          foregroundDecoration: foregroundDecoration,
-          width: width,
-          height: height,
-          constraints: constraints,
-          transform: transform,
-          transformAlignment: transformAlignment,
-          margin: margin,
-          child: this,
-        );
+  }) =>
+      shouldAnimate
+          ? AnimatedContainer(
+              decoration: decoration,
+              alignment: alignment,
+              padding: padding,
+              color: color,
+              clipBehavior: clipBehavior,
+              duration: animationDuration,
+              foregroundDecoration: foregroundDecoration,
+              width: width,
+              height: height,
+              constraints: constraints,
+              transform: transform,
+              transformAlignment: transformAlignment,
+              margin: margin,
+              child: this,
+            )
+          : Container(
+              decoration: decoration,
+              alignment: alignment,
+              padding: padding,
+              color: color,
+              clipBehavior: clipBehavior,
+              foregroundDecoration: foregroundDecoration,
+              width: width,
+              height: height,
+              constraints: constraints,
+              transform: transform,
+              transformAlignment: transformAlignment,
+              margin: margin,
+              child: this,
+            );
   Widget addDecoration(BoxDecoration decoration) =>
       DecoratedBox(decoration: decoration, child: this);
   Widget center({Key? key, double? widthFactor, double? heightFactor}) =>
@@ -66,43 +67,47 @@ extension WidgetExtensions on Widget {
     Key? key,
     BoxFit fit = BoxFit.contain,
     AlignmentGeometry alignment = Alignment.center,
-  }) => FittedBox(key: key, fit: fit, alignment: alignment, child: this);
+  }) =>
+      FittedBox(key: key, fit: fit, alignment: alignment, child: this);
 
   Widget fractionallySizedBox({
     Key? key,
     AlignmentGeometry alignment = Alignment.center,
     double? widthFactor,
     double? heightFactor,
-  }) => FractionallySizedBox(
-    key: key,
-    alignment: alignment,
-    widthFactor: widthFactor,
-    heightFactor: heightFactor,
-    child: this,
-  );
+  }) =>
+      FractionallySizedBox(
+        key: key,
+        alignment: alignment,
+        widthFactor: widthFactor,
+        heightFactor: heightFactor,
+        child: this,
+      );
   Widget flexible({Key? key, int flex = 1, FlexFit fit = FlexFit.loose}) =>
       Flexible(key: key, flex: flex, fit: fit, child: this);
   Widget clipRect({
     Key? key,
     CustomClipper<Rect>? clipper,
     Clip clipBehavior = Clip.hardEdge,
-  }) => ClipRect(
-    key: key,
-    clipper: clipper,
-    clipBehavior: clipBehavior,
-    child: this,
-  );
+  }) =>
+      ClipRect(
+        key: key,
+        clipper: clipper,
+        clipBehavior: clipBehavior,
+        child: this,
+      );
 
   Widget clipOval({
     Key? key,
     CustomClipper<Rect>? clipper,
     Clip clipBehavior = Clip.antiAlias,
-  }) => ClipOval(
-    clipBehavior: clipBehavior,
-    clipper: clipper,
-    key: key,
-    child: this,
-  );
+  }) =>
+      ClipOval(
+        clipBehavior: clipBehavior,
+        clipper: clipper,
+        key: key,
+        child: this,
+      );
   Widget boxShadow({
     Key? key,
     Color color = const Color(0xFF000000),
@@ -134,18 +139,19 @@ extension WidgetExtensions on Widget {
     CustomClipper<RRect>? clipper,
     Clip clipBehavior = Clip.antiAlias,
     bool animate = false,
-  }) => ClipRRect(
-    key: key,
-    clipper: clipper,
-    clipBehavior: clipBehavior,
-    borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(topLeft ?? all ?? 0.0),
-      topRight: Radius.circular(topRight ?? all ?? 0.0),
-      bottomLeft: Radius.circular(bottomLeft ?? all ?? 0.0),
-      bottomRight: Radius.circular(bottomRight ?? all ?? 0.0),
-    ),
-    child: this,
-  );
+  }) =>
+      ClipRRect(
+        key: key,
+        clipper: clipper,
+        clipBehavior: clipBehavior,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(topLeft ?? all ?? 0.0),
+          topRight: Radius.circular(topRight ?? all ?? 0.0),
+          bottomLeft: Radius.circular(bottomLeft ?? all ?? 0.0),
+          bottomRight: Radius.circular(bottomRight ?? all ?? 0.0),
+        ),
+        child: this,
+      );
   Widget sizedBox({Key? key, double? width, double? height}) {
     return SizedBox(key: key, width: width, height: height, child: this);
   }

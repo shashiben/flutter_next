@@ -117,42 +117,42 @@ class NextLoadingHelper extends StatelessWidget {
           layoutBuilder: layoutBuilder,
           child: isLoading
               ? loadingWidget ??
-                    Scaffold(
-                      backgroundColor: Colors.transparent,
-                      body: Container(
-                        color: Colors.transparent,
-                        width: MediaQuery.of(context).size.width,
-                        child: Center(
-                          child: SizedBox(
-                            height: 100,
-                            child: AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15,
-                              ),
-                              content: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(child: CircularProgressIndicator()),
-                                  SizedBox(width: 20),
-                                  Text(
-                                    'Loading....',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                    ),
-                                    textAlign: TextAlign.center,
+                  Scaffold(
+                    backgroundColor: Colors.transparent,
+                    body: Container(
+                      color: Colors.transparent,
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: SizedBox(
+                          height: 100,
+                          child: AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                            ),
+                            content: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Center(child: CircularProgressIndicator()),
+                                SizedBox(width: 20),
+                                Text(
+                                  'Loading....',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
                                   ),
-                                ],
-                              ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                    )
+                    ),
+                  )
               : const SizedBox(),
         ),
       ],

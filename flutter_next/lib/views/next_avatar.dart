@@ -97,11 +97,11 @@ class NextAvatar extends StatelessWidget {
             child: (child is IconAvatar)
                 ? Icon((child as IconAvatar).icon, size: scaledAvatarSize / 2)
                 : (child is TextAvatar)
-                ? Text(
-                    (child as TextAvatar).text,
-                    style: TextStyle(fontSize: scaledAvatarSize / 3),
-                  )
-                : null,
+                    ? Text(
+                        (child as TextAvatar).text,
+                        style: TextStyle(fontSize: scaledAvatarSize / 3),
+                      )
+                    : null,
           )
         : Container(
             width: scaledAvatarSize,
@@ -119,13 +119,13 @@ class NextAvatar extends StatelessWidget {
             child: (child is IconAvatar)
                 ? Icon((child as IconAvatar).icon, size: scaledAvatarSize / 2)
                 : (child is TextAvatar)
-                ? Center(
-                    child: Text(
-                      (child as TextAvatar).text,
-                      style: TextStyle(fontSize: scaledAvatarSize / 3),
-                    ),
-                  )
-                : null,
+                    ? Center(
+                        child: Text(
+                          (child as TextAvatar).text,
+                          style: TextStyle(fontSize: scaledAvatarSize / 3),
+                        ),
+                      )
+                    : null,
           );
 
     // Step 6: Apply border if selected
