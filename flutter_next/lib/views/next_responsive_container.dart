@@ -19,7 +19,6 @@ import '../utils/responsive_container_utils.dart';
 /// )
 /// ```
 class ResponsiveContainer extends StatelessWidget {
-
   const ResponsiveContainer({
     super.key,
     required this.children,
