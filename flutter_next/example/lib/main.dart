@@ -1,6 +1,14 @@
+import 'package:example/pages/accordion_example.dart';
+import 'package:example/pages/alerts_example.dart';
 import 'package:example/pages/avatar_example.dart';
-import 'package:example/pages/grid_layout_example.dart'; // Import the new page
+import 'package:example/pages/breadcrumb_example.dart';
+import 'package:example/pages/button_example.dart';
+import 'package:example/pages/grid_layout_example.dart';
+import 'package:example/pages/gridview_example.dart';
+// import 'package:example/pages/avatar_showcase_legacy.dart'; // Renamed old avatar example
+
 import 'package:flutter/material.dart';
+
 // Import other example pages if you have them, e.g.:
 // import 'package:example/animations/all_animations_example.dart';
 
@@ -18,11 +26,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true, // Optional: enable Material 3 for modern look
+        // Example of setting a default text theme for explanations if needed globally
+        // textTheme: Theme.of(context).textTheme.copyWith(
+        //       bodySmall: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey.shade700),
+        //     ),
       ),
       home: const ExampleHomePage(), // Set new home page
       routes: {
-        '/avatar': (context) => NextAvatarShowcasePage(),
+        '/alerts': (context) => const AlertsExamplePage(),
+        '/accordion': (context) => const AccordionExamplePage(),
+        '/avatar': (context) => const AvatarExamplePage(), // New avatar examples
+        // '/avatar_legacy': (context) => const NextAvatarShowcasePage(), // Old one, if needed
+        '/breadcrumb': (context) => const BreadcrumbExamplePage(),
+        '/button': (context) => const ButtonExamplePage(),
         '/grid_layout': (context) => const GridLayoutExamplePage(),
+        '/gridview': (context) => const GridViewExamplePage(),
         // Add routes for other examples if needed
         // '/animations': (context) => const AllAnimationsExamplePage(),
       },
@@ -33,6 +51,29 @@ class MyApp extends StatelessWidget {
 class ExampleHomePage extends StatelessWidget {
   const ExampleHomePage({super.key});
 
+  Widget _buildNavigationItem(
+    BuildContext context, {
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required String routeName,
+  }) {
+    return Column(
+      children: [
+        ListTile(
+          title: Text(title),
+          subtitle: Text(subtitle),
+          leading: Icon(icon, color: Theme.of(context).primaryColor),
+          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+          onTap: () {
+            Navigator.pushNamed(context, routeName);
+          },
+        ),
+        const Divider(height: 1),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,35 +82,63 @@ class ExampleHomePage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          ListTile(
-            title: const Text('Avatar Examples'),
-            subtitle: const Text('Showcases NextAvatar and NextAvatarGroup.'),
-            leading: const Icon(Icons.person_outline),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              Navigator.pushNamed(context, '/avatar');
-            },
+          _buildNavigationItem(
+            context,
+            title: 'Grid & Layout',
+            subtitle: 'NextContainer, NextRow, NextCol, NextResponsiveVisibility.',
+            icon: Icons.grid_on_outlined,
+            routeName: '/grid_layout',
           ),
-          const Divider(),
-          ListTile(
-            title: const Text('Grid Layout Examples'),
-            subtitle: const Text('Demonstrates NextContainer, NextRow, NextCol, and NextResponsiveVisibility.'),
-            leading: const Icon(Icons.grid_on_outlined),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              Navigator.pushNamed(context, '/grid_layout');
-            },
+          _buildNavigationItem(
+            context,
+            title: 'Alerts',
+            subtitle: 'Examples for NextAlerts widget.',
+            icon: Icons.warning_amber_rounded,
+            routeName: '/alerts',
           ),
-          const Divider(),
+          _buildNavigationItem(
+            context,
+            title: 'Accordion',
+            subtitle: 'Examples for NextAccordion widget.',
+            icon: Icons.menu_open_outlined,
+            routeName: '/accordion',
+          ),
+          _buildNavigationItem(
+            context,
+            title: 'Avatars',
+            subtitle: 'Showcases NextAvatar and NextAvatarGroup.',
+            icon: Icons.person_outline,
+            routeName: '/avatar',
+          ),
+           _buildNavigationItem(
+            context,
+            title: 'Breadcrumbs',
+            subtitle: 'Examples for NextBreadCrumb widget.',
+            icon: Icons.arrow_forward_ios_sharp, // Placeholder, find better
+            routeName: '/breadcrumb',
+          ),
+          _buildNavigationItem(
+            context,
+            title: 'Buttons',
+            subtitle: 'Examples for NextButton widget.',
+            icon: Icons.smart_button_outlined,
+            routeName: '/button',
+          ),
+          _buildNavigationItem(
+            context,
+            title: 'GridView',
+            subtitle: 'Examples for NextGridView widget.',
+            icon: Icons.view_module_outlined,
+            routeName: '/gridview',
+          ),
+
           // Add ListTile for other examples here
-          // ListTile(
-          //   title: const Text('Animation Examples'),
-          //   subtitle: const Text('Various animation widgets.'),
-          //   leading: const Icon(Icons.animation),
-          //   trailing: const Icon(Icons.arrow_forward_ios),
-          //   onTap: () {
-          //     Navigator.pushNamed(context, '/animations');
-          //   },
+          // _buildNavigationItem(
+          //   context,
+          //   title: 'Animation Examples',
+          //   subtitle: 'Various animation widgets.',
+          //   icon: Icons.animation,
+          //   routeName: '/animations',
           // ),
         ],
       ),
@@ -83,32 +152,28 @@ class ExampleHomePage extends StatelessWidget {
 // and then navigate to it from the ExampleHomePage.
 
 /*
-class AllWidgetsExamplePage extends StatelessWidget {
-  const AllWidgetsExamplePage({super.key});
+// This was the original content of main.dart's body, could be a separate page
+import 'package:flutter_next/flutter_next.dart'; // For context.titleLarge etc.
+// import 'package:example/animations/zoom_animation_example.dart'; // and other animation examples
+
+class AllWidgetsLegacyExamplePage extends StatelessWidget {
+  const AllWidgetsLegacyExamplePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('All Widgets Showcase')),
+      appBar: AppBar(title: const Text('All Widgets Showcase (Legacy)')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ... (paste the original commented out Column content here) ...
-            // Make sure to import NextGridView, NextRow, NextCol,
-            // various animation examples, NextAvatarGroup, etc.
-            // and also flutter_next.dart for context.titleLarge etc.
-            // For example:
-            // import 'package:flutter_next/flutter_next.dart';
-            // import 'package:example/animations/zoom_animation_example.dart'; // and others
-
             Text(
               "Next Grid View",
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            // NextGridView(...),
-            // ... and so on for all other examples
+            // NextGridView(...), // Needs GridPrefix, NextCol etc. to be defined or imported
+            // ... and so on for all other original examples
           ],
         ),
       ),
