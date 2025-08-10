@@ -1,6 +1,7 @@
 name: flutter_next_workspace
 
 packages:
+  - flutter_next/example/
   - next_animation/
   - flutter_next/
 

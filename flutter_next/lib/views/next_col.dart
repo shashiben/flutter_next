@@ -33,8 +33,11 @@ class NextCol extends StatelessWidget {
   /// Expose order map for responsive reordering (e.g. NextRow)
   Map<Breakpoint, int> get orders => _orders;
 
+  /// Expose ratios map for flex calculations (e.g. NextRow)
+  Map<Breakpoint, int> get ratios => _ratios;
+
   final Map<Breakpoint, int> _ratios = {
-    for (var bp in Breakpoint.values) bp: NextGridSettings.numberOfColumns,
+    for (var bp in Breakpoint.values) bp: -1, // Use -1 as noValue indicator
   };
 
   final Map<Breakpoint, int> _offsets = {
@@ -55,7 +58,7 @@ class NextCol extends StatelessWidget {
       'col',
       _ratios,
       math.min,
-      NextGridSettings.numberOfColumns,
+      -1, // Use -1 as noValue instead of NextGridSettings.numberOfColumns
       0,
     );
     _parseSizes(
@@ -91,7 +94,7 @@ class NextCol extends StatelessWidget {
     for (final part in parts) {
       for (final bp in Breakpoint.values) {
         final key = breakpointToString(bp);
-        final pfx = bp == Breakpoint.xs ? '$prefix-' : '$prefix-$key-';
+        final pfx = '$prefix-$key-';
         if (part.startsWith(pfx)) {
           final value = int.tryParse(part.substring(pfx.length));
           if (value != null &&
@@ -150,19 +153,39 @@ class NextCol extends StatelessWidget {
 
         final flexRatio = _ratios[bp]!;
         final leftMarginRatio = _offsets[bp]!;
-        final childWidth =
-            flexRatio * availableWidth * NextGridSettings.oneColumnRatio;
-        Widget widget = SizedBox(
-          width: childWidth,
-          child: Padding(
-            padding: NextGridSettings.gutterSize == 0.0
-                ? EdgeInsets.zero
-                : EdgeInsets.symmetric(
-                    horizontal: NextGridSettings.gutterSize / 2,
-                  ),
-            child: child,
-          ),
-        );
+
+        Widget widget;
+        print("Ratios: $_ratios");
+        // If the column should take full width (12 columns), use full width
+        if (flexRatio >= NextGridSettings.numberOfColumns) {
+          widget = SizedBox(
+            width: availableWidth,
+            child: Padding(
+              padding: NextGridSettings.gutterSize == 0.0
+                  ? EdgeInsets.zero
+                  : EdgeInsets.symmetric(
+                      horizontal: NextGridSettings.gutterSize / 2,
+                    ),
+              child: child,
+            ),
+          );
+        } else {
+          // For partial widths, calculate the exact width
+          final childWidth =
+              flexRatio * availableWidth * NextGridSettings.oneColumnRatio;
+          widget = SizedBox(
+            width: childWidth,
+            child: Padding(
+              padding: NextGridSettings.gutterSize == 0.0
+                  ? EdgeInsets.zero
+                  : EdgeInsets.symmetric(
+                      horizontal: NextGridSettings.gutterSize / 2,
+                    ),
+              child: child,
+            ),
+          );
+        }
+
         if (leftMarginRatio > 0) {
           final leftMargin = availableWidth *
               leftMarginRatio *

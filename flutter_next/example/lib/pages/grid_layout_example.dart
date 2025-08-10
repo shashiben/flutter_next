@@ -131,22 +131,26 @@ class GridLayoutExamplePage extends StatelessWidget {
             NextRow(
               children: [
                 NextCol(
-                  sizes: 'col-xs-12 col-sm-6 col-md-4 col-lg-3',
+                  sizes:
+                      'col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-2',
                   child: _exampleBox(
                       'Col 1\nXS:12 SM:6 MD:4 LG:3', Colors.red.shade100),
                 ),
                 NextCol(
-                  sizes: 'col-xs-12 col-sm-6 col-md-4 col-lg-3',
+                  sizes:
+                      'col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-2',
                   child: _exampleBox(
                       'Col 2\nXS:12 SM:6 MD:4 LG:3', Colors.orange.shade100),
                 ),
                 NextCol(
-                  sizes: 'col-xs-12 col-sm-6 col-md-4 col-lg-3',
+                  sizes:
+                      'col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-2',
                   child: _exampleBox(
                       'Col 3\nXS:12 SM:6 MD:4 LG:3', Colors.yellow.shade100),
                 ),
                 NextCol(
-                  sizes: 'col-xs-12 col-sm-6 col-md-12 col-lg-3',
+                  sizes:
+                      'col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-2',
                   child: _exampleBox(
                       'Col 4\nXS:12 SM:6 MD:12 LG:3', Colors.teal.shade100),
                 ),
