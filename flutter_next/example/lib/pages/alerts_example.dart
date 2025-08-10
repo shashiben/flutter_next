@@ -45,42 +45,42 @@ class _AlertsExamplePageState extends State<AlertsExamplePage> {
               'Displays different predefined alert variants, each with a distinct color scheme. '
               'These are controlled by the `variant` property of NextAlert.'),
             NextAlert(
-              variant: NextAlertVariant.primary,
+              variant: NextVariant.primary,
               child: const Text('This is a primary alert.'),
             ),
             const SizedBox(height: 8),
             NextAlert(
-              variant: NextAlertVariant.secondary,
+              variant: NextVariant.secondary,
               child: const Text('This is a secondary alert.'),
             ),
             const SizedBox(height: 8),
             NextAlert(
-              variant: NextAlertVariant.success,
+              variant: NextVariant.success,
               child: const Text('This is a success alert.'),
             ),
             const SizedBox(height: 8),
             NextAlert(
-              variant: NextAlertVariant.danger,
+              variant: NextVariant.danger,
               child: const Text('This is a danger alert.'),
             ),
             const SizedBox(height: 8),
             NextAlert(
-              variant: NextAlertVariant.warning,
+              variant: NextVariant.warning,
               child: const Text('This is a warning alert.'),
             ),
             const SizedBox(height: 8),
             NextAlert(
-              variant: NextAlertVariant.info,
+              variant: NextVariant.info,
               child: const Text('This is an info alert.'),
             ),
             const SizedBox(height: 8),
             NextAlert(
-              variant: NextAlertVariant.light,
+              variant: NextVariant.light,
               child: const Text('This is a light alert.'),
             ),
             const SizedBox(height: 8),
             NextAlert(
-              variant: NextAlertVariant.dark,
+              variant: NextVariant.dark,
               child: const Text('This is a dark alert.'),
             ),
 
@@ -88,57 +88,57 @@ class _AlertsExamplePageState extends State<AlertsExamplePage> {
             _buildExplanation(context,
               'Shows how to include a leading icon in alerts using the `leadingIcon` property. '
               'The icon will be automatically colored to match the alert variant.'),
-            NextAlert(
-              variant: NextAlertVariant.success,
-              leadingIcon: const Icon(Icons.check_circle_outline),
-              child: const Text('Success! Your action was completed.'),
-            ),
-            const SizedBox(height: 8),
-            NextAlert(
-              variant: NextAlertVariant.warning,
-              leadingIcon: const Icon(Icons.warning_amber_outlined),
-              child: const Text('Warning: Please check the input fields.'),
-            ),
-            const SizedBox(height: 8),
-            NextAlert(
-              variant: NextAlertVariant.info,
-              leadingIcon: const Icon(Icons.info_outline),
-              child: const Text('Info: System maintenance scheduled for tonight.'),
-            ),
+            // NextAlert(
+            //   variant: NextVariant.success,
+            //   leadingIcon: const Icon(Icons.check_circle_outline),
+            //   child: const Text('Success! Your action was completed.'),
+            // ),
+            // const SizedBox(height: 8),
+            // NextAlert(
+            //   variant: NextVariant.warning,
+            //   leadingIcon: const Icon(Icons.warning_amber_outlined),
+            //   child: const Text('Warning: Please check the input fields.'),
+            // ),
+            // const SizedBox(height: 8),
+            // NextAlert(
+            //   variant: NextVariant.info,
+            //   leadingIcon: const Icon(Icons.info_outline),
+            //   child: const Text('Info: System maintenance scheduled for tonight.'),
+            // ),
 
             _buildSectionTitle(context, 'Dismissible Alerts'),
             _buildExplanation(context,
               'Demonstrates dismissible alerts. Click the \'x\' icon to close them. '
               'This requires setting `showCloseButton: true` and providing an `onDismiss` callback to manage visibility.'),
-            if (_dismissibleAlertVisible)
-              NextAlert(
-                variant: NextAlertVariant.primary,
-                showCloseButton: true,
-                onDismiss: () {
-                  setState(() {
-                    _dismissibleAlertVisible = false;
-                  });
-                },
-                child: const Text('This primary alert is dismissible.'),
-              ),
+            // if (_dismissibleAlertVisible)
+            //   NextAlert(
+            //     variant: NextVariant.primary,
+            //     showCloseButton: true,
+            //     onDismiss: () {
+            //       setState(() {
+            //         _dismissibleAlertVisible = false;
+            //       });
+            //     },
+            //     child: const Text('This primary alert is dismissible.'),
+            //   ),
             if (!_dismissibleAlertVisible)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: ElevatedButton(onPressed: () => setState(() => _dismissibleAlertVisible = true), child: const Text('Reset Dismissible Alert')),
               ),
             const SizedBox(height: 8),
-            if (_dismissibleIconAlertVisible)
-              NextAlert(
-                variant: NextAlertVariant.danger,
-                leadingIcon: const Icon(Icons.dangerous_outlined),
-                showCloseButton: true,
-                onDismiss: () {
-                  setState(() {
-                    _dismissibleIconAlertVisible = false;
-                  });
-                },
-                child: const Text('This dismissible danger alert also has an icon.'),
-              ),
+            // if (_dismissibleIconAlertVisible)
+            //   NextAlert(
+            //     variant: NextVariant.danger,
+            //     leadingIcon: const Icon(Icons.dangerous_outlined),
+            //     showCloseButton: true,
+            //     onDismiss: () {
+            //       setState(() {
+            //         _dismissibleIconAlertVisible = false;
+            //       });
+            //     },
+            //     child: const Text('This dismissible danger alert also has an icon.'),
+            //   ),
             if (!_dismissibleIconAlertVisible)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -149,54 +149,54 @@ class _AlertsExamplePageState extends State<AlertsExamplePage> {
             _buildExplanation(context,
               'Illustrates using custom rich content within an alert. '
               'You can pass any widget as the child, for example, a Column with a title, paragraph, and buttons.'),
-            NextAlert(
-              variant: NextAlertVariant.info,
-              leadingIcon: const Icon(Icons.campaign_outlined),
-              showCloseButton: true, // Optional for this example
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Important Announcement!',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: NextAlertVariant.info.textColor, // Use variant color for consistency
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'We are excited to announce new features coming soon to our platform. '
-                    'Stay tuned for more updates and prepare for an enhanced user experience.',
-                     style: TextStyle(color: NextAlertVariant.info.textColor),
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          // Action for 'Learn More'
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Learn More clicked!')),
-                          );
-                        },
-                        child: Text('Learn More', style: TextStyle(color: NextAlertVariant.info.textColor, fontWeight: FontWeight.bold)),
-                      ),
-                      const SizedBox(width: 8),
-                       TextButton(
-                        onPressed: () {
-                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Dismiss clicked from custom button!')),
-                          );
-                        },
-                        child: Text('Dismiss', style: TextStyle(color: NextAlertVariant.info.textColor)),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+            // NextAlert(
+            //   variant: NextVariant.info,
+            //   leadingIcon: const Icon(Icons.campaign_outlined),
+            //   showCloseButton: true, // Optional for this example
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         'Important Announcement!',
+            //         style: TextStyle(
+            //           fontWeight: FontWeight.bold,
+            //           fontSize: 16,
+            //           color: NextVariant.info.textColor, // Use variant color for consistency
+            //         ),
+            //       ),
+            //       const SizedBox(height: 4),
+            //       Text(
+            //         'We are excited to announce new features coming soon to our platform. '
+            //         'Stay tuned for more updates and prepare for an enhanced user experience.',
+            //          style: TextStyle(color: NextVariant.info.textColor),
+            //       ),
+            //       const SizedBox(height: 12),
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.end,
+            //         children: [
+            //           TextButton(
+            //             onPressed: () {
+            //               // Action for 'Learn More'
+            //               ScaffoldMessenger.of(context).showSnackBar(
+            //                 const SnackBar(content: Text('Learn More clicked!')),
+            //               );
+            //             },
+            //             child: Text('Learn More', style: TextStyle(color: NextVariant.info.textColor, fontWeight: FontWeight.bold)),
+            //           ),
+            //           const SizedBox(width: 8),
+            //            TextButton(
+            //             onPressed: () {
+            //                ScaffoldMessenger.of(context).showSnackBar(
+            //                 const SnackBar(content: Text('Dismiss clicked from custom button!')),
+            //               );
+            //             },
+            //             child: Text('Dismiss', style: TextStyle(color: NextVariant.info.textColor)),
+            //           ),
+            //         ],
+            //       )
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

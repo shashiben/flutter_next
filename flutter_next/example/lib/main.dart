@@ -1,8 +1,4 @@
-import 'package:example/pages/accordion_example.dart';
 import 'package:example/pages/alerts_example.dart';
-import 'package:example/pages/avatar_example.dart';
-import 'package:example/pages/breadcrumb_example.dart';
-import 'package:example/pages/button_example.dart';
 import 'package:example/pages/grid_layout_example.dart';
 import 'package:example/pages/gridview_example.dart';
 // import 'package:example/pages/avatar_showcase_legacy.dart'; // Renamed old avatar example
@@ -34,11 +30,6 @@ class MyApp extends StatelessWidget {
       home: const ExampleHomePage(), // Set new home page
       routes: {
         '/alerts': (context) => const AlertsExamplePage(),
-        '/accordion': (context) => const AccordionExamplePage(),
-        '/avatar': (context) => const AvatarExamplePage(), // New avatar examples
-        // '/avatar_legacy': (context) => const NextAvatarShowcasePage(), // Old one, if needed
-        '/breadcrumb': (context) => const BreadcrumbExamplePage(),
-        '/button': (context) => const ButtonExamplePage(),
         '/grid_layout': (context) => const GridLayoutExamplePage(),
         '/gridview': (context) => const GridViewExamplePage(),
         // Add routes for other examples if needed
@@ -85,7 +76,8 @@ class ExampleHomePage extends StatelessWidget {
           _buildNavigationItem(
             context,
             title: 'Grid & Layout',
-            subtitle: 'NextContainer, NextRow, NextCol, NextResponsiveVisibility.',
+            subtitle:
+                'NextContainer, NextRow, NextCol, NextResponsiveVisibility.',
             icon: Icons.grid_on_outlined,
             routeName: '/grid_layout',
           ),
@@ -110,11 +102,11 @@ class ExampleHomePage extends StatelessWidget {
             icon: Icons.person_outline,
             routeName: '/avatar',
           ),
-           _buildNavigationItem(
+          _buildNavigationItem(
             context,
             title: 'Breadcrumbs',
             subtitle: 'Examples for NextBreadCrumb widget.',
-            icon: Icons.arrow_forward_ios_sharp, // Placeholder, find better
+            icon: Icons.arrow_forward_ios_sharp,
             routeName: '/breadcrumb',
           ),
           _buildNavigationItem(
@@ -131,53 +123,8 @@ class ExampleHomePage extends StatelessWidget {
             icon: Icons.view_module_outlined,
             routeName: '/gridview',
           ),
-
-          // Add ListTile for other examples here
-          // _buildNavigationItem(
-          //   context,
-          //   title: 'Animation Examples',
-          //   subtitle: 'Various animation widgets.',
-          //   icon: Icons.animation,
-          //   routeName: '/animations',
-          // ),
         ],
       ),
     );
   }
 }
-
-// The previously commented out large Column of examples could be
-// moved into its own example page if desired.
-// For example, create a file like `all_widgets_example.dart`
-// and then navigate to it from the ExampleHomePage.
-
-/*
-// This was the original content of main.dart's body, could be a separate page
-import 'package:flutter_next/flutter_next.dart'; // For context.titleLarge etc.
-// import 'package:example/animations/zoom_animation_example.dart'; // and other animation examples
-
-class AllWidgetsLegacyExamplePage extends StatelessWidget {
-  const AllWidgetsLegacyExamplePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('All Widgets Showcase (Legacy)')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Next Grid View",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            // NextGridView(...), // Needs GridPrefix, NextCol etc. to be defined or imported
-            // ... and so on for all other original examples
-          ],
-        ),
-      ),
-    );
-  }
-}
-*/

@@ -51,9 +51,29 @@ class NextCol extends StatelessWidget {
 
   void _initialize() {
     _parseSizes(
-        sizes, 'col', _ratios, math.min, NextGridSettings.numberOfColumns, 0);
-    _parseSizes(offsets, 'offset', _offsets, math.max, -100, -1);
-    _parseSizes(order, 'order', _orders, math.max, -100, 0);
+      sizes,
+      'col',
+      _ratios,
+      math.min,
+      NextGridSettings.numberOfColumns,
+      0,
+    );
+    _parseSizes(
+      offsets,
+      'offset',
+      _offsets,
+      math.max,
+      -100,
+      -1,
+    );
+    _parseSizes(
+      order,
+      'order',
+      _orders,
+      math.max,
+      -100,
+      0,
+    );
     _parseHiddenSizes();
   }
 
@@ -68,45 +88,39 @@ class NextCol extends StatelessWidget {
     final parts = input.isEmpty
         ? <String>[]
         : input.toLowerCase().split(' ').where((e) => e.trim().isNotEmpty);
-
     for (final part in parts) {
       for (final bp in Breakpoint.values) {
         final key = breakpointToString(bp);
-        final pfx = '$prefix-$key${key == 'xs' ? '' : '-'}';
-
+        final pfx = bp == Breakpoint.xs ? '$prefix-' : '$prefix-$key-';
         if (part.startsWith(pfx)) {
-          final valueStr = part.substring(pfx.length);
-          final value = int.tryParse(valueStr);
-
+          final value = int.tryParse(part.substring(pfx.length));
           if (value != null &&
               value > lowerBoundValue &&
               value <= NextGridSettings.numberOfColumns) {
-            targetMap[bp] = reducer(targetMap[bp]!, value);
+            targetMap[bp] = reducer(
+              targetMap[bp] == noValue ? value : targetMap[bp]!,
+              value,
+            );
           }
         }
       }
     }
+    for (int i = Breakpoint.values.length - 2; i >= 0; i--) {
+      if (targetMap[Breakpoint.values[i]] == noValue) {
+        targetMap[Breakpoint.values[i]] =
+            targetMap[Breakpoint.values[i + 1]] ?? noValue;
+      }
+    }
+    for (int i = 1; i < Breakpoint.values.length; i++) {
+      if (targetMap[Breakpoint.values[i]] == noValue) {
+        targetMap[Breakpoint.values[i]] =
+            targetMap[Breakpoint.values[i - 1]] ?? noValue;
+      }
+    }
 
-    for (int i = Breakpoint.values.length - 1; i >= 0; i--) {
-      final bp = Breakpoint.values[i];
+    for (final bp in Breakpoint.values) {
       if (targetMap[bp] == noValue) {
-        int? fallback;
-
-        for (int j = i + 1; j < Breakpoint.values.length; j++) {
-          final altBp = Breakpoint.values[j];
-          if (targetMap[altBp] != noValue) {
-            fallback = targetMap[altBp];
-            break;
-          }
-        }
-
-        fallback ??= targetMap.entries
-                .where((e) => e.value != noValue)
-                .map((e) => e.value)
-                .firstOrNull ??
-            lowerBoundValue;
-
-        targetMap[bp] = fallback;
+        targetMap[bp] = lowerBoundValue;
       }
     }
   }
@@ -136,18 +150,19 @@ class NextCol extends StatelessWidget {
 
         final flexRatio = _ratios[bp]!;
         final leftMarginRatio = _offsets[bp]!;
-
+        final childWidth =
+            flexRatio * availableWidth * NextGridSettings.oneColumnRatio;
         Widget widget = SizedBox(
-          width: flexRatio * availableWidth * NextGridSettings.oneColumnRatio,
+          width: childWidth,
           child: Padding(
             padding: NextGridSettings.gutterSize == 0.0
                 ? EdgeInsets.zero
                 : EdgeInsets.symmetric(
-                    horizontal: NextGridSettings.gutterSize / 2),
+                    horizontal: NextGridSettings.gutterSize / 2,
+                  ),
             child: child,
           ),
         );
-
         if (leftMarginRatio > 0) {
           final leftMargin = availableWidth *
               leftMarginRatio *
