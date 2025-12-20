@@ -4,7 +4,30 @@ import 'next_col.dart';
 
 /// 💡 A responsive row layout that arranges [NextCol] widgets
 /// based on the current screen breakpoint.
+///
+/// This widget automatically handles:
+/// - Hiding columns based on breakpoint visibility settings
+/// - Reordering columns based on breakpoint order settings
+/// - Wrapping columns when they don't fit on one line
+///
+/// **Example:**
+/// ```dart
+/// NextRow(
+///   children: [
+///     NextCol(sizes: 'col-md-6', child: Text('Column 1')),
+///     NextCol(sizes: 'col-md-6', child: Text('Column 2')),
+///   ],
+/// )
+/// ```
+///
+/// See also:
+/// - [NextCol] for individual column widgets
+/// - [NextContainer] for responsive containers
 class NextRow extends StatelessWidget {
+  /// Creates a [NextRow] widget.
+  ///
+  /// The [children] argument must not be null and should contain
+  /// [NextCol] widgets.
   const NextRow({
     super.key,
     required this.children,
@@ -13,6 +36,9 @@ class NextRow extends StatelessWidget {
   });
 
   /// 🌐 Children `NextCol` widgets to layout responsively.
+  ///
+  /// These columns will be automatically hidden, reordered, and wrapped
+  /// based on their breakpoint settings and the current screen size.
   final List<NextCol> children;
 
   /// 🎨 Optional container decoration (e.g., background, border).

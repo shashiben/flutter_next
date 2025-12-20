@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_next/flutter_next.dart';
+import 'package:next_animation/next_animation.dart';
 
 class ColorTweenAnimationExample extends StatelessWidget {
   const ColorTweenAnimationExample({super.key});
@@ -9,7 +9,7 @@ class ColorTweenAnimationExample extends StatelessWidget {
     return NextColorTweenWidget(
       beginColor: Colors.orange,
       endColor: Colors.blue,
-      animationDuration: const Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: 800),
       child: (controller, color) {
         return Container(
           width: 100,

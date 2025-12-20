@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: next_animation
+dependency_overrides:
+  next_animation:
+    path: ../next_animation

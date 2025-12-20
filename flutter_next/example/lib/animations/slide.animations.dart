@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_next/flutter_next.dart';
+import 'package:next_animation/next_animation.dart';
 
 class SlideAnimationsExample extends StatelessWidget {
   const SlideAnimationsExample({super.key});
@@ -10,8 +10,8 @@ class SlideAnimationsExample extends StatelessWidget {
       children: NextSlideVariant.values.asMap().entries.map((entry) {
         var e = entry.value;
         return NextSlideAnimation(
-          slideVariant: e,
-          animationDuration: const Duration(milliseconds: 2500),
+          variant: e,
+          duration: const Duration(milliseconds: 600),
           child: Container(
             width: 100,
             height: 100,

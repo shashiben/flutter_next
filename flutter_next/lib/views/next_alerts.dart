@@ -76,10 +76,15 @@ class NextAlert extends StatelessWidget {
         ? customConfigs ?? NextAlertColorUtil.danger
         : NextVariantUtil.getColorUtil(variant);
 
-    return AnimatedSwitcher(
-      transitionBuilder: transitionBuilder ?? _defaultTransitionBuilder,
-      duration: const Duration(milliseconds: 500),
-      child: !visible ? const SizedBox.shrink() : _buildAlertContainer(config),
+    return Semantics(
+      liveRegion: true,
+      child: AnimatedSwitcher(
+        transitionBuilder: transitionBuilder ?? _defaultTransitionBuilder,
+        duration: const Duration(milliseconds: 500),
+        child: !visible
+            ? const SizedBox.shrink()
+            : _buildAlertContainer(config),
+      ),
     );
   }
 
@@ -148,10 +153,14 @@ class NextAlert extends StatelessWidget {
   }
 
   Widget _buildDefaultTrailingButton(NextAlertColorUtil config) {
-    return TextButton(
-      style: TextButton.styleFrom(minimumSize: const Size(30.0, 30.0)),
-      onPressed: onClosePressed,
-      child: Icon(Icons.close, size: 14.0, color: config.color),
+    return Semantics(
+      label: 'Close alert',
+      button: true,
+      child: TextButton(
+        style: TextButton.styleFrom(minimumSize: const Size(30.0, 30.0)),
+        onPressed: onClosePressed,
+        child: Icon(Icons.close, size: 14.0, color: config.color),
+      ),
     );
   }
 }

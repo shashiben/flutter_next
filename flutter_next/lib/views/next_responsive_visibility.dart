@@ -3,52 +3,69 @@ import '../utils/responsive_breakpoints.dart';
 
 /// 🌐 ResponsiveVisibility: Conditionally renders a widget at breakpoints.
 ///
-/// Pass a string like `"col-lg col-md"` to control when this widget appears.
+/// This widget allows you to show or hide content based on the current screen
+/// breakpoint. Pass a string with breakpoint names to control visibility.
+///
+/// **Example:**
+/// ```dart
+/// NextResponsiveVisibility(
+///   breakpoints: 'lg md sm',
+///   child: Text('Visible on large, medium, and small screens'),
+/// )
+/// ```
+///
+/// **Breakpoint values:**
+/// - `xs` - Extra small devices (< 576px)
+/// - `sm` - Small devices (≥ 576px)
+/// - `md` - Medium devices (≥ 768px)
+/// - `lg` - Large devices (≥ 992px)
+/// - `xl` - Extra large devices (≥ 1200px)
+/// - `xxl` - Extra extra large devices (≥ 1400px)
 class NextResponsiveVisibility extends StatelessWidget {
-  NextResponsiveVisibility({
+  /// Creates a [NextResponsiveVisibility] widget.
+  ///
+  /// The [child] is the widget to conditionally display.
+  /// The [breakpoints] string should contain space-separated breakpoint names
+  /// (e.g., "lg md sm") where the widget should be visible.
+  /// If [breakpoints] is empty, the widget will be hidden on all breakpoints.
+  const NextResponsiveVisibility({
     required this.child,
-    String breakpoints = '',
+    this.breakpoints = '',
     super.key,
-  }) : breakpoints = breakpoints.trim() {
-    _initializeVisibility();
-  }
+  });
+
+  /// The widget to conditionally display.
   final Widget child;
+
+  /// Space-separated breakpoint names where the widget should be visible.
+  ///
+  /// Example: "lg md sm" makes the widget visible on large, medium,
+  /// and small screens.
   final String breakpoints;
 
-  final Map<Breakpoint, bool> _visibilityMap = {
-    Breakpoint.xxl: false,
-    Breakpoint.xl: false,
-    Breakpoint.lg: false,
-    Breakpoint.md: false,
-    Breakpoint.sm: false,
-    Breakpoint.xs: false,
-  };
-
-  void _initializeVisibility() {
+  /// Determines if the widget should be visible at the given breakpoint.
+  bool _isVisibleAtBreakpoint(Breakpoint breakpoint) {
     if (breakpoints.isEmpty) {
-      return;
+      return false;
     }
 
     final parts = breakpoints
         .toLowerCase()
-        .split(' ')
-        .where((p) => p.trim().isNotEmpty)
-        .toList();
+        .trim()
+        .split(RegExp(r'\s+'))
+        .where((p) => p.isNotEmpty)
+        .toSet();
 
-    for (final part in parts) {
-      for (final bp in kBreakpoints) {
-        if (bp != 'xs' && part.startsWith('col-$bp')) {
-          _visibilityMap[bp] = true;
-        }
-      }
-    }
+    final breakpointName = breakpointToString(breakpoint);
+    return parts.contains(breakpointName);
   }
 
   @override
   Widget build(BuildContext context) {
-    final Breakpoint currentBp =
-        breakpointForWidth(MediaQuery.of(context).size.width);
-    final bool isVisible = _visibilityMap[currentBp] ?? false;
+    final Breakpoint currentBp = breakpointForWidth(
+      MediaQuery.of(context).size.width,
+    );
+    final bool isVisible = _isVisibleAtBreakpoint(currentBp);
 
     return isVisible ? child : const SizedBox.shrink();
   }

@@ -34,10 +34,20 @@ String breakpointToString(Breakpoint bp) {
 /// | ≥ 576      | sm         |
 /// | < 576      | xs         |
 Breakpoint breakpointForWidth(double width) {
-  if (width >= 1400) return Breakpoint.xxl;
-  if (width >= 1200) return Breakpoint.xl;
-  if (width >= 992) return Breakpoint.lg;
-  if (width >= 768) return Breakpoint.md;
-  if (width >= 576) return Breakpoint.sm;
+  if (width >= 1400) {
+    return Breakpoint.xxl;
+  }
+  if (width >= 1200) {
+    return Breakpoint.xl;
+  }
+  if (width >= 992) {
+    return Breakpoint.lg;
+  }
+  if (width >= 768) {
+    return Breakpoint.md;
+  }
+  if (width >= 576) {
+    return Breakpoint.sm;
+  }
   return Breakpoint.xs;
 }

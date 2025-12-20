@@ -1,38 +1,96 @@
 import 'package:flutter/material.dart';
 
-// Step 1: Abstract class for NextAvatarChild
+/// Abstract base class for avatar content types.
+///
+/// Use [IconAvatar], [ImageAvatar], or [TextAvatar] to provide
+/// different types of avatar content.
 abstract class NextAvatarChild {}
 
+/// Avatar content that displays an icon.
 class IconAvatar implements NextAvatarChild {
-  IconAvatar(this.icon);
+  /// Creates an [IconAvatar] with the given [icon].
+  const IconAvatar(this.icon);
+
+  /// The icon to display in the avatar.
   final IconData icon;
 }
 
+/// Avatar content that displays an image from a URL.
 class ImageAvatar implements NextAvatarChild {
-  ImageAvatar(this.imageUrl);
+  /// Creates an [ImageAvatar] with the given [imageUrl].
+  const ImageAvatar(this.imageUrl);
+
+  /// The URL of the image to display in the avatar.
   final String imageUrl;
 }
 
+/// Avatar content that displays text (typically initials).
 class TextAvatar implements NextAvatarChild {
-  TextAvatar(this.text);
+  /// Creates a [TextAvatar] with the given [text].
+  const TextAvatar(this.text);
+
+  /// The text to display in the avatar (typically initials).
   final String text;
 }
 
-// Step 2: Enum for Avatar Size, Shape, Border, and Badge Position
-enum AvatarSize { small, medium, large }
+/// Enum representing the size of an avatar.
+enum AvatarSize {
+  /// Small avatar (40px base size).
+  small,
 
-enum AvatarShape { circle, square }
+  /// Medium avatar (60px base size).
+  medium,
 
-enum AvatarBorder { none, thin, thick }
+  /// Large avatar (80px base size).
+  large,
+}
 
-enum BadgePosition { topLeft, topRight, bottomLeft, bottomRight }
+/// Enum representing the shape of an avatar.
+enum AvatarShape {
+  /// Circular avatar.
+  circle,
 
-// Step 3: NextIndicatorBadge for the badge
+  /// Square avatar.
+  square,
+}
+
+/// Enum representing the border style of an avatar.
+enum AvatarBorder {
+  /// No border.
+  none,
+
+  /// Thin border (2px).
+  thin,
+
+  /// Thick border (4px).
+  thick,
+}
+
+/// Enum representing the position of a badge on an avatar.
+enum BadgePosition {
+  /// Badge positioned at the top-left corner.
+  topLeft,
+
+  /// Badge positioned at the top-right corner.
+  topRight,
+
+  /// Badge positioned at the bottom-left corner.
+  bottomLeft,
+
+  /// Badge positioned at the bottom-right corner.
+  bottomRight,
+}
+
+/// A small circular badge indicator, typically used to show status
+/// on avatars.
 class NextIndicatorBadge extends StatelessWidget {
+  /// Creates a [NextIndicatorBadge] with the given [badgeColor].
   const NextIndicatorBadge({
     super.key,
-    required this.badgeColor, // Custom color for the badge
+    required this.badgeColor,
   });
+
+  /// The color of the badge.
   final Color badgeColor;
 
   @override
@@ -49,8 +107,29 @@ class NextIndicatorBadge extends StatelessWidget {
   }
 }
 
-// Step 4: NextAvatar widget with customizable badge
+/// A customizable avatar widget that can display icons, images, or text.
+///
+/// This widget supports:
+/// - Different sizes (small, medium, large)
+/// - Different shapes (circle, square)
+/// - Optional borders
+/// - Optional status badges
+///
+/// **Example:**
+/// ```dart
+/// NextAvatar(
+///   child: IconAvatar(Icons.person),
+///   size: AvatarSize.large,
+///   shape: AvatarShape.circle,
+///   badgeColor: Colors.green,
+///   badgePosition: BadgePosition.bottomRight,
+/// )
+/// ```
 class NextAvatar extends StatelessWidget {
+  /// Creates a [NextAvatar] widget.
+  ///
+  /// The [child] argument must not be null and should be an [IconAvatar],
+  /// [ImageAvatar], or [TextAvatar].
   const NextAvatar({
     super.key,
     required this.child,
@@ -58,9 +137,8 @@ class NextAvatar extends StatelessWidget {
     this.shape = AvatarShape.circle,
     this.border = AvatarBorder.none,
     this.borderColor = Colors.black,
-    this.badgeColor = Colors.green, // Customizable badge color
-    this.badgePosition =
-        BadgePosition.bottomRight, // Customizable badge position
+    this.badgeColor = Colors.green,
+    this.badgePosition = BadgePosition.bottomRight,
   });
 
   final NextAvatarChild child;
@@ -73,21 +151,10 @@ class NextAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
+    final double avatarSize = _getAvatarSize(size);
+    final double scaledAvatarSize = _getScaledSize(context, avatarSize);
 
-    double avatarSize;
-    switch (size) {
-      case AvatarSize.small:
-        avatarSize = 40.0;
-      case AvatarSize.medium:
-        avatarSize = 60.0;
-      case AvatarSize.large:
-        avatarSize = 80.0;
-    }
-
-    final double scaledAvatarSize = avatarSize * (screenWidth / 375.0);
-
-    // Step 5: Base CircleAvatar or SquareAvatar depending on shape
+    // Build base avatar widget
     Widget avatar = (shape == AvatarShape.circle)
         ? CircleAvatar(
             radius: scaledAvatarSize / 2,
@@ -128,7 +195,7 @@ class NextAvatar extends StatelessWidget {
                     : null,
           );
 
-    // Step 6: Apply border if selected
+    // Apply border if selected
     if (border != AvatarBorder.none) {
       avatar = Container(
         width: scaledAvatarSize + 4,
@@ -146,7 +213,7 @@ class NextAvatar extends StatelessWidget {
       );
     }
 
-    // Step 7: Add custom badge if selected
+    // Add badge if selected
     avatar = Stack(
       alignment: _getBadgePosition(badgePosition),
       children: [
@@ -160,7 +227,27 @@ class NextAvatar extends StatelessWidget {
     return avatar;
   }
 
-  // Helper function to determine badge position
+  /// Gets the base avatar size for the given [AvatarSize].
+  double _getAvatarSize(AvatarSize size) {
+    switch (size) {
+      case AvatarSize.small:
+        return 40.0;
+      case AvatarSize.medium:
+        return 60.0;
+      case AvatarSize.large:
+        return 80.0;
+    }
+  }
+
+  /// Gets the scaled avatar size based on screen width.
+  ///
+  /// The scaling is based on a reference width of 375px (iPhone width).
+  double _getScaledSize(BuildContext context, double baseSize) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    return baseSize * (screenWidth / 375.0);
+  }
+
+  /// Gets the [Alignment] for the given [BadgePosition].
   Alignment _getBadgePosition(BadgePosition position) {
     switch (position) {
       case BadgePosition.topLeft:

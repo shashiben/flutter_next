@@ -19,6 +19,18 @@ const Duration _kExpand = Duration(milliseconds: 200);
 /// The expansion arrow icon is shown on the right by default in left-to-right languages
 /// (i.e. the trailing edge). This can be changed using [controlAffinity]. This maps
 /// to the [leading] and [trailing] properties of [NextAccordion].
+///
+/// **Example:**
+/// ```dart
+/// NextAccordion(
+///   title: Text('Section Title'),
+///   subtitle: Text('Click to expand'),
+///   children: [
+///     ListTile(title: Text('Item 1')),
+///     ListTile(title: Text('Item 2')),
+///   ],
+/// )
+/// ```
 
 class NextAccordion extends StatefulWidget {
   const NextAccordion({
@@ -58,9 +70,9 @@ class NextAccordion extends StatefulWidget {
   /// may replace the rotating expansion arrow icon.
   final Widget? leading;
 
+  /// Provides gap between title and leading widget.
   ///
-  /// Provides gap between title and leading widget
-  ///
+  /// If null, uses the default gap from [ListTile.horizontalTitleGap].
   final double? horizontalTitleGap;
 
   /// The primary content of the list item.
@@ -73,9 +85,9 @@ class NextAccordion extends StatefulWidget {
   /// Typically a [Text] widget.
   final Widget? subtitle;
 
+  /// Border color when the accordion is expanded.
   ///
-  ///Border Color while expanded
-  ///
+  /// If null, uses the theme's divider color.
   final Color? borderColor;
 
   /// Called when the tile expands or collapses.
@@ -315,16 +327,19 @@ class _NextAccordionState extends State<NextAccordion>
           ListTileTheme.merge(
             iconColor: _iconColor.value,
             textColor: _headerColor.value,
-            child: ListTile(
-              onTap: _handleTap,
-              horizontalTitleGap: widget.horizontalTitleGap,
-              contentPadding: widget.tilePadding,
-              leading: widget.leading ?? _buildLeadingIcon(context),
-              title: widget.title,
-              subtitle: widget.subtitle,
-              trailing: widget.trailing != null
-                  ? widget.trailing!(_isExpanded)
-                  : _buildTrailingIcon(context),
+            child: Semantics(
+              expanded: _isExpanded,
+              child: ListTile(
+                onTap: _handleTap,
+                horizontalTitleGap: widget.horizontalTitleGap,
+                contentPadding: widget.tilePadding,
+                leading: widget.leading ?? _buildLeadingIcon(context),
+                title: widget.title,
+                subtitle: widget.subtitle,
+                trailing: widget.trailing != null
+                    ? widget.trailing!(_isExpanded)
+                    : _buildTrailingIcon(context),
+              ),
             ),
           ),
           ClipRect(

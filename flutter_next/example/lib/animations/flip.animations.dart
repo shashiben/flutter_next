@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_next/flutter_next.dart';
+import 'package:next_animation/next_animation.dart';
 
 class FlipAnimationsExample extends StatelessWidget {
   const FlipAnimationsExample({super.key});
@@ -10,8 +10,8 @@ class FlipAnimationsExample extends StatelessWidget {
       children: NextFlipVariant.values.asMap().entries.map((entry) {
         var e = entry.value;
         return NextFlipAnimation(
-          flipVariant: e,
-          animationDuration: const Duration(milliseconds: 2500),
+          variant: e,
+          duration: const Duration(milliseconds: 800),
           child: Container(
             width: 100,
             height: 100,

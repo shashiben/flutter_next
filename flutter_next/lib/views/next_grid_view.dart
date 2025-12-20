@@ -2,7 +2,35 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
+/// A responsive grid view widget that adapts its column count based on
+/// screen width and provided width percentages.
+///
+/// This widget automatically calculates the number of columns based on
+/// the current screen width and the provided [widthPercentages] map.
+/// It's similar to Bootstrap's grid system but uses percentage-based
+/// column widths.
+///
+/// **Example:**
+/// ```dart
+/// NextGridView(
+///   widthPercentages: {
+///     GridPrefix.xs: 100,
+///     GridPrefix.sm: 50,
+///     GridPrefix.md: 33.33,
+///   },
+///   children: [
+///     Card(child: Text('Item 1')),
+///     Card(child: Text('Item 2')),
+///     Card(child: Text('Item 3')),
+///   ],
+/// )
+/// ```
 class NextGridView extends StatelessWidget {
+  /// Creates a [NextGridView] widget.
+  ///
+  /// The [children] and [widthPercentages] arguments must not be null.
+  /// The [widthPercentages] map should contain the percentage width for
+  /// each grid prefix (xs, sm, md, lg, xl, xxl).
   const NextGridView({
     super.key,
     required this.children,

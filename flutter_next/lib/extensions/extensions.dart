@@ -1,4 +1,5 @@
-export 'animation_extension.dart';
+// Animation extensions are now in next_animation package
+// export 'animation_extension.dart';
 export 'context_extensions.dart';
 export 'data type extensions/bool_extension.dart';
 export 'data type extensions/string_extensions.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_next/flutter_next.dart';
+import 'package:next_animation/next_animation.dart';
 
 class FadeInAnimationExample extends StatelessWidget {
   const FadeInAnimationExample({super.key});
@@ -10,8 +10,8 @@ class FadeInAnimationExample extends StatelessWidget {
       children: NextFadeInVariant.values.asMap().entries.map((entry) {
         var e = entry.value;
         return NextFadeInAnimation(
-          fadeInVariant: e,
-          animationDuration: const Duration(milliseconds: 2500),
+          variant: e,
+          duration: const Duration(milliseconds: 600),
           child: Container(
             width: 100,
             height: 100,
@@ -19,7 +19,9 @@ class FadeInAnimationExample extends StatelessWidget {
             child: Center(
               child: Text(
                 "FadeIn",
-                style: context.bodyMedium?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.white,
+                    ),
               ),
             ),
           ),
@@ -38,8 +40,8 @@ class FadeOutAnimationExample extends StatelessWidget {
       children: NextFadeOutVariant.values.asMap().entries.map((entry) {
         var e = entry.value;
         return NextFadeOutAnimation(
-          fadeOutVariant: e,
-          animationDuration: const Duration(milliseconds: 2500),
+          variant: e,
+          duration: const Duration(milliseconds: 600),
           child: Container(
             width: 100,
             height: 100,
@@ -47,7 +49,9 @@ class FadeOutAnimationExample extends StatelessWidget {
             child: Center(
               child: Text(
                 "FadeOut",
-                style: context.bodyMedium?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.white,
+                    ),
               ),
             ),
           ),

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import '../utils/responsive_container_utils.dart';
 
-/// 🧱 ResponsiveContainer:
-/// A wrapper that mimics Bootstrap-style containers (fluid or fixed).
+/// A responsive container widget that mimics Bootstrap-style containers.
 ///
-/// If [fluid] is true, the container fills the available width.
-/// If false (default), it uses standard max-width breakpoints.
+/// This widget provides two modes:
+/// - **Fixed width** (fluid: false): Uses standard max-width breakpoints
+///   that adapt to screen size
+/// - **Fluid** (fluid: true): Fills the entire available width
 ///
-/// You can optionally set [padding], [decoration], and [alignment].
-///
-/// Example:
+/// **Example:**
 /// ```dart
 /// ResponsiveContainer(
 ///   fluid: false,
@@ -18,6 +17,9 @@ import '../utils/responsive_container_utils.dart';
 ///   children: [Text("Inside container")],
 /// )
 /// ```
+///
+/// See also:
+/// - [NextContainer] for a similar container with more layout options
 class ResponsiveContainer extends StatelessWidget {
   const ResponsiveContainer({
     super.key,

@@ -33,6 +33,8 @@ dependencies:
     sdk: flutter
   flutter_next:
     path: ../
+  next_animation:
+    path: ../../next_animation
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

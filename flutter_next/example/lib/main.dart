@@ -1,7 +1,11 @@
+import 'package:example/pages/accordion_example.dart';
 import 'package:example/pages/alerts_example.dart';
+import 'package:example/pages/animations_example.dart';
+import 'package:example/pages/avatar_showcase_legacy.dart';
+import 'package:example/pages/breadcrumb_example.dart';
+import 'package:example/pages/button_example.dart';
 import 'package:example/pages/grid_layout_example.dart';
 import 'package:example/pages/gridview_example.dart';
-// import 'package:example/pages/avatar_showcase_legacy.dart'; // Renamed old avatar example
 
 import 'package:flutter/material.dart';
 
@@ -29,11 +33,14 @@ class MyApp extends StatelessWidget {
       ),
       home: const ExampleHomePage(), // Set new home page
       routes: {
+        '/accordion': (context) => const AccordionExamplePage(),
         '/alerts': (context) => const AlertsExamplePage(),
+        '/animations': (context) => const AnimationsExamplePage(),
+        '/avatar': (context) => const NextAvatarShowcasePage(),
+        '/breadcrumb': (context) => const BreadcrumbExamplePage(),
+        '/button': (context) => const ButtonExamplePage(),
         '/grid_layout': (context) => const GridLayoutExamplePage(),
         '/gridview': (context) => const GridViewExamplePage(),
-        // Add routes for other examples if needed
-        // '/animations': (context) => const AllAnimationsExamplePage(),
       },
     );
   }
@@ -122,6 +129,13 @@ class ExampleHomePage extends StatelessWidget {
             subtitle: 'Examples for NextGridView widget.',
             icon: Icons.view_module_outlined,
             routeName: '/gridview',
+          ),
+          _buildNavigationItem(
+            context,
+            title: 'Animations',
+            subtitle: 'Showcase of all animation widgets.',
+            icon: Icons.animation,
+            routeName: '/animations',
           ),
         ],
       ),

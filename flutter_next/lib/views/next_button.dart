@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
 import '../flutter_next.dart';
 
+/// A customizable button widget with support for filled and outlined variants,
+/// hover effects, icons, and custom styling.
+///
+/// This button provides a flexible API for creating buttons with various
+/// styles and behaviors. It supports:
+/// - Filled and outlined variants
+/// - Leading and trailing icons
+/// - Custom hover animations
+/// - Custom styling and colors
+/// - Disabled state
+///
+/// **Example:**
+/// ```dart
+/// NextButton(
+///   variant: NextButtonVariant.filled,
+///   child: Text('Click me'),
+///   onPressed: () => print('Button pressed'),
+/// )
+/// ```
 class NextButton extends StatelessWidget {
+  /// Creates a [NextButton] widget.
+  ///
+  /// The [variant] determines whether the button is filled or outlined.
+  /// The [enabled] parameter controls whether the button can be pressed.
+  /// If [enabled] is false, [onPressed] will be ignored.
   const NextButton({
     super.key,
     this.leading,
@@ -103,7 +127,7 @@ class NextButton extends StatelessWidget {
                   controller.reverse();
                 }
                 return itemBuilder!(context, isHovered, value).onTap(() {
-                  if (onPressed != null) {
+                  if (enabled && onPressed != null) {
                     onPressed!();
                   }
                 });
@@ -111,17 +135,37 @@ class NextButton extends StatelessWidget {
             );
           } else {
             if (variant == NextButtonVariant.filled) {
-              return MaterialButton(
-                padding: EdgeInsets.zero,
-                elevation: elevation ?? 0.0,
-                hoverElevation: hoverElevation ?? 0.0,
-                focusElevation: focusElevation,
-                disabledElevation: disabledElevation,
-                highlightElevation: highlightElevation,
-                shape: RoundedRectangleBorder(borderRadius: borderRadius),
-                color: color ?? context.primaryColor,
-                onPressed: onPressed,
-                child: Padding(padding: padding, child: child),
+              return Semantics(
+                button: true,
+                enabled: enabled && onPressed != null,
+                child: MaterialButton(
+                  padding: EdgeInsets.zero,
+                  elevation: elevation ?? 0.0,
+                  hoverElevation: hoverElevation ?? 0.0,
+                  focusElevation: focusElevation,
+                  disabledElevation: disabledElevation,
+                  highlightElevation: highlightElevation,
+                  shape: RoundedRectangleBorder(borderRadius: borderRadius),
+                  color: color ?? context.primaryColor,
+                  onPressed: enabled ? onPressed : null,
+                  child: Padding(
+                    padding: padding,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (leading != null) ...[
+                          leading!,
+                          const SizedBox(width: 8),
+                        ],
+                        if (child != null) child!,
+                        if (trailing != null) ...[
+                          const SizedBox(width: 8),
+                          trailing!,
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
               );
             } else if (variant == NextButtonVariant.outlined) {
               return NextColorTweenWidget(
@@ -133,37 +177,54 @@ class NextButton extends StatelessWidget {
                   } else {
                     controller.reverse();
                   }
-                  return MaterialButton(
-                    padding: EdgeInsets.zero,
-                    elevation: elevation ?? 0.0,
-                    hoverElevation: hoverElevation ?? 0.0,
-                    focusElevation: focusElevation,
-                    disabledElevation: disabledElevation,
-                    highlightElevation: highlightElevation,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: borderRadius,
-                      side: BorderSide(
-                        width: 1.5,
-                        color: outlineColor ?? context.primaryColor,
-                      ),
-                    ),
-                    color: value,
-                    onPressed: onPressed,
-                    child: Padding(
-                      padding: padding,
-                      child: DefaultTextStyle(
-                        style: (style ??
-                                context.themeData.textTheme.labelLarge ??
-                                const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ))
-                            .copyWith(
-                          color: isHovered
-                              ? color ??
-                                  context.themeData.colorScheme.background
-                              : outlineColor ?? context.primaryColor,
+                  return Semantics(
+                    button: true,
+                    enabled: enabled && onPressed != null,
+                    child: MaterialButton(
+                      padding: EdgeInsets.zero,
+                      elevation: elevation ?? 0.0,
+                      hoverElevation: hoverElevation ?? 0.0,
+                      focusElevation: focusElevation,
+                      disabledElevation: disabledElevation,
+                      highlightElevation: highlightElevation,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: borderRadius,
+                        side: BorderSide(
+                          width: 1.5,
+                          color: outlineColor ?? context.primaryColor,
                         ),
-                        child: child ?? const SizedBox(),
+                      ),
+                      color: value,
+                      onPressed: enabled ? onPressed : null,
+                      child: Padding(
+                        padding: padding,
+                        child: DefaultTextStyle(
+                          style: (style ??
+                                  context.themeData.textTheme.labelLarge ??
+                                  const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ))
+                              .copyWith(
+                            color: isHovered
+                                ? color ??
+                                    context.themeData.colorScheme.background
+                                : outlineColor ?? context.primaryColor,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (leading != null) ...[
+                                leading!,
+                                const SizedBox(width: 8),
+                              ],
+                              if (child != null) child!,
+                              if (trailing != null) ...[
+                                const SizedBox(width: 8),
+                                trailing!,
+                              ],
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   );

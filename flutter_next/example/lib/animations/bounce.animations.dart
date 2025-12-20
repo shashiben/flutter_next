@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_next/flutter_next.dart';
+import 'package:next_animation/next_animation.dart';
 
 class BounceAnimationsExample extends StatelessWidget {
   const BounceAnimationsExample({super.key});
@@ -19,7 +19,7 @@ class BounceAnimationsExample extends StatelessWidget {
         var icon = icons[entry.key % icons.length];
         return NextBounceAnimation(
           variant: e,
-          duration: const Duration(milliseconds: 2500),
+          duration: const Duration(milliseconds: 800),
           child: Container(
             width: 100,
             height: 100,

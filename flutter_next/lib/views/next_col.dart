@@ -3,7 +3,44 @@ import 'package:flutter/material.dart';
 import '../utils/grid_settings.dart';
 import '../utils/responsive_breakpoints.dart';
 
+/// A responsive column widget that adapts its size, offset, and order
+/// based on the current screen breakpoint.
+///
+/// This widget is part of a responsive grid system similar to Bootstrap.
+/// It supports:
+/// - Responsive sizing (e.g., "col-md-6" for 50% width on medium screens)
+/// - Responsive offsets (e.g., "offset-md-2" for left margin)
+/// - Responsive ordering (e.g., "order-md-1" for reordering)
+/// - Breakpoint-specific visibility
+///
+/// **Example:**
+/// ```dart
+/// NextCol(
+///   sizes: 'col-md-6 col-sm-12',
+///   offsets: 'offset-md-3',
+///   child: Text('Responsive column'),
+/// )
+/// ```
+///
+/// See also:
+/// - [NextRow] for containing responsive columns
+/// - [NextContainer] for responsive containers
 class NextCol extends StatelessWidget {
+  /// Creates a [NextCol] widget.
+  ///
+  /// The [child] argument must not be null.
+  ///
+  /// The [sizes] parameter accepts a space-separated string of column sizes
+  /// (e.g., "col-md-6 col-sm-12").
+  ///
+  /// The [offsets] parameter accepts a space-separated string of offsets
+  /// (e.g., "offset-md-3").
+  ///
+  /// The [order] parameter accepts a space-separated string of orders
+  /// (e.g., "order-md-1").
+  ///
+  /// The [invisibleForSizes] parameter accepts a space-separated string of
+  /// breakpoint names where the column should be hidden (e.g., "xs sm").
   NextCol({
     super.key,
     required this.child,
@@ -155,7 +192,6 @@ class NextCol extends StatelessWidget {
         final leftMarginRatio = _offsets[bp]!;
 
         Widget widget;
-        print("Ratios: $_ratios");
         // If the column should take full width (12 columns), use full width
         if (flexRatio >= NextGridSettings.numberOfColumns) {
           widget = SizedBox(

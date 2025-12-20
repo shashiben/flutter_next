@@ -1,18 +1,7 @@
 /*
    export Constants
 */
-export 'animations/next_bounce_animation.dart';
-export 'animations/next_color_tween_widget.dart';
-export 'animations/next_fade_in_animation.dart';
-export 'animations/next_fade_out_animation.dart';
-export 'animations/next_flip_animation.dart';
-export 'animations/next_slide_animation.dart';
-export 'animations/next_zoom_animation.dart';
-/*
-  export Animations
-*/
-export 'animations/wrappers/double_animation_wrapper.dart';
-export 'animations/wrappers/single_animation_wrapper.dart';
+export 'package:next_animation/next_animation.dart';
 export 'constants/colors.dart';
 /*
    export Extensions
