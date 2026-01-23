@@ -26,5 +26,7 @@
 **/android/local.properties
 **/web/.dart_tool/
 **/web/build/
+# Deployment
+deploy/
 # Misc
 *.iml

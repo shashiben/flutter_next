@@ -14,8 +14,8 @@ dependencies:
   dev_utils: ^0.0.3
   flutter:
     sdk: flutter
-  next_animation:
-    path: ../next_animation
+  animation_next:
+    path: ../animation_next
   universal_io: ^2.2.2
   visibility_detector: ^0.4.0+2
 

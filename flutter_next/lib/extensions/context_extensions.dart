@@ -102,7 +102,7 @@ extension ContextExtension on BuildContext {
   Color get cardColor => themeData.cardColor;
 
   /// Returns the background color from the color scheme of the theme data.
-  Color get backgroundColor => themeData.colorScheme.background;
+  Color get backgroundColor => themeData.colorScheme.surface;
 
   /// Returns the scaffold background color from the theme data.
   Color get scaffoldBackgroundColor => themeData.scaffoldBackgroundColor;

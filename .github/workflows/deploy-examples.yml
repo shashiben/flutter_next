@@ -1,0 +1,149 @@
+name: Deploy Examples to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'flutter_next/**'
+      - 'animation_next/**'
+      - 'example_shared/**'
+      - '.github/workflows/deploy-examples.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages-examples"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+
+      - name: Install dependencies - Flutter Next
+        run: |
+          cd flutter_next/example
+          flutter pub get
+
+      - name: Build Flutter Next example
+        run: |
+          cd flutter_next/example
+          flutter build web --base-href "/flutter-next-example/" --release
+
+      - name: Install dependencies - Animation Next
+        run: |
+          cd animation_next/example
+          flutter pub get
+
+      - name: Build Animation Next example
+        run: |
+          cd animation_next/example
+          flutter build web --base-href "/animation-next-example/" --release
+
+      - name: Create combined deployment directory
+        run: |
+          mkdir -p deploy/flutter-next-example
+          mkdir -p deploy/animation-next-example
+          cp -r flutter_next/example/build/web/* deploy/flutter-next-example/
+          cp -r animation_next/example/build/web/* deploy/animation-next-example/
+
+      - name: Create index page
+        run: |
+          cat > deploy/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Flutter Next & Next Animation Examples</title>
+            <style>
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 2rem;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+              .container {
+                background: white;
+                border-radius: 12px;
+                padding: 3rem;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+              }
+              h1 {
+                color: #333;
+                margin-bottom: 2rem;
+                text-align: center;
+              }
+              ul {
+                list-style: none;
+                padding: 0;
+              }
+              li {
+                margin: 1rem 0;
+              }
+              a {
+                display: block;
+                padding: 1rem 2rem;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                text-decoration: none;
+                border-radius: 8px;
+                text-align: center;
+                font-weight: 600;
+                transition: transform 0.2s, box-shadow 0.2s;
+              }
+              a:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>🚀 Flutter Next & Next Animation Examples</h1>
+              <ul>
+                <li><a href="/flutter-next-example/">Flutter Next Example</a></li>
+                <li><a href="/animation-next-example/">Animation Next Example</a></li>
+              </ul>
+            </div>
+          </body>
+          </html>
+          EOF
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: deploy
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

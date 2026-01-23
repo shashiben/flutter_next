@@ -1,11 +1,11 @@
 {
-    "name": "Flutter Next Example",
-    "short_name": "Flutter Next",
-    "start_url": "/flutter-next-example/",
+    "name": "Animation Next Example",
+    "short_name": "Animation Next",
+    "start_url": "/animation-next-example/",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Flutter Next Example - A showcase of Flutter Next widgets",
+    "description": "Next Animation Example - A showcase of Next Animation widgets",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

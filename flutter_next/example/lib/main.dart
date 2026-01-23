@@ -1,16 +1,5 @@
-import 'package:example/pages/accordion_example.dart';
-import 'package:example/pages/alerts_example.dart';
-import 'package:example/pages/animations_example.dart';
-import 'package:example/pages/avatar_showcase_legacy.dart';
-import 'package:example/pages/breadcrumb_example.dart';
-import 'package:example/pages/button_example.dart';
-import 'package:example/pages/grid_layout_example.dart';
-import 'package:example/pages/gridview_example.dart';
-
 import 'package:flutter/material.dart';
-
-// Import other example pages if you have them, e.g.:
-// import 'package:example/animations/all_animations_example.dart';
+import 'package:flutter_next/flutter_next.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,122 +11,90 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Next Examples',
+      title: 'Flutter Next Example',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true, // Optional: enable Material 3 for modern look
-        // Example of setting a default text theme for explanations if needed globally
-        // textTheme: Theme.of(context).textTheme.copyWith(
-        //       bodySmall: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey.shade700),
-        //     ),
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      home: const ExampleHomePage(), // Set new home page
-      routes: {
-        '/accordion': (context) => const AccordionExamplePage(),
-        '/alerts': (context) => const AlertsExamplePage(),
-        '/animations': (context) => const AnimationsExamplePage(),
-        '/avatar': (context) => const NextAvatarShowcasePage(),
-        '/breadcrumb': (context) => const BreadcrumbExamplePage(),
-        '/button': (context) => const ButtonExamplePage(),
-        '/grid_layout': (context) => const GridLayoutExamplePage(),
-        '/gridview': (context) => const GridViewExamplePage(),
-      },
+      home: const HomePage(),
     );
   }
 }
 
-class ExampleHomePage extends StatelessWidget {
-  const ExampleHomePage({super.key});
-
-  Widget _buildNavigationItem(
-    BuildContext context, {
-    required String title,
-    required String subtitle,
-    required IconData icon,
-    required String routeName,
-  }) {
-    return Column(
-      children: [
-        ListTile(
-          title: Text(title),
-          subtitle: Text(subtitle),
-          leading: Icon(icon, color: Theme.of(context).primaryColor),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-          onTap: () {
-            Navigator.pushNamed(context, routeName);
-          },
-        ),
-        const Divider(height: 1),
-      ],
-    );
-  }
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Next Playground'),
+        title: const Text('Flutter Next Example'),
       ),
-      body: ListView(
-        children: <Widget>[
-          _buildNavigationItem(
-            context,
-            title: 'Grid & Layout',
-            subtitle:
-                'NextContainer, NextRow, NextCol, NextResponsiveVisibility.',
-            icon: Icons.grid_on_outlined,
-            routeName: '/grid_layout',
-          ),
-          _buildNavigationItem(
-            context,
-            title: 'Alerts',
-            subtitle: 'Examples for NextAlerts widget.',
-            icon: Icons.warning_amber_rounded,
-            routeName: '/alerts',
-          ),
-          _buildNavigationItem(
-            context,
-            title: 'Accordion',
-            subtitle: 'Examples for NextAccordion widget.',
-            icon: Icons.menu_open_outlined,
-            routeName: '/accordion',
-          ),
-          _buildNavigationItem(
-            context,
-            title: 'Avatars',
-            subtitle: 'Showcases NextAvatar and NextAvatarGroup.',
-            icon: Icons.person_outline,
-            routeName: '/avatar',
-          ),
-          _buildNavigationItem(
-            context,
-            title: 'Breadcrumbs',
-            subtitle: 'Examples for NextBreadCrumb widget.',
-            icon: Icons.arrow_forward_ios_sharp,
-            routeName: '/breadcrumb',
-          ),
-          _buildNavigationItem(
-            context,
-            title: 'Buttons',
-            subtitle: 'Examples for NextButton widget.',
-            icon: Icons.smart_button_outlined,
-            routeName: '/button',
-          ),
-          _buildNavigationItem(
-            context,
-            title: 'GridView',
-            subtitle: 'Examples for NextGridView widget.',
-            icon: Icons.view_module_outlined,
-            routeName: '/gridview',
-          ),
-          _buildNavigationItem(
-            context,
-            title: 'Animations',
-            subtitle: 'Showcase of all animation widgets.',
-            icon: Icons.animation,
-            routeName: '/animations',
-          ),
-        ],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // NextButton example
+            NextButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Button pressed!')),
+                );
+              },
+              child: const Text('NextButton Example'),
+            ),
+            const SizedBox(height: 16),
+
+            // NextAlert example
+            const NextAlert(
+              heading: Text('Alert Example'),
+              variant: NextVariant.info,
+              child: Text('This is a NextAlert widget'),
+            ),
+            const SizedBox(height: 16),
+
+            // NextAccordion example
+            NextAccordion(
+              title: const Text('Accordion Example'),
+              children: [
+                const Text('This is the content of the accordion.'),
+                const SizedBox(height: 8),
+                NextButton(
+                  onPressed: () {},
+                  child: const Text('Button inside accordion'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // NextBreadCumb example
+            NextBreadCumb(
+              childrens: [
+                NextBreadcrumbItem(
+                  hoverBuilder: (context, isHovered) => Text(
+                    'Home',
+                    style: TextStyle(
+                      color: isHovered ? Colors.blue : Colors.black87,
+                      fontWeight:
+                          isHovered ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                ),
+                NextBreadcrumbItem(
+                  hoverBuilder: (context, isHovered) => Text(
+                    'Example',
+                    style: TextStyle(
+                      color: isHovered ? Colors.blue : Colors.black87,
+                      fontWeight:
+                          isHovered ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

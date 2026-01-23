@@ -1,6 +1,0 @@
-# melos_managed_dependency_overrides: flutter_next,next_animation
-dependency_overrides:
-  flutter_next:
-    path: ..
-  next_animation:
-    path: ../../next_animation

@@ -1,0 +1,29 @@
+name: example
+description: Example and documentation app for Next Animation and Flutter Next packages
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router: ^14.0.0
+  url_strategy: ^0.2.0
+  animation_next:
+    path: ../animation_next
+  flutter_next:
+    path: ../flutter_next
+  dev_utils: ^0.0.3
+  universal_io: ^2.2.2
+  visibility_detector: ^0.4.0+2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

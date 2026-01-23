@@ -1,7 +1,7 @@
 /*
    export Constants
 */
-export 'package:next_animation/next_animation.dart';
+export 'package:animation_next/animation_next.dart';
 export 'constants/colors.dart';
 /*
    export Extensions

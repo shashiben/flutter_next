@@ -81,9 +81,8 @@ class NextAlert extends StatelessWidget {
       child: AnimatedSwitcher(
         transitionBuilder: transitionBuilder ?? _defaultTransitionBuilder,
         duration: const Duration(milliseconds: 500),
-        child: !visible
-            ? const SizedBox.shrink()
-            : _buildAlertContainer(config),
+        child:
+            !visible ? const SizedBox.shrink() : _buildAlertContainer(config),
       ),
     );
   }
