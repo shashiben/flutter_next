@@ -1,0 +1,35 @@
+name: flutter_next_workspace
+
+packages:
+  - flutter_next/example/
+  - animation_next/
+  - flutter_next/
+
+scripts:
+
+  get:
+    run: flutter pub get
+    description: Run flutter pub get in all packages.
+
+  upgrade:
+    run: flutter pub upgrade
+    description: Run flutter pub upgrade in all packages.
+
+  magic:
+    run: |
+      flutter pub get
+      dart format .
+      dart fix --apply
+    description: Pub get, format code, and apply Dart fixes.
+
+  pana:
+    run: dart pub global run pana .
+    description: Run pana analysis on all packages.
+    exec:
+      concurrency: 1
+
+  pana:quick:
+    run: dart pub global run pana . --no-dartdoc
+    description: Run quick pana analysis (without dartdoc) on all packages.
+    exec:
+      concurrency: 1
