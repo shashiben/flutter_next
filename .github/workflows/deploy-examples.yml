@@ -3,6 +3,7 @@ name: Deploy Examples to GitHub Pages
 on:
   push:
     branches:
+      - v2
       - main
       - master
     paths:
