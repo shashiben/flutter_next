@@ -18,7 +18,6 @@
   <link rel="manifest" href="manifest.json">
 
   <script>
-    var serviceWorkerVersion = null;
     var scriptLoaded = false;
     function loadMainDartJs() {
       if (scriptLoaded) {
@@ -44,7 +43,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('flutter-first-frame', function () {
-        navigator.serviceWorker.register('flutter_service_worker.js?v=' + serviceWorkerVersion);
+        navigator.serviceWorker.register('flutter_service_worker.js?v={{flutter_service_worker_version}}');
       });
     }
   </script>
