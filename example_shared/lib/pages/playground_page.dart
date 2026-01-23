@@ -226,22 +226,31 @@ class _PlaygroundPageState extends State<PlaygroundPage>
 
     switch (_animationType) {
       case AnimationType.bounce:
+        const bounceVariants = NextBounceVariant.values;
+        final bounceVariant = bounceVariants.firstWhere(
+          (e) => e.name == _selectedVariant,
+          orElse: () => bounceVariants.first,
+        );
         return NextBounceAnimation(
-          variant: NextBounceVariant.values.firstWhere(
-            (e) => e.name == _selectedVariant,
-          ),
+          key: ValueKey('bounce_$_selectedVariant'),
+          variant: bounceVariant,
           duration: Duration(milliseconds: _durationMs),
           delay: Duration(milliseconds: _delayMs),
+          // Curve parameter is ignored - animation uses static curve based on variant
           curve: _curve,
           controller: _controller,
           autoStart: false,
           child: card,
         );
       case AnimationType.fadeIn:
+        const fadeInVariants = NextFadeInVariant.values;
+        final fadeInVariant = fadeInVariants.firstWhere(
+          (e) => e.name == _selectedVariant,
+          orElse: () => fadeInVariants.first,
+        );
         return NextFadeInAnimation(
-          variant: NextFadeInVariant.values.firstWhere(
-            (e) => e.name == _selectedVariant,
-          ),
+          key: ValueKey('fadeIn_$_selectedVariant'),
+          variant: fadeInVariant,
           duration: Duration(milliseconds: _durationMs),
           delay: Duration(milliseconds: _delayMs),
           curve: _curve,
@@ -250,9 +259,13 @@ class _PlaygroundPageState extends State<PlaygroundPage>
           child: card,
         );
       case AnimationType.fadeOut:
-        final fadeOutVariant = NextFadeOutVariant.values
-            .firstWhere((e) => e.name == _selectedVariant);
+        const fadeOutVariants = NextFadeOutVariant.values;
+        final fadeOutVariant = fadeOutVariants.firstWhere(
+          (e) => e.name == _selectedVariant,
+          orElse: () => fadeOutVariants.first,
+        );
         return NextFadeOutAnimation(
+          key: ValueKey('fadeOut_$_selectedVariant'),
           variant: fadeOutVariant,
           duration: Duration(milliseconds: _durationMs),
           delay: Duration(milliseconds: _delayMs),
@@ -262,10 +275,14 @@ class _PlaygroundPageState extends State<PlaygroundPage>
           child: card,
         );
       case AnimationType.slide:
+        const slideVariants = NextSlideVariant.values;
+        final slideVariant = slideVariants.firstWhere(
+          (e) => e.name == _selectedVariant,
+          orElse: () => slideVariants.first,
+        );
         return NextSlideAnimation(
-          variant: NextSlideVariant.values.firstWhere(
-            (e) => e.name == _selectedVariant,
-          ),
+          key: ValueKey('slide_$_selectedVariant'),
+          variant: slideVariant,
           duration: Duration(milliseconds: _durationMs),
           delay: Duration(milliseconds: _delayMs),
           curve: _curve,
@@ -274,10 +291,14 @@ class _PlaygroundPageState extends State<PlaygroundPage>
           child: card,
         );
       case AnimationType.zoom:
+        const zoomVariants = NextZoomVariant.values;
+        final zoomVariant = zoomVariants.firstWhere(
+          (e) => e.name == _selectedVariant,
+          orElse: () => zoomVariants.first,
+        );
         return NextZoomAnimation(
-          variant: NextZoomVariant.values.firstWhere(
-            (e) => e.name == _selectedVariant,
-          ),
+          key: ValueKey('zoom_$_selectedVariant'),
+          variant: zoomVariant,
           duration: Duration(milliseconds: _durationMs),
           delay: Duration(milliseconds: _delayMs),
           curve: _curve,
@@ -286,10 +307,14 @@ class _PlaygroundPageState extends State<PlaygroundPage>
           child: card,
         );
       case AnimationType.flip:
+        const flipVariants = NextFlipVariant.values;
+        final flipVariant = flipVariants.firstWhere(
+          (e) => e.name == _selectedVariant,
+          orElse: () => flipVariants.first,
+        );
         return NextFlipAnimation(
-          variant: NextFlipVariant.values.firstWhere(
-            (e) => e.name == _selectedVariant,
-          ),
+          key: ValueKey('flip_$_selectedVariant'),
+          variant: flipVariant,
           duration: Duration(milliseconds: _durationMs),
           delay: Duration(milliseconds: _delayMs),
           curve: _curve,
@@ -524,12 +549,14 @@ class _PlaygroundPageState extends State<PlaygroundPage>
                   // Animation controls
                   if (_category == PlaygroundCategory.animation) ...[
                     _buildDropdown<String>(
-                      label: 'Curve',
-                      value: _curveName,
-                      items: _curveMap.keys.toList(),
+                      label: 'Variant',
+                      value: _selectedVariant,
+                      items: _getVariantsForType(_animationType),
                       onChanged: (value) {
-                        _curveName = value!;
-                        _controller.reset();
+                        setState(() {
+                          _selectedVariant = value!;
+                          _controller.reset();
+                        });
                         _updateQueryParameters();
                       },
                     ),
@@ -989,8 +1016,9 @@ class _PlaygroundPageState extends State<PlaygroundPage>
   List<Widget> _buildAnimationTypes(BuildContext context) {
     return AnimationType.values.map((type) {
       final isSelectedType = _animationType == type;
-      final variants = _getVariantsForType(type);
-      return ExpansionTile(
+      return ListTile(
+        dense: true,
+        visualDensity: VisualDensity.compact,
         leading: Icon(
           Icons.tune,
           size: 20,
@@ -998,6 +1026,12 @@ class _PlaygroundPageState extends State<PlaygroundPage>
               ? Theme.of(context).colorScheme.primary
               : Theme.of(context).colorScheme.onSurfaceVariant,
         ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        selected: isSelectedType,
+        selectedTileColor: Theme.of(context)
+            .colorScheme
+            .primaryContainer
+            .withValues(alpha: 0.5),
         title: Text(
           type.name,
           style: TextStyle(
@@ -1008,52 +1042,23 @@ class _PlaygroundPageState extends State<PlaygroundPage>
                 : Theme.of(context).colorScheme.onSurface,
           ),
         ),
-        initiallyExpanded: isSelectedType,
-        childrenPadding: const EdgeInsets.only(left: 8),
-        children: variants.map((variant) {
-          final isSelectedVariant =
-              _selectedVariant == variant && isSelectedType;
-          return ListTile(
-            dense: true,
-            visualDensity: VisualDensity.compact,
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            selected: isSelectedVariant,
-            selectedTileColor: Theme.of(context)
-                .colorScheme
-                .primaryContainer
-                .withValues(alpha: 0.5),
-            title: Text(
-              variant,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight:
-                    isSelectedVariant ? FontWeight.w500 : FontWeight.normal,
-                color: isSelectedVariant
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-            onTap: () {
-              final variants = _getVariantsForType(type);
-              final selectedVariant =
-                  variants.contains(variant) ? variant : variants.first;
-              final params = <String, String>{
-                'category': 'animation',
-                'animationType': type.name,
-                'variant': selectedVariant,
-                'duration': _durationMs.toString(),
-                'delay': _delayMs.toString(),
-                'curve': _curveName,
-              };
-              final uri = Uri(path: '/playground', queryParameters: params);
-              context.go(uri.toString());
-              if (Navigator.canPop(context)) {
-                Navigator.of(context).pop();
-              }
-            },
-          );
-        }).toList(),
+        onTap: () {
+          final variants = _getVariantsForType(type);
+          final selectedVariant = variants.isNotEmpty ? variants.first : '';
+          final params = <String, String>{
+            'category': 'animation',
+            'animationType': type.name,
+            'variant': selectedVariant,
+            'duration': _durationMs.toString(),
+            'delay': _delayMs.toString(),
+            'curve': _curveName,
+          };
+          final uri = Uri(path: '/playground', queryParameters: params);
+          context.go(uri.toString());
+          if (Navigator.canPop(context)) {
+            Navigator.of(context).pop();
+          }
+        },
       );
     }).toList();
   }

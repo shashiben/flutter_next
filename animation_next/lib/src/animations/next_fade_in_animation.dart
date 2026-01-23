@@ -78,12 +78,21 @@ class _NextFadeInAnimationState extends State<NextFadeInAnimation>
   late final Animation<double> _positionAnimation;
   late final Animation<double> _opacityAnimation;
 
+  /// Gets the appropriate curve for fade-in animations.
+  /// Fade-in animations should always use easeOut for smooth entrance.
+  Curve _getFadeInCurve() {
+    return Curves.easeOut;
+  }
+
   @override
   void initState() {
     super.initState();
 
     _controller = widget.controller ??
         AnimationController(duration: widget.duration, vsync: this);
+
+    // Use the fade-in-specific curve instead of the passed curve
+    final fadeInCurve = _getFadeInCurve();
 
     if (widget.variant == null) {
       _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -98,7 +107,7 @@ class _NextFadeInAnimationState extends State<NextFadeInAnimation>
       _positionAnimation = _getTween().animate(
         CurvedAnimation(
           parent: _controller,
-          curve: widget.curve,
+          curve: fadeInCurve,
         ),
       );
       _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(

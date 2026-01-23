@@ -82,6 +82,17 @@ class _NextBounceAnimationState extends State<NextBounceAnimation>
   late final Animation<double> _opacityAnimation;
   late final Animation<double> _scaleAnimation;
 
+  /// Gets the appropriate curve for the bounce variant.
+  /// Bounce animations should always use elastic curves for proper bounce effect.
+  Curve _getBounceCurve() {
+    final isBounceIn = widget.variant == NextBounceVariant.bounceIn ||
+        widget.variant == NextBounceVariant.bounceInTop ||
+        widget.variant == NextBounceVariant.bounceInBottom ||
+        widget.variant == NextBounceVariant.bounceInLeft ||
+        widget.variant == NextBounceVariant.bounceInRight;
+    return isBounceIn ? Curves.elasticOut : Curves.elasticIn;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -92,11 +103,14 @@ class _NextBounceAnimationState extends State<NextBounceAnimation>
     final isCenter = widget.variant == NextBounceVariant.bounceIn ||
         widget.variant == NextBounceVariant.bounceOut;
 
+    // Use the bounce-specific curve instead of the passed curve
+    final bounceCurve = _getBounceCurve();
+
     if (isCenter) {
       _scaleAnimation = _getScaleTween().animate(
         CurvedAnimation(
           parent: _controller,
-          curve: widget.curve,
+          curve: bounceCurve,
         ),
       );
       _positionAnimation = Tween<double>(begin: 0, end: 0).animate(_controller);
@@ -104,7 +118,7 @@ class _NextBounceAnimationState extends State<NextBounceAnimation>
       _positionAnimation = _getTween().animate(
         CurvedAnimation(
           parent: _controller,
-          curve: widget.curve,
+          curve: bounceCurve,
         ),
       );
       _scaleAnimation =

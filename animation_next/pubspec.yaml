@@ -2,7 +2,7 @@ name: animation_next
 description: A comprehensive Flutter animation package providing smooth, customizable animations including bounce, fade, slide, zoom, flip, and color tween animations.
 version: 0.1.0
 homepage: https://github.com/shashiben/flutter_next
-repository: https://github.com/shashiben/flutter_next
+repository: https://github.com/shashiben/flutter_next/tree/v2/animation_next
 issue_tracker: https://github.com/shashiben/flutter_next/issues
 
 environment:

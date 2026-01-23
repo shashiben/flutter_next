@@ -75,6 +75,16 @@ class _NextSlideAnimationState extends State<NextSlideAnimation>
   late final AnimationController _controller;
   late final Animation<double> _animation;
 
+  /// Gets the appropriate curve for slide animations.
+  /// Slide-in animations use easeOut, slide-out animations use easeIn.
+  Curve _getSlideCurve() {
+    final isSlideIn = widget.variant == NextSlideVariant.slideInTop ||
+        widget.variant == NextSlideVariant.slideInBottom ||
+        widget.variant == NextSlideVariant.slideInLeft ||
+        widget.variant == NextSlideVariant.slideInRight;
+    return isSlideIn ? Curves.easeOut : Curves.easeIn;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -82,10 +92,13 @@ class _NextSlideAnimationState extends State<NextSlideAnimation>
     _controller = widget.controller ??
         AnimationController(duration: widget.duration, vsync: this);
 
+    // Use the slide-specific curve instead of the passed curve
+    final slideCurve = _getSlideCurve();
+
     _animation = _getTween().animate(
       CurvedAnimation(
         parent: _controller,
-        curve: widget.curve,
+        curve: slideCurve,
       ),
     );
 

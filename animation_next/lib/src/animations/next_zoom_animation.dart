@@ -74,6 +74,12 @@ class _NextZoomAnimationState extends State<NextZoomAnimation>
   late final Animation<double> _opacityAnimation;
   late final Animation<double> _positionAnimation;
 
+  /// Gets the appropriate curve for zoom animations.
+  /// Zoom-in animations use easeOut, zoom-out animations use easeIn.
+  Curve _getZoomCurve() {
+    return _isZoomIn(widget.variant) ? Curves.easeOut : Curves.easeIn;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -83,10 +89,13 @@ class _NextZoomAnimationState extends State<NextZoomAnimation>
 
     final isDirectional = _isDirectionalVariant(widget.variant);
 
+    // Use the zoom-specific curve instead of the passed curve
+    final zoomCurve = _getZoomCurve();
+
     _scaleAnimation = _getScaleTween().animate(
       CurvedAnimation(
         parent: _controller,
-        curve: widget.curve,
+        curve: zoomCurve,
       ),
     );
 
@@ -94,7 +103,7 @@ class _NextZoomAnimationState extends State<NextZoomAnimation>
       _positionAnimation = _getPositionTween().animate(
         CurvedAnimation(
           parent: _controller,
-          curve: widget.curve,
+          curve: zoomCurve,
         ),
       );
     } else {

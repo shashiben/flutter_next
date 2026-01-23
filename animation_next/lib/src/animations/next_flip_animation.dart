@@ -73,6 +73,12 @@ class _NextFlipAnimationState extends State<NextFlipAnimation>
   late final Animation<double> _rotationAnimation;
   late final Animation<double> _opacityAnimation;
 
+  /// Gets the appropriate curve for flip animations.
+  /// Flip animations should always use easeInOut for smooth rotation.
+  Curve _getFlipCurve() {
+    return Curves.easeInOut;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -80,10 +86,13 @@ class _NextFlipAnimationState extends State<NextFlipAnimation>
     _controller = widget.controller ??
         AnimationController(duration: widget.duration, vsync: this);
 
+    // Use the flip-specific curve instead of the passed curve
+    final flipCurve = _getFlipCurve();
+
     _rotationAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: widget.curve,
+        curve: flipCurve,
       ),
     );
 
