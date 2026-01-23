@@ -44,16 +44,31 @@ jobs:
         run: |
           cd flutter_next/example
           flutter build web --base-href "/flutter-next-example/" --release
+        continue-on-error: false
 
       - name: Install dependencies - Animation Next
         run: |
           cd animation_next/example
           flutter pub get
+        continue-on-error: false
 
       - name: Build Animation Next example
         run: |
           cd animation_next/example
           flutter build web --base-href "/animation-next-example/" --release
+        continue-on-error: false
+
+      - name: Verify builds
+        run: |
+          if [ ! -d "flutter_next/example/build/web" ]; then
+            echo "Error: Flutter Next build directory not found"
+            exit 1
+          fi
+          if [ ! -d "animation_next/example/build/web" ]; then
+            echo "Error: Animation Next build directory not found"
+            exit 1
+          fi
+          echo "✓ Both builds completed successfully"
 
       - name: Create combined deployment directory
         run: |
@@ -61,6 +76,8 @@ jobs:
           mkdir -p deploy/animation-next-example
           cp -r flutter_next/example/build/web/* deploy/flutter-next-example/
           cp -r animation_next/example/build/web/* deploy/animation-next-example/
+          echo "✓ Deployment directory created"
+          ls -la deploy/
 
       - name: Create index page
         run: |
