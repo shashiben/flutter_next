@@ -12,8 +12,7 @@ dependencies:
     sdk: flutter
   go_router: ^14.0.0
   url_strategy: ^0.2.0
-  animation_next:
-    path: ../animation_next
+  animation_next: 
   flutter_next:
     path: ../flutter_next
   dev_utils: ^0.0.3
