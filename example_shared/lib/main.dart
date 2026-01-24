@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_strategy/url_strategy.dart';
 
+import 'pages/grid_examples_page.dart';
 import 'pages/playground_page.dart';
 
 void main() {
@@ -46,6 +47,10 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/playground',
       builder: (context, state) => PlaygroundPage(state: state),
+    ),
+    GoRoute(
+      path: '/grid-examples',
+      builder: (context, state) => GridExamplesPage(state: state),
     ),
   ],
 );

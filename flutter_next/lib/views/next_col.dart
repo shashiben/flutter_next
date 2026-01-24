@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../utils/grid_settings.dart';
 import '../utils/responsive_breakpoints.dart';
+import 'next_row.dart' show RowContext;
 
 /// A responsive column widget that adapts its size, offset, and order
 /// based on the current screen breakpoint.
@@ -73,6 +74,9 @@ class NextCol extends StatelessWidget {
   /// Expose ratios map for flex calculations (e.g. NextRow)
   Map<Breakpoint, int> get ratios => _ratios;
 
+  /// Expose offsets map for margin calculations (e.g. NextRow)
+  Map<Breakpoint, int> get offsetRatios => _offsets;
+
   final Map<Breakpoint, int> _ratios = {
     for (var bp in Breakpoint.values) bp: -1, // Use -1 as noValue indicator
   };
@@ -117,6 +121,16 @@ class NextCol extends StatelessWidget {
     _parseHiddenSizes();
   }
 
+  /// Parses size strings (e.g., "col-md-6 col-sm-12") and populates the target map.
+  ///
+  /// The parsing follows Bootstrap's responsive design pattern:
+  /// 1. Parse explicit values from the input string
+  /// 2. Cascade values from larger to smaller breakpoints (mobile-first)
+  /// 3. Fill remaining gaps with default values
+  ///
+  /// For example, "col-md-6" means:
+  /// - md and above: 6 columns
+  /// - sm and below: inherit from next larger breakpoint or default
   void _parseSizes(
     String input,
     String prefix,
@@ -125,39 +139,57 @@ class NextCol extends StatelessWidget {
     int noValue,
     int lowerBoundValue,
   ) {
+    // Step 1: Parse explicit values from input string
     final parts = input.isEmpty
         ? <String>[]
         : input.toLowerCase().split(' ').where((e) => e.trim().isNotEmpty);
+
     for (final part in parts) {
       for (final bp in Breakpoint.values) {
         final key = breakpointToString(bp);
-        final pfx = '$prefix-$key-';
-        if (part.startsWith(pfx)) {
-          final value = int.tryParse(part.substring(pfx.length));
+        final pattern = '$prefix-$key-';
+
+        if (part.startsWith(pattern)) {
+          final valueStr = part.substring(pattern.length);
+          final value = int.tryParse(valueStr);
+
+          // Validate value is within acceptable range
           if (value != null &&
               value > lowerBoundValue &&
               value <= NextGridSettings.numberOfColumns) {
-            targetMap[bp] = reducer(
-              targetMap[bp] == noValue ? value : targetMap[bp]!,
-              value,
-            );
+            // Apply reducer function (min for sizes, max for offsets/orders)
+            final currentValue =
+                targetMap[bp] == noValue ? value : targetMap[bp]!;
+            targetMap[bp] = reducer(currentValue, value);
           }
         }
       }
     }
+
+    // Step 2: Cascade values from larger to smaller breakpoints (mobile-first approach)
+    // This means if you specify "col-md-6", it applies to md, lg, xl, xxl
+    // We cascade backwards from xxl to xs
     for (int i = Breakpoint.values.length - 2; i >= 0; i--) {
-      if (targetMap[Breakpoint.values[i]] == noValue) {
-        targetMap[Breakpoint.values[i]] =
-            targetMap[Breakpoint.values[i + 1]] ?? noValue;
-      }
-    }
-    for (int i = 1; i < Breakpoint.values.length; i++) {
-      if (targetMap[Breakpoint.values[i]] == noValue) {
-        targetMap[Breakpoint.values[i]] =
-            targetMap[Breakpoint.values[i - 1]] ?? noValue;
+      final currentBp = Breakpoint.values[i];
+      final nextBp = Breakpoint.values[i + 1];
+
+      if (targetMap[currentBp] == noValue && targetMap[nextBp] != noValue) {
+        targetMap[currentBp] = targetMap[nextBp]!;
       }
     }
 
+    // Step 3: Forward fill for any remaining gaps (fallback)
+    // If a smaller breakpoint has a value but larger doesn't, copy it forward
+    for (int i = 1; i < Breakpoint.values.length; i++) {
+      final currentBp = Breakpoint.values[i];
+      final prevBp = Breakpoint.values[i - 1];
+
+      if (targetMap[currentBp] == noValue && targetMap[prevBp] != noValue) {
+        targetMap[currentBp] = targetMap[prevBp]!;
+      }
+    }
+
+    // Step 4: Fill any remaining noValue entries with the default lower bound
     for (final bp in Breakpoint.values) {
       if (targetMap[bp] == noValue) {
         targetMap[bp] = lowerBoundValue;
@@ -179,61 +211,100 @@ class NextCol extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final availableWidth = constraints.maxWidth;
-        final bp = breakpointForWidth(availableWidth);
+    // Get calculated dimensions from RowContext (provided by NextRow)
+    // All width calculations are now done in NextRow
+    final rowContext = RowContext.of(context);
 
-        if (_hidden[bp] ?? false) {
-          return const SizedBox.shrink();
-        }
+    // If no row context (column used outside NextRow), fallback to old calculation
+    if (rowContext == null) {
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final availableWidth = constraints.maxWidth.isFinite
+              ? constraints.maxWidth
+              : 1200.0;
+          final bp = breakpointForWidth(availableWidth);
 
-        final flexRatio = _ratios[bp]!;
-        final leftMarginRatio = _offsets[bp]!;
+          if (_hidden[bp] ?? false) {
+            return const SizedBox.shrink();
+          }
 
-        Widget widget;
-        // If the column should take full width (12 columns), use full width
-        if (flexRatio >= NextGridSettings.numberOfColumns) {
-          widget = SizedBox(
-            width: availableWidth,
-            child: Padding(
-              padding: NextGridSettings.gutterSize == 0.0
-                  ? EdgeInsets.zero
-                  : EdgeInsets.symmetric(
-                      horizontal: NextGridSettings.gutterSize / 2,
-                    ),
-              child: child,
-            ),
+          final columnRatio = _ratios[bp]!;
+          final offsetRatio = _offsets[bp]!;
+
+          final columnWidth = _calculateColumnWidth(columnRatio, availableWidth);
+          final leftMargin = offsetRatio > 0
+              ? _calculateColumnWidth(offsetRatio, availableWidth)
+              : 0.0;
+
+          Widget widget = SizedBox(
+            width: columnWidth,
+            child: child,
           );
-        } else {
-          // For partial widths, calculate the exact width
-          final childWidth =
-              flexRatio * availableWidth * NextGridSettings.oneColumnRatio;
-          widget = SizedBox(
-            width: childWidth,
-            child: Padding(
-              padding: NextGridSettings.gutterSize == 0.0
-                  ? EdgeInsets.zero
-                  : EdgeInsets.symmetric(
-                      horizontal: NextGridSettings.gutterSize / 2,
-                    ),
-              child: child,
-            ),
-          );
-        }
 
-        if (leftMarginRatio > 0) {
-          final leftMargin = availableWidth *
-              leftMarginRatio *
-              NextGridSettings.oneColumnRatio;
-          widget = Padding(
-            padding: EdgeInsets.only(left: leftMargin),
-            child: widget,
-          );
-        }
+          if (leftMargin > 0) {
+            widget = Padding(
+              padding: EdgeInsets.only(left: leftMargin),
+              child: widget,
+            );
+          }
 
-        return widget;
-      },
+          return widget;
+        },
+      );
+    }
+
+    // Use pre-calculated dimensions from NextRow
+    final columnWidth = rowContext.columnWidth;
+    final leftMargin = rowContext.leftMargin;
+
+    // Check if column should be hidden (this should be handled by NextRow, but keep for safety)
+    final bp = breakpointForWidth(rowContext.fullRowWidth);
+    if (_hidden[bp] ?? false) {
+      return const SizedBox.shrink();
+    }
+
+    // Build widget with calculated dimensions
+    Widget widget = SizedBox(
+      width: columnWidth,
+      child: child,
     );
+
+    // Apply left margin if offset is specified
+    if (leftMargin > 0) {
+      widget = Padding(
+        padding: EdgeInsets.only(left: leftMargin),
+        child: widget,
+      );
+    }
+
+    return widget;
+  }
+
+  /// Calculates the width of a column based on the column ratio.
+  /// This is only used as a fallback when NextCol is used outside NextRow.
+  ///
+  /// The column ratio represents how many columns (out of total) this column
+  /// should occupy. For example:
+  /// - col-md-6 means 6/12 = 50% width
+  /// - col-md-4 means 4/12 = 33.33% width
+  /// - col-md-12 means 12/12 = 100% width
+  ///
+  /// Formula: (columnRatio / numberOfColumns) * availableWidth
+  double _calculateColumnWidth(int columnRatio, double availableWidth) {
+    // Clamp column ratio to valid range [0, numberOfColumns]
+    final clampedRatio = columnRatio.clamp(0, NextGridSettings.numberOfColumns);
+
+    // If ratio is 0 or negative, return 0 width
+    if (clampedRatio <= 0) {
+      return 0.0;
+    }
+
+    // If ratio equals or exceeds total columns, return full width
+    if (clampedRatio >= NextGridSettings.numberOfColumns) {
+      return availableWidth;
+    }
+
+    // Calculate proportional width: (ratio / totalColumns) * availableWidth
+    return (clampedRatio / NextGridSettings.numberOfColumns) * availableWidth;
   }
 }

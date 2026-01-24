@@ -53,6 +53,9 @@ class NextVariantUtil {
 }
 
 /// Utility class for handling alert colors in Next UI.
+///
+/// Inspired by Tailwind CSS and Bootstrap alert color schemes.
+/// Provides modern, accessible color combinations with proper contrast.
 class NextAlertColorUtil {
   const NextAlertColorUtil({
     required this.color,
@@ -60,61 +63,85 @@ class NextAlertColorUtil {
     required this.borderColor,
   });
 
-  /// Primary color of the alert.
+  /// Primary text color for the alert content.
   final Color color;
 
   /// Background color of the alert.
   final Color backgroundColor;
 
-  /// Border color of the alert.
+  /// Border color (also used as accent color for left border).
   final Color borderColor;
 
-  // Define color utilities for each variant.
+  /// Accent color (same as border color for left border accent).
+  Color get accentColor => borderColor;
+
+  /// Text color for content (same as color).
+  Color get textColor => color;
+
+  // Bootstrap 5.3 color schemes
+  // Colors match Bootstrap's --{color}-text-emphasis, --{color}-bg-subtle, and --{color}-border-subtle
+
+  /// Primary variant - Blue theme
+  /// Matches Bootstrap's .alert-primary
   static const NextAlertColorUtil primary = NextAlertColorUtil(
-    color: NextColorVariant.primary,
-    backgroundColor: Color(0xffcfe2ff),
-    borderColor: Color(0xffb6d4fe),
+    color: Color(0xFF084298), // --bs-primary-text-emphasis
+    backgroundColor: Color(0xFFCFE2FF), // --bs-primary-bg-subtle
+    borderColor: Color(0xFF0D6EFD), // --bs-primary-border-subtle
   );
 
+  /// Secondary variant - Gray theme
+  /// Matches Bootstrap's .alert-secondary
   static const NextAlertColorUtil secondary = NextAlertColorUtil(
-    color: NextColorVariant.secondary,
-    backgroundColor: Color(0xffe2e3e5),
-    borderColor: Color(0xffd3d6d8),
+    color: Color(0xFF41464B), // --bs-secondary-text-emphasis
+    backgroundColor: Color(0xFFE2E3E5), // --bs-secondary-bg-subtle
+    borderColor: Color(0xFF6C757D), // --bs-secondary-border-subtle
   );
 
+  /// Success variant - Green theme
+  /// Matches Bootstrap's .alert-success
   static const NextAlertColorUtil success = NextAlertColorUtil(
-    color: NextColorVariant.success,
-    backgroundColor: Color(0xffd1e7dd),
-    borderColor: Color(0xffbadbcc),
+    color: Color(0xFF0F5132), // --bs-success-text-emphasis
+    backgroundColor: Color(0xFFD1E7DD), // --bs-success-bg-subtle
+    borderColor: Color(0xFF198754), // --bs-success-border-subtle
   );
 
+  /// Danger variant - Red theme
+  /// Matches Bootstrap's .alert-danger
   static const NextAlertColorUtil danger = NextAlertColorUtil(
-    color: NextColorVariant.danger,
-    backgroundColor: Color(0xfff8d7da),
-    borderColor: Color(0xfff5c2c7),
+    color: Color(0xFF842029), // --bs-danger-text-emphasis
+    backgroundColor: Color(0xFFF8D7DA), // --bs-danger-bg-subtle
+    borderColor: Color(0xFFDC3545), // --bs-danger-border-subtle
   );
 
+  /// Warning variant - Yellow/Orange theme
+  /// Matches Bootstrap's .alert-warning
   static const NextAlertColorUtil warning = NextAlertColorUtil(
-    color: NextColorVariant.warning,
-    backgroundColor: Color(0xfffff3cd),
-    borderColor: Color(0xffffecb5),
+    color: Color(0xFF664D03), // --bs-warning-text-emphasis
+    backgroundColor: Color(0xFFFFF3CD), // --bs-warning-bg-subtle
+    borderColor: Color(0xFFFFC107), // --bs-warning-border-subtle
   );
 
+  /// Info variant - Cyan theme
+  /// Matches Bootstrap's .alert-info
   static const NextAlertColorUtil info = NextAlertColorUtil(
-    color: NextColorVariant.info,
-    backgroundColor: Color(0xffcff4fc),
-    borderColor: Color(0xffb6effb),
+    color: Color(0xFF055160), // --bs-info-text-emphasis
+    backgroundColor: Color(0xFFCFF4FC), // --bs-info-bg-subtle
+    borderColor: Color(0xFF0DCAF0), // --bs-info-border-subtle
   );
 
+  /// Light variant - Light gray theme
+  /// Matches Bootstrap's .alert-light
   static const NextAlertColorUtil light = NextAlertColorUtil(
-    color: NextColorVariant.light,
-    backgroundColor: Color(0xfffefefe),
-    borderColor: Color(0xfffdfdfe),
+    color: Color(0xFF636464), // --bs-light-text-emphasis
+    backgroundColor: Color(0xFFFCFCFD), // --bs-light-bg-subtle
+    borderColor: Color(0xFFFEFEFE), // --bs-light-border-subtle
   );
 
+  /// Dark variant - Dark theme
+  /// Matches Bootstrap's .alert-dark
   static const NextAlertColorUtil dark = NextAlertColorUtil(
-    color: NextColorVariant.dark,
-    backgroundColor: Color(0xffd3d3d4),
-    borderColor: Color(0xffbcbebf),
+    color: Color(0xFF141619), // --bs-dark-text-emphasis
+    backgroundColor: Color(0xFFD3D3D4), // --bs-dark-bg-subtle
+    borderColor: Color(0xFF212529), // --bs-dark-border-subtle
   );
 }
