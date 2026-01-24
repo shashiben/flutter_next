@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
 
             // NextAlert example
             const NextAlert(
-              heading: Text('Alert Example'),
+              title: Text('Alert Example'),
               variant: NextVariant.info,
               child: Text('This is a NextAlert widget'),
             ),

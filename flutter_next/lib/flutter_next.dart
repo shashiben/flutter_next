@@ -2,11 +2,14 @@
    export Constants
 */
 export 'package:animation_next/animation_next.dart';
+
 export 'constants/colors.dart';
 /*
    export Extensions
 */
 export 'extensions/extensions.dart';
+export 'utils/flutter_next_config.dart';
+export 'utils/responsive_breakpoints.dart';
 /*
    export Utils
 */

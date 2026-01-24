@@ -540,225 +540,229 @@ class _PlaygroundPageState extends State<PlaygroundPage>
                 ),
           ),
           const SizedBox(height: 24),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Animation controls
-                  if (_category == PlaygroundCategory.animation) ...[
-                    _buildDropdown<String>(
-                      label: 'Variant',
-                      value: _selectedVariant,
-                      items: _getVariantsForType(_animationType),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedVariant = value!;
-                          _controller.reset();
-                        });
-                        _updateQueryParameters();
-                      },
-                    ),
-                    const SizedBox(height: 24),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildSlider(
-                            label: 'Duration (ms)',
-                            value: _durationMs.toDouble(),
-                            min: 100,
-                            max: 3000,
-                            divisions: 29,
-                            onChanged: (value) {
-                              _durationMs = value.toInt();
-                              _controller.duration =
-                                  Duration(milliseconds: _durationMs);
-                              _updateQueryParameters();
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: _buildSlider(
-                            label: 'Delay (ms)',
-                            value: _delayMs.toDouble(),
-                            min: 0,
-                            max: 1000,
-                            divisions: 20,
-                            onChanged: (value) {
-                              _delayMs = value.toInt();
-                              _updateQueryParameters();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              _controller.reset();
-                              _controller.forward();
-                            },
-                            icon: const Icon(Icons.play_arrow),
-                            label: const Text('Play'),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              _controller.reverse();
-                            },
-                            icon: const Icon(Icons.replay),
-                            label: const Text('Reverse'),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              _controller.reset();
-                            },
-                            icon: const Icon(Icons.stop),
-                            label: const Text('Reset'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                  // Flutter Next controls
-                  if (_category == PlaygroundCategory.flutterNext) ...[
-                    if (_widgetType == FlutterNextWidgetType.button) ...[
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildDropdown<NextButtonVariant>(
-                              label: 'Variant',
-                              value: _buttonVariant,
-                              items: NextButtonVariant.values,
-                              itemBuilder: (variant) => variant.name,
-                              onChanged: (value) {
-                                _buttonVariant = value!;
-                                _updateQueryParameters();
-                              },
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Enabled',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                                const SizedBox(height: 8),
-                                Switch(
-                                  value: _buttonEnabled,
-                                  onChanged: (value) {
-                                    _buttonEnabled = value;
-                                    _updateQueryParameters();
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                    if (_widgetType == FlutterNextWidgetType.alert) ...[
-                      _buildDropdown<NextVariant>(
+          SizedBox(
+            width: double.infinity,
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Animation controls
+                    if (_category == PlaygroundCategory.animation) ...[
+                      _buildDropdown<String>(
                         label: 'Variant',
-                        value: _alertVariant,
-                        items: NextVariant.values
-                            .where((v) => v != NextVariant.custom)
-                            .toList(),
-                        itemBuilder: (variant) => variant.name,
+                        value: _selectedVariant,
+                        items: _getVariantsForType(_animationType),
                         onChanged: (value) {
-                          _alertVariant = value!;
-                          _alertVisible = true;
+                          setState(() {
+                            _selectedVariant = value!;
+                            _controller.reset();
+                          });
                           _updateQueryParameters();
                         },
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 24),
                       Row(
                         children: [
-                          Text(
-                            'Visible',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                          const SizedBox(width: 16),
-                          Switch(
-                            value: _alertVisible,
-                            onChanged: (value) {
-                              _alertVisible = value;
-                              _updateQueryParameters();
-                            },
-                          ),
-                          const Spacer(),
-                          if (!_alertVisible)
-                            ElevatedButton(
-                              onPressed: () {
-                                _alertVisible = true;
+                          Expanded(
+                            child: _buildSlider(
+                              label: 'Duration (ms)',
+                              value: _durationMs.toDouble(),
+                              min: 100,
+                              max: 3000,
+                              divisions: 29,
+                              onChanged: (value) {
+                                _durationMs = value.toInt();
+                                _controller.duration =
+                                    Duration(milliseconds: _durationMs);
                                 _updateQueryParameters();
                               },
-                              child: const Text('Show Alert'),
                             ),
-                        ],
-                      ),
-                    ],
-                    if (_widgetType == FlutterNextWidgetType.accordion) ...[
-                      Row(
-                        children: [
-                          Text(
-                            'Initially Expanded',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
                           ),
                           const SizedBox(width: 16),
-                          Switch(
-                            value: _accordionExpanded,
-                            onChanged: (value) {
-                              _accordionExpanded = value;
-                              _updateQueryParameters();
-                            },
+                          Expanded(
+                            child: _buildSlider(
+                              label: 'Delay (ms)',
+                              value: _delayMs.toDouble(),
+                              min: 0,
+                              max: 1000,
+                              divisions: 20,
+                              onChanged: (value) {
+                                _delayMs = value.toInt();
+                                _updateQueryParameters();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                _controller.reset();
+                                _controller.forward();
+                              },
+                              icon: const Icon(Icons.play_arrow),
+                              label: const Text('Play'),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                _controller.reverse();
+                              },
+                              icon: const Icon(Icons.replay),
+                              label: const Text('Reverse'),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                _controller.reset();
+                              },
+                              icon: const Icon(Icons.stop),
+                              label: const Text('Reset'),
+                            ),
                           ),
                         ],
                       ),
                     ],
-                    if (_widgetType == FlutterNextWidgetType.breadcrumb) ...[
-                      Text(
-                        'Breadcrumb items are configured in code',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurfaceVariant,
+                    // Flutter Next controls
+                    if (_category == PlaygroundCategory.flutterNext) ...[
+                      if (_widgetType == FlutterNextWidgetType.button) ...[
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildDropdown<NextButtonVariant>(
+                                label: 'Variant',
+                                value: _buttonVariant,
+                                items: NextButtonVariant.values,
+                                itemBuilder: (variant) => variant.name,
+                                onChanged: (value) {
+                                  _buttonVariant = value!;
+                                  _updateQueryParameters();
+                                },
+                              ),
                             ),
-                      ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Enabled',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Switch(
+                                    value: _buttonEnabled,
+                                    onChanged: (value) {
+                                      _buttonEnabled = value;
+                                      _updateQueryParameters();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                      if (_widgetType == FlutterNextWidgetType.alert) ...[
+                        _buildDropdown<NextVariant>(
+                          label: 'Variant',
+                          value: _alertVariant,
+                          items: NextVariant.values
+                              .where((v) => v != NextVariant.custom)
+                              .toList(),
+                          itemBuilder: (variant) => variant.name,
+                          onChanged: (value) {
+                            _alertVariant = value!;
+                            _alertVisible = true;
+                            _updateQueryParameters();
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Text(
+                              'Visible',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                            const SizedBox(width: 16),
+                            Switch(
+                              value: _alertVisible,
+                              onChanged: (value) {
+                                _alertVisible = value;
+                                _updateQueryParameters();
+                              },
+                            ),
+                            const Spacer(),
+                            if (!_alertVisible)
+                              ElevatedButton(
+                                onPressed: () {
+                                  _alertVisible = true;
+                                  _updateQueryParameters();
+                                },
+                                child: const Text('Show Alert'),
+                              ),
+                          ],
+                        ),
+                      ],
+                      if (_widgetType == FlutterNextWidgetType.accordion) ...[
+                        Row(
+                          children: [
+                            Text(
+                              'Initially Expanded',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                            const SizedBox(width: 16),
+                            Switch(
+                              value: _accordionExpanded,
+                              onChanged: (value) {
+                                _accordionExpanded = value;
+                                _updateQueryParameters();
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                      if (_widgetType == FlutterNextWidgetType.breadcrumb) ...[
+                        Text(
+                          'Breadcrumb items are configured in code',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant,
+                                  ),
+                        ),
+                      ],
                     ],
                   ],
-                ],
+                ),
               ),
             ),
-          ),
+          )
         ],
       ),
     );
@@ -919,6 +923,18 @@ class _PlaygroundPageState extends State<PlaygroundPage>
             children: [
               _buildCategorySection(context, PlaygroundCategory.animation),
               _buildCategorySection(context, PlaygroundCategory.flutterNext),
+              const Divider(height: 1),
+              ListTile(
+                leading: Icon(
+                  Icons.grid_view,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+                title: const Text('Grid Examples'),
+                onTap: () {
+                  context.go('/grid-examples');
+                  Navigator.of(context).pop();
+                },
+              ),
             ],
           ),
         ),
@@ -976,6 +992,17 @@ class _PlaygroundPageState extends State<PlaygroundPage>
               children: [
                 _buildCategorySection(context, PlaygroundCategory.animation),
                 _buildCategorySection(context, PlaygroundCategory.flutterNext),
+                const Divider(height: 1),
+                ListTile(
+                  leading: Icon(
+                    Icons.grid_view,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                  title: const Text('Grid Examples'),
+                  onTap: () {
+                    context.go('/grid-examples');
+                  },
+                ),
               ],
             ),
           ),
