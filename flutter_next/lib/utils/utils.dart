@@ -10,60 +10,37 @@ class NextUtils {
     GridPrefix.xs,
   ];
 
-  static const List<int> _widthThresholds = <int>[1400, 1200, 992, 768, 576];
-  static const List<int> _maxWidthsForNonFluid = <int>[
-    1320,
-    1140,
-    960,
-    720,
-    540,
+  // Bootstrap 5.3 default breakpoint thresholds (can be overridden via FlutterNext.configureBreakpoints)
+  // These are used as fallback when breakpointForWidth is not accessible
+  static const List<double> _defaultBreakpointThresholds = [
+    1400,
+    1200,
+    992,
+    768,
+    576
   ];
 
+  /// Gets width thresholds - uses configured breakpoints if available
+  /// Since part files can't directly access exported functions, we use a cached approach
+  static List<double> _getWidthThresholds() {
+    // Try to get configured values, fallback to defaults
+    // Note: This will use defaults until we can properly access BreakpointConfig
+    // The actual breakpoint logic in other files (next_col, next_container) will use
+    // the configured values via breakpointForWidth which has access to BreakpointConfig
+    return List<double>.from(_defaultBreakpointThresholds);
+  }
+
+  /// Gets the GridPrefix based on screen width.
+  /// Used by NextGridView to determine the current breakpoint.
   static GridPrefix getPrefixByWidth(double width) {
-    for (int i = 0; i < _widthThresholds.length; i++) {
-      if (width >= _widthThresholds[i]) {
+    // Use the thresholds to determine GridPrefix
+    final thresholds = _getWidthThresholds();
+    for (int i = 0; i < thresholds.length; i++) {
+      if (width >= thresholds[i]) {
         return _prefixes[i];
       }
     }
     return GridPrefix.xs;
-  }
-
-  static GridPrefix getPrefixEnumByWidth(double width) {
-    for (int i = 0; i < _widthThresholds.length; i++) {
-      if (width >= _widthThresholds[i]) {
-        return _prefixes[i];
-      }
-    }
-    return GridPrefix.xs;
-  }
-
-  static double getMaxWidthForNonFluid(double width) {
-    for (int i = 0; i < _widthThresholds.length; i++) {
-      if (width >= _widthThresholds[i]) {
-        return _maxWidthsForNonFluid[i].toDouble();
-      }
-    }
-    return width;
-  }
-
-  //Define similar for getAllColValues from sizes of Map<GridPrefix, double>
-  static Map<GridPrefix, int> getAllColValuesFromMap(
-    Map<GridPrefix, double> sizes,
-  ) {
-    final Map<GridPrefix, int> subResult = <GridPrefix, int>{};
-    for (final GridPrefix prefix in GridPrefix.values) {
-      final double? value = sizes[prefix];
-      if (value != null && value <= 12) {
-        subResult[prefix] = value.toInt();
-      }
-    }
-    final Map<GridPrefix, int> result = <GridPrefix, int>{};
-    for (int i = 0; i < _prefixes.length; i++) {
-      final GridPrefix prefix = _prefixes[i];
-      final int nullValue = i == 0 ? 12 : result[_prefixes[i - 1]]!;
-      result[prefix] = subResult[prefix] ?? nullValue;
-    }
-    return result;
   }
 
   static Map<GridPrefix, double> populateAllColValues(

@@ -1,10 +1,9 @@
-name: Deploy Examples to GitHub Pages
+name: Deploy Example Shared to GitHub Pages
 
 on:
   push:
     branches:
       - main
-      - master
     paths:
       - 'flutter_next/**'
       - 'animation_next/**'
@@ -34,117 +33,39 @@ jobs:
           flutter-version: '3.38.7'
           channel: 'stable'
 
-      - name: Install dependencies - Flutter Next
+      - name: Install dependencies
         run: |
-          cd flutter_next/example
+          cd example_shared
           flutter pub get
 
-      - name: Build Flutter Next example
+      - name: Build Example Shared
         run: |
-          cd flutter_next/example
-          flutter build web --base-href "/flutter-next-example/" --release
+          cd example_shared
+          flutter build web --base-href "/" --release
         continue-on-error: false
 
-      - name: Install dependencies - Animation Next
+      - name: Verify build
         run: |
-          cd animation_next/example
-          flutter pub get
-        continue-on-error: false
-
-      - name: Build Animation Next example
-        run: |
-          cd animation_next/example
-          flutter build web --base-href "/animation-next-example/" --release
-        continue-on-error: false
-
-      - name: Verify builds
-        run: |
-          if [ ! -d "flutter_next/example/build/web" ]; then
-            echo "Error: Flutter Next build directory not found"
+          if [ ! -d "example_shared/build/web" ]; then
+            echo "Error: Example Shared build directory not found"
             exit 1
           fi
-          if [ ! -d "animation_next/example/build/web" ]; then
-            echo "Error: Animation Next build directory not found"
-            exit 1
-          fi
-          echo "✓ Both builds completed successfully"
+          echo "✓ Build completed successfully"
 
-      - name: Create combined deployment directory
+      - name: Prepare deployment directory
         run: |
-          mkdir -p deploy/flutter-next-example
-          mkdir -p deploy/animation-next-example
-          cp -r flutter_next/example/build/web/* deploy/flutter-next-example/
-          cp -r animation_next/example/build/web/* deploy/animation-next-example/
-          echo "✓ Deployment directory created"
+          mkdir -p deploy
+          cp -r example_shared/build/web/* deploy/
+          echo "✓ Deployment directory prepared"
           ls -la deploy/
 
-      - name: Create index page
+      - name: Create 404.html for client-side routing
         run: |
-          cat > deploy/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Flutter Next & Next Animation Examples</title>
-            <style>
-              body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 2rem;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              }
-              .container {
-                background: white;
-                border-radius: 12px;
-                padding: 3rem;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-              }
-              h1 {
-                color: #333;
-                margin-bottom: 2rem;
-                text-align: center;
-              }
-              ul {
-                list-style: none;
-                padding: 0;
-              }
-              li {
-                margin: 1rem 0;
-              }
-              a {
-                display: block;
-                padding: 1rem 2rem;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                text-decoration: none;
-                border-radius: 8px;
-                text-align: center;
-                font-weight: 600;
-                transition: transform 0.2s, box-shadow 0.2s;
-              }
-              a:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-              }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <h1>🚀 Flutter Next & Next Animation Examples</h1>
-              <ul>
-                <li><a href="/flutter-next-example/">Flutter Next Example</a></li>
-                <li><a href="/animation-next-example/">Animation Next Example</a></li>
-              </ul>
-            </div>
-          </body>
-          </html>
-          EOF
+          # Copy index.html to 404.html for GitHub Pages routing support
+          # GitHub Pages will serve 404.html for any route that doesn't exist
+          # This allows Flutter's client-side routing to work properly
+          cp deploy/index.html deploy/404.html
+          echo "✓ Created 404.html for client-side routing support"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
