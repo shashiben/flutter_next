@@ -1,12 +1,13 @@
 name: flutter_next_workspace
 
 packages:
-  - flutter_next/example/
-  - animation_next/
   - flutter_next/
+  - flutter_next/example/
+  - next_animations/
+  - next_animations/example/
+  - example_shared/
 
 scripts:
-
   get:
     run: flutter pub get
     description: Run flutter pub get in all packages.

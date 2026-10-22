@@ -1,3 +1,9 @@
+## 1.0.0
+
+- Layout is typed. `NextSpan` is mobile-first and reads the parent width through `NextScope`.
+- Buttons, alerts, and accordions follow Material 3 and `NextColors`.
+- Motion lives in `next_animations`, which this package re-exports.
+
 ## 0.1.1
 - 🚀 Upgraded packages
 - 🔨 Formatted with lints

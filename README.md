@@ -1,65 +1,55 @@
-# Flutter Next Workspace
+# Flutter Next
 
-This workspace contains multiple Flutter packages:
+Responsive layout for Flutter, plus one motion spec.
 
-- **animation_next**: A comprehensive Flutter animation package
-- **flutter_next**: A Flutter package for faster UI development with responsiveness
+[![pub package](https://img.shields.io/pub/v/flutter_next)](https://pub.dev/packages/flutter_next)
+[![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
+[![stars](https://img.shields.io/github/stars/shashiben/flutter_next?style=flat&logo=github)](https://github.com/shashiben/flutter_next)
 
-## Shared Example
+A column reads the width of its parent. The window can be `xxl` while a frame inside it is `sm`. `NextSpan`, `NextValue`, and `NextShow` share that cascade. Motion is a single `NextMotion` played by `NextMotionView`.
 
-The example project is shared between both packages and located at `example_shared/`. To sync it to both package directories (required for pub.dev), run:
+| Package | What it is |
+| --- | --- |
+| [`flutter_next`](flutter_next/) | Layout, theme colors, and controls. Re-exports motion. |
+| [`next_animations`](next_animations/) | Fade, slide, zoom, flip, and bounce. |
 
-```bash
-melos run sync_examples
+```dart
+import 'package:flutter_next/flutter_next.dart';
 ```
 
-Or use the script directly:
+Package docs: [flutter_next](flutter_next/README.md) and [next_animations](next_animations/README.md).
+
+## Gallery
 
 ```bash
-bash scripts/sync_examples.sh
+cd example_shared
+flutter run
 ```
+
+The gallery has three screens: Layout, Values, and Motion. Each package also has an `example/` used on pub.dev.
 
 ## Development
 
-### Setup
-
 ```bash
-# Install dependencies
-melos run all
+dart pub get
+melos bootstrap
 ```
-
-### Running Examples
-
-```bash
-# Run animation_next example
-cd animation_next/example
-flutter run
-
-# Run flutter_next example
-cd flutter_next/example
-flutter run
-```
-
-### Publishing
-
-Before publishing to pub.dev, make sure to sync the examples:
-
-```bash
-melos run sync_examples
-```
-
-This ensures both packages have their `example/` directories properly set up for pub.dev.
-
-## Structure
 
 ```
 flutter_next/
-├── example_shared/          # Shared example source
-├── animation_next/          # Animation Next package
-│   └── example/            # Synced from example_shared
-├── flutter_next/           # Flutter Next package
-│   └── example/            # Synced from example_shared
-└── scripts/
-    └── sync_examples.sh    # Script to sync examples
+├── example_shared/       # Gallery
+├── flutter_next/         # Layout and controls
+│   └── lib/src/
+└── next_animations/      # Motion
+    └── lib/src/
 ```
 
+Public imports are `package:flutter_next/flutter_next.dart` and `package:next_animations/next_animations.dart`.
+
+## Contributors
+
+This list is generated from the GitHub contributors graph and updates as people commit.
+
+[![Contributors](https://contrib.rocks/image?repo=shashiben/flutter_next)](https://github.com/shashiben/flutter_next/graphs/contributors)
+
+Made with [contrib.rocks](https://contrib.rocks).

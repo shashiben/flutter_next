@@ -1,44 +1,13 @@
-# Next Animation Example & Documentation
+# Shared example
 
-This is the example and documentation app for the Next Animation package.
+Three screens:
 
-## Running the Example
-
-1. Navigate to the example directory:
-   ```bash
-   cd animation_next/example
-   ```
-
-2. Get dependencies:
-   ```bash
-   flutter pub get
-   ```
-
-3. Run the app:
-   ```bash
-   # For web
-   flutter run -d chrome
-   
-   # For mobile
-   flutter run
-   ```
-
-## Features
-
-- 📱 Responsive design (mobile and desktop)
-- 🎨 Modern Material 3 UI
-- 📚 Comprehensive documentation for all animation types
-- 💻 Live code examples
-- 🔍 Easy navigation with side menu
-- 🌐 SEO-friendly routing
-
-## Building for Web
-
-To build the documentation for deployment:
+- **Layout** — a column follows the frame you resize, not the window.
+- **Values** — the same cascade for type size, visibility, and surfaces.
+- **Motion** — one spec, played with a curve, a delay, and reduced motion.
 
 ```bash
-flutter build web --release
+cd example_shared
+flutter pub get
+flutter run -d chrome
 ```
-
-The output will be in `build/web/` which can be deployed to any static hosting service.
-

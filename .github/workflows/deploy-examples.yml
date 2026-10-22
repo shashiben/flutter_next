@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'flutter_next/**'
-      - 'animation_next/**'
+      - 'next_animations/**'
       - 'example_shared/**'
       - '.github/workflows/deploy-examples.yml'
   workflow_dispatch:

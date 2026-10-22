@@ -106,42 +106,25 @@ dart pub global activate melos
 
 # Bootstrap all packages
 melos bootstrap
-
-# Or install dependencies for all packages
-melos run all
 ```
 
 ### Running Examples
 
 ```bash
-# Run animation_next example
-cd animation_next/example
+# Run the motion example
+cd next_animations/example
 flutter run
 
-# Run flutter_next example
-cd flutter_next/example
+# Run the shared example
+cd example_shared
 flutter run
-```
-
-### Syncing Examples
-
-The examples are shared between packages. Before committing, sync them:
-
-```bash
-melos run sync_examples
-# or
-bash scripts/sync_examples.sh
 ```
 
 ### Running Tests
 
 ```bash
-# Run all tests
-melos run test
-
-# Run tests for a specific package
-cd flutter_next
-flutter test
+cd flutter_next && flutter test
+cd next_animations && flutter test
 ```
 
 ## 📝 Coding Standards
@@ -155,11 +138,7 @@ flutter test
 ### Code Formatting
 
 ```bash
-# Format all code
 dart format .
-
-# Or use melos
-melos run format
 ```
 
 ### Linting
@@ -167,12 +146,9 @@ melos run format
 We use `flutter_lints` for code quality. Make sure your code passes:
 
 ```bash
-# Analyze all packages
-melos run analyze
-
-# Or for a specific package
-cd animation_next
-flutter analyze
+cd flutter_next && dart analyze --fatal-infos
+cd next_animations && dart analyze --fatal-infos
+cd example_shared && dart analyze --fatal-infos
 ```
 
 ### Documentation
@@ -184,13 +160,7 @@ flutter analyze
 
 ### Animation Guidelines
 
-When adding new animations:
-
-- **Use static curves** - Animations should determine their curves internally based on variant
-- **Follow naming conventions** - Use `Next[AnimationType]Animation` pattern
-- **Provide variants** - Add enum variants for different directions/effects
-- **Test thoroughly** - Ensure animations work smoothly on all platforms
-- **Document well** - Include usage examples in dartdoc
+Motion belongs in `next_animations`. Add a preset on `NextMotion` and a short extension method. Do not add a new widget per effect. Honor `curve`, `delay`, and reduced motion.
 
 ### Widget Guidelines
 
@@ -206,23 +176,18 @@ When adding new widgets:
 
 ```
 flutter_next/
-├── animation_next/          # Animation package
-│   ├── lib/
-│   │   └── src/
-│   │       ├── animations/  # Animation widgets
-│   │       ├── enums.dart   # Animation variants
-│   │       └── extensions/  # Extension methods
-│   └── example/             # Example app (synced)
-├── flutter_next/            # UI components package
-│   ├── lib/
-│   │   ├── views/           # Main widgets
-│   │   ├── widgets/         # Helper widgets
-│   │   ├── extensions/      # Extension methods
-│   │   └── utils/           # Utility functions
-│   └── example/             # Example app (synced)
-├── example_shared/          # Shared example source
-└── scripts/                 # Helper scripts
+├── next_animations/
+│   └── lib/
+│       ├── next_animations.dart   # public library
+│       └── src/                   # motion implementation
+├── flutter_next/
+│   └── lib/
+│       ├── flutter_next.dart      # public library
+│       └── src/                   # layout, theme, widgets
+└── example_shared/                # shared example app
 ```
+
+Import `package:flutter_next/flutter_next.dart` or `package:next_animations/next_animations.dart`. Do not import `lib/src`.
 
 ## 📝 Commit Guidelines
 
@@ -273,7 +238,6 @@ refactor(utils): simplify responsive breakpoint logic
 - [ ] Code is properly formatted (`dart format`)
 - [ ] All tests pass
 - [ ] Documentation is updated
-- [ ] Examples are synced (if applicable)
 - [ ] CHANGELOG.md is updated (if needed)
 - [ ] Commit messages follow the guidelines
 
@@ -282,12 +246,11 @@ refactor(utils): simplify responsive breakpoint logic
 1. **Update CHANGELOG.md** - Add your changes under "Unreleased"
 2. **Update documentation** - If you added features or changed APIs
 3. **Add tests** - If you added new functionality
-4. **Sync examples** - If you modified the example app
-5. **Run checks** - Make sure everything passes:
+4. **Run checks** - Make sure analysis and tests pass:
    ```bash
-   melos run analyze
-   melos run test
-   melos run format
+   dart format .
+   cd flutter_next && dart analyze --fatal-infos && flutter test
+   cd next_animations && dart analyze --fatal-infos && flutter test
    ```
 
 ### PR Description Template
