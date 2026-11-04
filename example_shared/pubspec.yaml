@@ -5,15 +5,18 @@ version: 1.0.0+1
 
 environment:
   sdk: ^3.8.0
-  flutter: ">=3.32.0"
+  flutter: ">=3.47.0"
+
+resolution: workspace
 
 dependencies:
   flutter:
     sdk: flutter
+  device_preview: ^3.0.0
   flutter_next:
     path: ../flutter_next
-  next_animations:
-    path: ../next_animations
+  animation_next:
+    path: ../animation_next
 
 dev_dependencies:
   flutter_lints: ^6.0.0

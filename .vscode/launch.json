@@ -1,0 +1,90 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Gallery",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/example_shared",
+      "program": "${workspaceFolder}/example_shared/lib/main.dart"
+    },
+    {
+      "name": "Gallery (profile mode)",
+      "type": "dart",
+      "request": "launch",
+      "flutterMode": "profile",
+      "cwd": "${workspaceFolder}/example_shared",
+      "program": "${workspaceFolder}/example_shared/lib/main.dart"
+    },
+    {
+      "name": "Gallery (release mode)",
+      "type": "dart",
+      "request": "launch",
+      "flutterMode": "release",
+      "cwd": "${workspaceFolder}/example_shared",
+      "program": "${workspaceFolder}/example_shared/lib/main.dart"
+    },
+    {
+      "name": "Gallery (Chrome)",
+      "type": "dart",
+      "request": "launch",
+      "deviceId": "chrome",
+      "cwd": "${workspaceFolder}/example_shared",
+      "program": "${workspaceFolder}/example_shared/lib/main.dart"
+    },
+    {
+      "name": "flutter_next example",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/flutter_next/example",
+      "program": "${workspaceFolder}/flutter_next/example/lib/main.dart"
+    },
+    {
+      "name": "flutter_next example (Chrome)",
+      "type": "dart",
+      "request": "launch",
+      "deviceId": "chrome",
+      "cwd": "${workspaceFolder}/flutter_next/example",
+      "program": "${workspaceFolder}/flutter_next/example/lib/main.dart"
+    },
+    {
+      "name": "animation_next example",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/animation_next/example",
+      "program": "${workspaceFolder}/animation_next/example/lib/main.dart"
+    },
+    {
+      "name": "flutter_next tests",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/flutter_next",
+      "program": "${workspaceFolder}/flutter_next/test"
+    },
+    {
+      "name": "animation_next tests",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/animation_next",
+      "program": "${workspaceFolder}/animation_next/test"
+    },
+    {
+      "name": "Gallery tests",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/example_shared",
+      "program": "${workspaceFolder}/example_shared/test"
+    },
+    {
+      "name": "Current file",
+      "type": "dart",
+      "request": "launch",
+      "program": "${file}"
+    },
+    {
+      "name": "Attach",
+      "type": "dart",
+      "request": "attach"
+    }
+  ]
+}

@@ -1,9 +1,45 @@
 name: flutter_next_workspace
+publish_to: none
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.9.0
+
+workspace:
+  - flutter_next
+  - flutter_next/example
+  - animation_next
+  - animation_next/example
+  - example_shared
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  melos: ^6.3.0
+  melos: ^8.0.0
+
+melos:
+  scripts:
+    get:
+      description: Run flutter pub get in all packages.
+      exec:
+        command: flutter pub get
+        concurrency: 1
+
+    upgrade:
+      run: flutter pub upgrade
+      description: Run flutter pub upgrade in all packages.
+
+    magic:
+      run: flutter pub get && dart format . && dart fix --apply
+      description: Pub get, format code, and apply Dart fixes.
+
+    pana:
+      description: Run pana analysis on all packages.
+      exec:
+        command: dart pub global run pana .
+        concurrency: 1
+
+    pana:quick:
+      description: Run quick pana analysis (without dartdoc) on all packages.
+      exec:
+        command: dart pub global run pana . --no-dartdoc
+        concurrency: 1

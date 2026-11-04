@@ -1,5 +1,5 @@
+import 'package:animation_next/animation_next.dart';
 import 'package:flutter/widgets.dart';
-import 'package:next_animations/next_animations.dart';
 
 /// Plays [motion] on each child, delayed by [step].
 class NextStagger extends StatelessWidget {

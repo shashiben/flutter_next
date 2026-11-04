@@ -10,7 +10,7 @@ Responsive layout and controls for Flutter. Columns, type, and visibility follow
 import 'package:flutter_next/flutter_next.dart';
 ```
 
-Import that library only. `lib/src` is not a supported path. Motion comes from [`next_animations`](https://pub.dev/packages/next_animations), which this package re-exports.
+Import that library only. `lib/src` is not a supported path. Motion comes from [`animation_next`](https://pub.dev/packages/animation_next), which this package re-exports.
 
 ```yaml
 dependencies:
@@ -121,7 +121,31 @@ NextStagger(
 );
 ```
 
-`playWhenVisible: true` waits until the widget is on screen. See [`next_animations`](https://pub.dev/packages/next_animations) for slide, zoom, flip, bounce, and `NextColorTween`.
+`playWhenVisible: true` waits until the widget is on screen. See [`animation_next`](https://pub.dev/packages/animation_next) for slide, zoom, flip, bounce, and `NextColorTween`.
+
+## Scrolling
+
+A pointer-scroll delta eases toward its target, including a burst of small notches. Touch drags still move on the frame they arrive. Scrollbars and Shift+wheel stay with `ScrollBehavior`.
+
+`NextSmoothScroll` is the same widget around a page or around one list. `home` is the app-wide place, because it sits inside the route. `MaterialApp.scrollBehavior` and `MaterialApp.builder` do not attach: the route's own plain scroll controller is closer to the page.
+
+```dart
+MaterialApp(
+  home: NextSmoothScroll(
+    child: const LandingPage(),
+  ),
+)
+
+list.nextSmoothScroll()
+
+ListView(
+  controller: NextScrollController(
+    config: NextScrollConfig.linear(),
+  ),
+)
+```
+
+`NextScrollConfig.lenis` is the default. `linear` closes the gap over a duration, `elastic` springs toward the target, and `direct` applies the notch on the same frame. A list that already passes `controller:` keeps that controller, so replace it with `NextScrollController` when that list should ease. A horizontal list opts in with `scrollDirection: Axis.horizontal`.
 
 ## Extensions
 

@@ -1,11 +1,16 @@
 /// Responsive layout widgets, theme colors, and motion for Flutter.
 library;
 
-export 'package:next_animations/next_animations.dart';
+// animation_next also declares NextShadow, for an animated box shadow.
+// This package keeps that name for the elevation presets below.
+export 'package:animation_next/animation_next.dart' hide NextShadow;
 
 export 'src/constants/colors.dart';
 export 'src/constants/enums.dart';
 export 'src/extensions/extensions.dart';
+export 'src/scroll/next_scroll_config.dart';
+export 'src/scroll/next_scroll_controller.dart';
+export 'src/scroll/next_smooth_scroll.dart';
 export 'src/utils/next_colors.dart';
 export 'src/utils/next_scope.dart';
 export 'src/utils/next_span.dart';

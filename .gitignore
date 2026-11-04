@@ -6,9 +6,14 @@
 **/.flutter-plugins-dependencies
 **/.flutter-versions
 **/.idea/
-**/.vscode/
+**/.vscode/*
+!.vscode/launch.json
 **/.DS_Store
 **/pubspec.lock
+!/pubspec.lock
+**/pubspec_overrides.yaml
+**/doc/api/
+**/coverage/
 **/ios/Pods/
 **/ios/Flutter/Flutter.framework/
 **/ios/Flutter/Flutter.podspec

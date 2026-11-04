@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../scroll/next_scroll_config.dart';
+import '../scroll/next_smooth_scroll.dart';
+
 /// Layout and decoration helpers for any widget.
 extension WidgetExtensions on Widget {
   /// Wraps this widget in a [Container].
@@ -167,6 +170,22 @@ extension WidgetExtensions on Widget {
   /// Gives this widget an explicit [width] and [height].
   Widget sizedBox({Key? key, double? width, double? height}) {
     return SizedBox(key: key, width: width, height: height, child: this);
+  }
+
+  /// Wraps this widget in a [NextSmoothScroll].
+  ///
+  /// The same widget placed higher in the tree is the parent form.
+  Widget nextSmoothScroll({
+    Key? key,
+    NextScrollConfig config = const NextScrollConfig.lenis(),
+    Axis scrollDirection = Axis.vertical,
+  }) {
+    return NextSmoothScroll(
+      key: key,
+      config: config,
+      scrollDirection: scrollDirection,
+      child: this,
+    );
   }
 
   /// Insets this widget by the ambient [SafeArea].

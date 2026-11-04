@@ -1,0 +1,38 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      # Set this tag pattern on both packages in the pub.dev admin:
+      # v{{version}}
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  publish:
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1
+      - uses: flutter-actions/setup-flutter@6e2468fd827c4a7337cd4b835a6049b78bc0bd1f
+      - name: Publish animation_next, then flutter_next
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          publish() {
+            dir="$1"
+            version=$(awk '/^version:/{print $2; exit}' "$dir/pubspec.yaml")
+            if [ "$version" != "$tag" ]; then
+              echo "skip $dir (pubspec $version, tag $tag)"
+              return 0
+            fi
+            dart pub get --directory "$dir"
+            dart pub publish --dry-run --directory "$dir"
+            dart pub publish -f --directory "$dir"
+          }
+          publish animation_next
+          # flutter_next depends on the version just uploaded.
+          if awk '/^version:/{print $2; exit}' animation_next/pubspec.yaml | grep -qx "$tag"; then
+            sleep 30
+          fi
+          publish flutter_next

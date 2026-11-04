@@ -107,8 +107,12 @@ class _LayoutStoryState extends State<LayoutStory> {
                             const SizedBox(height: 8),
                             const NextShow(
                               from: Breakpoint.lg,
-                              fallback: Text('Hidden until the frame reaches lg.'),
-                              child: Text('Visible: this frame is lg or wider.'),
+                              fallback: Text(
+                                'Hidden until the frame reaches lg.',
+                              ),
+                              child: Text(
+                                'Visible: this frame is lg or wider.',
+                              ),
                             ),
                             const SizedBox(height: 16),
                             const Text(
@@ -160,7 +164,11 @@ class _FrameReadout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = const NextValue<double>(xs: 16, md: 22, lg: 32).resolve(context);
+    final size = const NextValue<double>(
+      xs: 16,
+      md: 22,
+      lg: 32,
+    ).resolve(context);
     final pad = const NextValue<double>(xs: 8, md: 16, lg: 28).resolve(context);
     return Padding(
       padding: EdgeInsets.all(pad),

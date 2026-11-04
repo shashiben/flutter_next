@@ -2,7 +2,8 @@
 
 - Layout is typed. `NextSpan` is mobile-first and reads the parent width through `NextScope`.
 - Buttons, alerts, and accordions follow Material 3 and `NextColors`.
-- Motion lives in `next_animations`, which this package re-exports.
+- `NextSmoothScroll` eases pointer-wheel scrolling. Touch drags stay on the frame they arrive.
+- Motion lives in `animation_next` 1.0.0, which this package re-exports.
 
 ## 0.1.1
 - 🚀 Upgraded packages

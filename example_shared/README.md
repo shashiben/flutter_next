@@ -1,10 +1,8 @@
 # Shared example
 
-Three screens:
-
-- **Layout** — a column follows the frame you resize, not the window.
-- **Values** — the same cascade for type size, visibility, and surfaces.
-- **Motion** — one spec, played with a curve, a delay, and reduced motion.
+The gallery. A top bar opens the introduction and five apps. The introduction
+has a device frame you can resize and a span inspector for
+`col-12 col-md-6 col-lg-4`.
 
 ```bash
 cd example_shared

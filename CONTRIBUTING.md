@@ -112,7 +112,7 @@ melos bootstrap
 
 ```bash
 # Run the motion example
-cd next_animations/example
+cd animation_next/example
 flutter run
 
 # Run the shared example
@@ -124,7 +124,7 @@ flutter run
 
 ```bash
 cd flutter_next && flutter test
-cd next_animations && flutter test
+cd animation_next && flutter test
 ```
 
 ## 📝 Coding Standards
@@ -147,7 +147,7 @@ We use `flutter_lints` for code quality. Make sure your code passes:
 
 ```bash
 cd flutter_next && dart analyze --fatal-infos
-cd next_animations && dart analyze --fatal-infos
+cd animation_next && dart analyze --fatal-infos
 cd example_shared && dart analyze --fatal-infos
 ```
 
@@ -160,7 +160,7 @@ cd example_shared && dart analyze --fatal-infos
 
 ### Animation Guidelines
 
-Motion belongs in `next_animations`. Add a preset on `NextMotion` and a short extension method. Do not add a new widget per effect. Honor `curve`, `delay`, and reduced motion.
+Motion belongs in `animation_next`. Add a preset on `NextMotion` and a short extension method. Do not add a new widget per effect. Honor `curve`, `delay`, and reduced motion.
 
 ### Widget Guidelines
 
@@ -176,9 +176,9 @@ When adding new widgets:
 
 ```
 flutter_next/
-├── next_animations/
+├── animation_next/
 │   └── lib/
-│       ├── next_animations.dart   # public library
+│       ├── animation_next.dart   # public library
 │       └── src/                   # motion implementation
 ├── flutter_next/
 │   └── lib/
@@ -187,7 +187,7 @@ flutter_next/
 └── example_shared/                # shared example app
 ```
 
-Import `package:flutter_next/flutter_next.dart` or `package:next_animations/next_animations.dart`. Do not import `lib/src`.
+Import `package:flutter_next/flutter_next.dart` or `package:animation_next/animation_next.dart`. Do not import `lib/src`.
 
 ## 📝 Commit Guidelines
 
@@ -250,7 +250,7 @@ refactor(utils): simplify responsive breakpoint logic
    ```bash
    dart format .
    cd flutter_next && dart analyze --fatal-infos && flutter test
-   cd next_animations && dart analyze --fatal-infos && flutter test
+   cd animation_next && dart analyze --fatal-infos && flutter test
    ```
 
 ### PR Description Template
