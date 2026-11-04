@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'flutter_next/**'
-      - 'animation_next/**'
+      - 'packages/flutter_next/**'
+      - 'packages/animation_next/**'
       - 'example_shared/**'
       - '.github/workflows/deploy-examples.yml'
   workflow_dispatch:

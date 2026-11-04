@@ -2,7 +2,7 @@ name: animation_next
 description: Presets for fade, slide, zoom, flip, and bounce, plus a timed animation composer.
 version: 1.0.0
 homepage: https://github.com/shashiben/flutter_next
-repository: https://github.com/shashiben/flutter_next/tree/master/animation_next
+repository: https://github.com/shashiben/flutter_next/tree/master/packages/animation_next
 issue_tracker: https://github.com/shashiben/flutter_next/issues
 environment:
   sdk: ^3.8.0

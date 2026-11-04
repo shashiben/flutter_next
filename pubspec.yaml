@@ -4,10 +4,11 @@ environment:
   sdk: ^3.9.0
 
 workspace:
-  - flutter_next
-  - flutter_next/example
-  - animation_next
-  - animation_next/example
+  - packages/flutter_next
+  - packages/flutter_next/example
+  - packages/animation_next
+  - packages/animation_next/example
+  - packages/dev_utils
   - example_shared
 
 dev_dependencies:

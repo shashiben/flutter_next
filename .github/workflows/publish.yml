@@ -30,9 +30,9 @@ jobs:
             dart pub publish --dry-run --directory "$dir"
             dart pub publish -f --directory "$dir"
           }
-          publish animation_next
+          publish packages/animation_next
           # flutter_next depends on the version just uploaded.
-          if awk '/^version:/{print $2; exit}' animation_next/pubspec.yaml | grep -qx "$tag"; then
+          if awk '/^version:/{print $2; exit}' packages/animation_next/pubspec.yaml | grep -qx "$tag"; then
             sleep 30
           fi
-          publish flutter_next
+          publish packages/flutter_next

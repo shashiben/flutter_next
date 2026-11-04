@@ -10,14 +10,15 @@ A column reads the width of its parent. The window can be `xxl` while a frame in
 
 | Package | What it is |
 | --- | --- |
-| [`flutter_next`](flutter_next/) | Layout, theme colors, and controls. Re-exports motion. |
-| [`animation_next`](animation_next/) | Fade, slide, zoom, flip, and bounce. |
+| [`flutter_next`](packages/flutter_next/) | Layout, theme colors, and controls. Re-exports motion. |
+| [`animation_next`](packages/animation_next/) | Fade, slide, zoom, flip, and bounce. |
+| [`dev_utils`](packages/dev_utils/) | Extensions, validators, and device helpers. |
 
 ```dart
 import 'package:flutter_next/flutter_next.dart';
 ```
 
-Package docs: [flutter_next](flutter_next/README.md) and [animation_next](animation_next/README.md).
+Package docs: [flutter_next](packages/flutter_next/README.md), [animation_next](packages/animation_next/README.md), and [dev_utils](packages/dev_utils/README.md).
 
 ## Gallery
 
@@ -53,11 +54,11 @@ melos bootstrap
 
 ```
 flutter_next/
-├── example_shared/       # Gallery
-├── flutter_next/         # Layout and controls
-│   └── lib/src/
-└── animation_next/      # Motion
-    └── lib/src/
+├── example_shared/          # Gallery
+└── packages/
+    ├── flutter_next/        # Layout and controls
+    ├── animation_next/      # Motion
+    └── dev_utils/           # Extensions and validators
 ```
 
 Public imports are `package:flutter_next/flutter_next.dart` and `package:animation_next/animation_next.dart`.

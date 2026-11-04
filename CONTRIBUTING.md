@@ -112,7 +112,7 @@ melos bootstrap
 
 ```bash
 # Run the motion example
-cd animation_next/example
+cd packages/animation_next/example
 flutter run
 
 # Run the shared example
@@ -123,8 +123,9 @@ flutter run
 ### Running Tests
 
 ```bash
-cd flutter_next && flutter test
-cd animation_next && flutter test
+cd packages/flutter_next && flutter test
+cd packages/animation_next && flutter test
+cd packages/dev_utils && flutter test
 ```
 
 ## 📝 Coding Standards
@@ -146,8 +147,9 @@ dart format .
 We use `flutter_lints` for code quality. Make sure your code passes:
 
 ```bash
-cd flutter_next && dart analyze --fatal-infos
-cd animation_next && dart analyze --fatal-infos
+cd packages/flutter_next && dart analyze --fatal-infos
+cd packages/animation_next && dart analyze --fatal-infos
+cd packages/dev_utils && dart analyze --fatal-infos
 cd example_shared && dart analyze --fatal-infos
 ```
 
@@ -176,15 +178,14 @@ When adding new widgets:
 
 ```
 flutter_next/
-├── animation_next/
-│   └── lib/
-│       ├── animation_next.dart   # public library
-│       └── src/                   # motion implementation
-├── flutter_next/
-│   └── lib/
-│       ├── flutter_next.dart      # public library
-│       └── src/                   # layout, theme, widgets
-└── example_shared/                # shared example app
+├── packages/
+│   ├── animation_next/
+│   │   └── lib/
+│   ├── flutter_next/
+│   │   └── lib/
+│   └── dev_utils/
+│       └── lib/
+└── example_shared/
 ```
 
 Import `package:flutter_next/flutter_next.dart` or `package:animation_next/animation_next.dart`. Do not import `lib/src`.
@@ -249,8 +250,9 @@ refactor(utils): simplify responsive breakpoint logic
 4. **Run checks** - Make sure analysis and tests pass:
    ```bash
    dart format .
-   cd flutter_next && dart analyze --fatal-infos && flutter test
-   cd animation_next && dart analyze --fatal-infos && flutter test
+   cd packages/flutter_next && dart analyze --fatal-infos && flutter test
+   cd packages/animation_next && dart analyze --fatal-infos && flutter test
+   cd packages/dev_utils && dart analyze --fatal-infos && flutter test
    ```
 
 ### PR Description Template
